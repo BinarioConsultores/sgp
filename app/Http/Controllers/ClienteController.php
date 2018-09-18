@@ -7,10 +7,10 @@ use sgp\Cliente;
 
 class ClienteController extends Controller
 {
-    /*public function __construct()
+    public function __construct()
     {
     	$this->middleware('auth');
-    }*/
+    }
 
     public function getIndex()
     {
@@ -30,7 +30,7 @@ class ClienteController extends Controller
     	$this->validate($request,['cli_nom'=>'required|unique:t_cliente']);
     	Cliente::create($request->all());
 
-    	return redirect('/clientemostrar')->with('creado','Creado correctamente');
+    	return redirect('/admin/cliente')->with('creado','Creado correctamente');
     }
 
     public function getEditar(Request $request)
@@ -52,7 +52,7 @@ class ClienteController extends Controller
       $cliente->cli_nom = $cli_nom;
       $cliente->save();
 
-      return redirect('/clientemostrar')->with('editado','Editado correctamente');
+      return redirect('/admin/cliente')->with('editado','Editado correctamente');
     }
 
     public function getEliminar(Request $request)
@@ -62,7 +62,7 @@ class ClienteController extends Controller
       $cliente = Cliente::find($cli_id);
       $cliente->delete();      
 
-      return redirect('/clientemostrar')->with('eliminado','Eliminado correctamente'); 
+      return redirect('/admin/cliente')->with('eliminado','Eliminado correctamente'); 
     }
 
     public function missingMethod($parameters=array()){

@@ -25,17 +25,19 @@ Route::get('/headeradmin', function(){
 Route::get('/paginaenblanco', function(){
 	return view('plantillas.paginaenblanco');
 });
-Route::get('clientemostrar','ClienteController@getIndex');
+Route::get('/admin/cliente','ClienteController@getIndex');
+Route::get('/admin/cliente/crear','ClienteController@getCrear');
+Route::post('/admin/cliente/crear','ClienteController@postCrear');
+Route::get('/admin/cliente/editar','ClienteController@getEditar');
+Route::post('/admin/cliente/editar','ClienteController@postEditar');
+Route::get('/admin/cliente/eliminar','ClienteController@getEliminar');
 
-Route::get('crear','ClienteController@getCrear');
-
-Route::post('crear','ClienteController@postCrear');
-
-Route::get('editar','ClienteController@getEditar');
-
-Route::post('editar','ClienteController@postEditar');
-
-Route::get('eliminar','ClienteController@getEliminar');
+Route::get('/admin/proveedor','ProveedorController@getIndex');
+Route::get('/admin/proveedor/crear','ProveedorController@getCrear');
+Route::post('/admin/proveedor/crear','ProveedorController@postCrear');
+Route::get('/admin/proveedor/editar','ProveedorController@getEditar');
+Route::post('/admin/proveedor/editar','ProveedorController@postEditar');
+Route::get('/admin/proveedor/eliminar','ProveedorController@getEliminar');
 
 Route::get('prueba', function(){
 	return "Hola";

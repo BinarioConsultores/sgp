@@ -1,31 +1,7 @@
 @extends('plantillas.headeradmin')
 
 @section('javascript')
-<script type="text/javascript">
 
-
-function setModal(btn){
-    var cli_id = $(btn).attr( "cli_id" )
-
-    var request = $.ajax({
-        url: '/admin/cliente/editar',
-        type: 'GET',
-        data: { cli_id: cli_id} ,
-        contentType: 'application/json; charset=utf-8'
-    });
-
-    request.done(function(data) {
-        $('#cli_id_editar').val(data.cli_id);
-        $('#cli_nom_editar').val(data.cli_nom);
-
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-          alert(textStatus);
-    });
-
-}
-</script>
 
 <script src="{{asset('global_assets/js/plugins/cliente/datatable_cliente.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
@@ -79,10 +55,9 @@ function setModal(btn){
     <div class="doc data-table-doc page-layout simple full-width">
 
         <!-- HEADER -->
-        <div class="page-header bg-danger text-auto p-6 row justify-content-between ">
-
-            <h2 class="doc-title">Todos los Clientes</h2>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearModal" data-whatever="@getbootstrap">Crear Cliente
+        <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
+            <h2 class="doc-title" id="content">Todos los Proveedor</h2>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearModal" data-whatever="@getbootstrap">Crear Proveedor
                 </button>
 
         </div>
@@ -91,19 +66,22 @@ function setModal(btn){
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Nuevo Cliente</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="/admin/cliente/crear">
+                        <form method="post" action="/admin/proveedor/crear">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
-                                <label for="recipient-name" class="form-control-label">Nombre de Cliente:</label>
-                                <input type="text" class="form-control" id="recipient-name"  name="cli_nom"/>
+                                <label for="recipient-name" class="form-control-label">Nombre del Proveedor:</label>
+                                <input type="text" class="form-control" id="recipient-name"  name="prov_nom"/>
                             </div>
-
+                            <div class="form-group">
+                                <label for="recipient-name" class="form-control-label">RUC del Proveedor:</label>
+                                <input type="text" class="form-control" id="recipient-name"  name="prov_ruc"/>
+                            </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-secondary">Crear</button>
@@ -114,47 +92,11 @@ function setModal(btn){
             </div>
         </div>
 
-        <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" action="/admin/cliente/editar">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                            <div class="form-group">
-                                <label for="cli_id" class="form-control-label">Id de Cliente:</label>
-                                <input type="text" class="form-control" id="cli_id_editar"  name="cli_id" readonly />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cli_nom" class="form-control-label">Nombre de Cliente:</label>
-                                <input type="text" class="form-control" id="cli_nom_editar"  name="cli_nom"/>
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary">Guardar Cambios</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
 
         @if (Session::has('creado'))
             <div class="alert alert-success" role="alert">
                 {{Session::get('creado')}}
-            </div>
-        @endif
-
-        @if (Session::has('editado'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('editado')}}
             </div>
         @endif
 
@@ -164,11 +106,7 @@ function setModal(btn){
             </div>
         @endif
 
-        @if (Session::has('eliminado'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('eliminado')}}
-            </div>
-        @endif
+       
 
 
         <div class="page-content p-6">
@@ -192,27 +130,30 @@ function setModal(btn){
                                                         Nombre
                                                     </th>
                                                     <th>
+                                                        Ruc
+                                                    </th>
+                                                    <th>
                                                         Acciones
                                                     </th>
+
                                                 </tr>
                                             </thead>
-                                            @if(sizeof($clientes)>0)
+                                            @if(sizeof($proveedores)>0)
                                             <tbody>                  
-                                                @foreach ($clientes as $clies)
+                                                @foreach ($proveedores as $prove)
                                                     <tr>
-                                                        <td>{{$clies->cli_id}}</td>
-                                                        <td>{{$clies->cli_nom}}</td>
-                                                        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editarModal"  cli_id="{{$clies->cli_id}}" onclick="setModal(this)"><i class="icon-lead-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Editar">Editar</i>
+                                                        <td>{{$prove->prov_id}}</td>
+                                                        <td>{{$prove->prov_nom}}</td>
+                                                        <td>{{$prove->prov_ruc}}</td>
+                                                        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editarModal"  cli_id="{{$prove->prove}}" onclick="setModal(this)"><i class="icon-lead-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Editar">Editar</i>
                                                         </button>
                                                         
-
-                                                        <a href="/admin/cliente/eliminar?cli_id={{$clies->cli_id}}" class="btn btn-danger btn-fab fuse-ripple-ready" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar">Eliminar<i class="icon-delete"></i></a></td>
+                                                        <a href="/admin/proveedor/eliminar?prov_id={{$prove->prov_id}}" class="btn btn-danger btn-fab fuse-ripple-ready" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar">Eliminar<i class="icon-delete"></i></a>
                                                     </tr>
-
                                                 @endforeach
                                             @else
                                                 <div class="alert alert-danger" role="alert">
-                                                    No tienes Clientes creados
+                                                    No tienes Proveedores creados
                                                 </div>
                                             @endif
                                             </tbody>
