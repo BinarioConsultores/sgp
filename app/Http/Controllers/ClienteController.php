@@ -27,8 +27,8 @@ class ClienteController extends Controller
 
     public function postCrear(Request $request)
     {
-    	$this->validate($request,['cli_nom'=>'required|unique:t_cliente']);
-    	Cliente::create($request->all());
+    	$this->validate($request,['cli_nom'=>'required']);
+      Cliente::create($request->all());
 
     	return redirect('/admin/cliente')->with('creado','Creado correctamente');
     }
