@@ -44,6 +44,15 @@ Route::get('/gerente/proyectos','ProyectoController@getIndex');
 Route::get('/gerente/proyecto/crear','ProyectoController@getCrear');
 Route::post('/gerente/proyecto/crear','ProyectoController@postCrear');
 
+Route::post('/gerente/tarea','TareaController@getIndex');
+Route::get('/gerente/tarea/crear','TareaController@getCrear');
+Route::post('/gerente/tarea/crear','TareaController@postCrear');
+
+Route::post('/usuario','UsuarioController@getIndex');
+Route::get('/usuario/crear','UsuarioController@getCrear');
+Route::post('/usuario/crear','UsuarioController@postCrear');
+
+
 
 Route::get('prueba', function(){
 	return "Hola";
