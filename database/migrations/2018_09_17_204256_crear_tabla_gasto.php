@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaGastofamilia extends Migration
+class CrearTablaGasto extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CrearTablaGastofamilia extends Migration
      */
     public function up()
     {
-        Schema::create('t_gastofamilia', function (Blueprint $table) {
-            $table->increments('gfam_id');
-            $table->string('gfam_nom');
+        Schema::create('t_gasto', function (Blueprint $table) {
+            $table->increments('gas_id');
+            $table->string('gas_nom');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CrearTablaGastofamilia extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_gastofamilia');
+        Schema::dropIfExists('t_gasto');
     }
 }

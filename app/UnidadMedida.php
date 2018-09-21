@@ -18,4 +18,20 @@ class UnidadMedida extends Model
   	{
   		return $this->hasMany('sgp\FacturaDetalle','um_id');
   	}
+    public function Partidas()
+    {
+      return $this->hasMany('sgp\Partidas','um_id');
+    }
+    public function PartidaDos()
+    {
+      return $this->hasMany('sgp\Partidas','um_id');
+    }
+    public function PartidaTres()
+    {
+      return $this->hasMany('sgp\Partidas','um_id');
+    }
+    public function RecursoUnidadMedidas()
+    {
+      return $this->hasMany('sgp\RecursoUnidadMedidas','um_id');
+    }
 }

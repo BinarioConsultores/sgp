@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaGastocategoria extends Migration
+class CrearTablaPrecio extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CrearTablaGastocategoria extends Migration
      */
     public function up()
     {
-        Schema::create('t_gastocategoria', function (Blueprint $table) {
-            $table->increments('gcat_id');
-            $table->string('gcat_nom');
-            $table->integer('gfam_id')->unsigned();
-            $table->foreign('gfam_id')->references('gfam_id')->on('t_gastofamilia');
+        Schema::create('t_precio', function (Blueprint $table) {
+            $table->increments('prec_id');
+            $table->decimal('prec_monto');
+            $table->integer('recum_id')->unsigned();
+            $table->foreign('recum_id')->references('recum_id')->on('t_recursounidadmedida');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CrearTablaGastocategoria extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_gastocategoria');
+        Schema::dropIfExists('t_precio');
     }
 }

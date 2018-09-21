@@ -12,18 +12,22 @@ class FacturaDetalle extends Model
       'created_at', 'updated_at',
   	];
   	protected $fillable = [
-  		'facd_desc', 'facd_cant', 'facd_punit'.'fac_id', 'gtip_id', 'um_id'
+  		'facd_desc', 'facd_cant', 'facd_punit'.'fac_id', 'gas_id', 'recum_id'
   		];
   	public function Factura()
   	{
   		return $this->belongsTo('sgp\Factura','fac_id');
   	}
-  	public function GastoTipo()
+  	public function Gasto()
   	{
-  		return $this->belongsTo('sgp\GastoTipo','gtip_id');
+  		return $this->belongsTo('sgp\Gasto','gas_id');
   	}
-  	public function UnidadMedida()
+  	public function RecursoUnidadMedida()
   	{
-  		return $this->belongsTo('sgp\UnidadMedida','um_id');
+  		return $this->belongsTo('sgp\RecursoUnidadMedida','recum_id');
   	}
+    public function Egreso()
+    {
+      return $this->hasMany('sgp\Egreso','facd_id');
+    }
 }

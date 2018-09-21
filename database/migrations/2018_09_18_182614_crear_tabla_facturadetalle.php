@@ -20,10 +20,10 @@ class CrearTablaFacturadetalle extends Migration
             $table->decimal('facd_punit');
             $table->integer('fac_id')->unsigned();
             $table->foreign('fac_id')->references('fac_id')->on('t_factura');
-            $table->integer('gtip_id')->unsigned();
-            $table->foreign('gtip_id')->references('gtip_id')->on('t_gastotipo');
-            $table->integer('um_id')->unsigned();
-            $table->foreign('um_id')->references('um_id')->on('t_unidadmedida');
+            $table->integer('gas_id')->unsigned();
+            $table->foreign('gas_id')->references('gas_id')->on('t_gasto');
+            $table->integer('recum_id')->unsigned();
+            $table->foreign('recum_id')->references('recum_id')->on('t_recursounidadmedida');
             $table->timestamps();
         });
     }

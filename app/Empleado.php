@@ -12,10 +12,14 @@ class Empleado extends Model
       'created_at', 'updated_at',
   	];
   	protected $fillable = [
-  		'emp_nom', 'emp_dni', 'emp_tel', 'emp_dir'
+  		'emp_nom', 'emp_dni', 'emp_tel', 'emp_dir','per_id',
   		];
   	public function Facturas()
   	{
   		return $this->hasMany('sgp\Factura','emp_id');
   	}
+    public function Persona
+    {
+      return $this->belongsTo('sgp\Persona','per_id');
+  }
 }

@@ -21,10 +21,6 @@ class Proyecto extends Model
   {
       return $this->belongsTo('sgp\TipoProyecto','tpro_id');
   }
-  public function Gastotipos()
-  {
-      return $this->hasMany('sgp\GastoTipo','pro_id');
-  }
   public function Ingresos()
   {
       return $this->hasMany('sgp\Ingreso','pro_id');
@@ -36,6 +32,22 @@ class Proyecto extends Model
   public function Adelantos()
   {
       return $this->hasMany('sgp\Adelanto','pro_id');
+  }
+  public function Tareas()
+  {
+    return $this->hasMany('sgp\Tarea','pro_id');
+  }
+  public function Proyectousuarios()
+  {
+    return $this->hasMany('sgp\ProyectoUsuario','pro_id');
+  }
+  public function Presupuestos()
+  {
+    return $this->hasMany('sgp\Presupuesto','pro_id');
+  }
+  public function Egresos()
+  {
+    return $this->hasMany('sgp\Egreso','pro_id');
   }
 }
 
