@@ -12,7 +12,6 @@
 
 var DualListboxes = function() {
 
-
     //
     // Setup module components
     //

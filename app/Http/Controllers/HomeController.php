@@ -27,8 +27,8 @@ class HomeController extends Controller
         if(Auth::user()->tipo=='admin'){
             return view('home');
         }else{
-            if (Auth::user()->tipo=='gerencia') {
-                return view('homegerencia');
+            if (Auth::user()->tipo=='gerente') {
+                return view('homegerente');
             }
             if (Auth::user()->tipo=='caja') {
                 return view('homecaja');

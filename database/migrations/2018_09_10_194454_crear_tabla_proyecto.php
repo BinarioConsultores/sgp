@@ -22,9 +22,8 @@ class CrearTablaProyecto extends Migration
             $table->decimal('pro_uti');
             $table->date('pro_fechin');
             $table->date('pro_fechfin');
-            $table->integer('tpro_id')->unsigned();
+            $table->text('pro_tipo');
             $table->integer('cli_id')->unsigned();
-            $table->foreign('tpro_id')->references('tpro_id')->on('t_tipoproyecto');
             $table->foreign('cli_id')->references('cli_id')->on('t_cliente');
             $table->timestamps();
         });

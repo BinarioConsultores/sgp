@@ -39,6 +39,12 @@ Route::get('/admin/proveedor/editar','ProveedorController@getEditar');
 Route::post('/admin/proveedor/editar','ProveedorController@postEditar');
 Route::get('/admin/proveedor/eliminar','ProveedorController@getEliminar');
 
+Route::get('/gerente/proyectos','ProyectoController@getIndex');
+
+Route::get('/gerente/proyecto/crear','ProyectoController@getCrear');
+Route::post('/gerente/proyecto/crear','ProyectoController@postCrear');
+
+
 Route::get('prueba', function(){
 	return "Hola";
 });

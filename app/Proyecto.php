@@ -11,15 +11,11 @@ class Proyecto extends Model
       'created_at', 'updated_at',
   ];
   protected $fillable = [
-        'pro_nom','pro_ubi','pro_cd','pro_gg', 'pro_uti', 'pro_fechin','pro_fechfin','cli_id','tpro_id'
+        'pro_nom','pro_ubi','pro_cd','pro_gg', 'pro_uti', 'pro_fechin','pro_fechfin','pro_tipo','cli_id',
   ];
   public function Cliente()
   {
       return $this->belongsTo('sgp\Cliente','cli_id');
-  }
-  public function TipoProyecto()
-  {
-      return $this->belongsTo('sgp\TipoProyecto','tpro_id');
   }
   public function Ingresos()
   {
