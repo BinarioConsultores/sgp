@@ -43,6 +43,15 @@
 	<script src="{{asset('global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/forms/selects/bootstrap_multiselect.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/content_page_header.js')}}"></script>
+	<script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="{{asset('global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/plugins/ui/prism.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/demo_pages/sidebar_secondary.js')}}"></script>
 	<!-- /theme JS files -->
 	@yield('javascript')
 </head>

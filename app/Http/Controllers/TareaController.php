@@ -27,7 +27,10 @@ class TareaController extends Controller
     {
         return view("gerente.tarea.mostrar");
     }
-    
+    public function getIndex2()
+    {
+        return view("gerente.tarea.arbol");
+    }    
     public function getCrear()
     {
         $proyectos = Proyecto::all();
