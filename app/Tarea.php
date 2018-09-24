@@ -22,8 +22,12 @@ class Tarea extends Model
   {
       return $this->belongsTo('sgp\Usuario','usu_id');
   }
-   public function Tarea()
+  /* public function Tarea()
   {
       return $this->belongsTo('sgp\Tarea','tar_idpadre');
+  } */
+  public function RegistroTareas()
+  {
+      return $this->hasMany('sgp\RegistroTarea','tar_id');
   }
 }
