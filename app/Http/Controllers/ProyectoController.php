@@ -63,7 +63,7 @@ class ProyectoController extends Controller
         $proyecto->pro_uti = $request->get('pro_uti');
         $proyecto->pro_cd = $request->get('pro_cd');
         $proyecto->pro_fechfin = $request->get('pro_fechfin');
-        $proyecto->cli_id = $request->get('cli_id');*/
+        $proyecto->cli_id = $request->get('cli_id');
         $proyecto->save();
 
 

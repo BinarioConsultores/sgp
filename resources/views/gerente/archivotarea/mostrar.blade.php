@@ -1,24 +1,7 @@
 @extends('plantillas.headergerente')
-@section('javascript')
-<script type="text/javascript">
-	/*function buscar() {
-		var entrada = document.getElementById('busqueda').value;
-		console.log(entrada);
-  		var opciones = document.getElementById('cli_id').options;
-  		console.log(opciones);
-  		for(var i=0;i<opciones.length;i++) {
-			if(opciones[i].text.indexOf(entrada)==0){
-				opciones[i].selected=true;
-			}
-			if(document.getElementById('busqueda').value==''){
-				opciones[0].selected=true;
-			}
-		}
 
-	}*/
-</script>
-@endsection
 @section('content')
+
 <div class="mb-3">
 	<div class="page-header page-header-dark has-cover">
 		<div class="page-header-content header-elements-inline">
@@ -30,6 +13,9 @@
 				</h5>
 			</div>
 
+			<div class="header-elements d-flex align-items-center">
+                <a class="btn bg-blue btn-labeled btn-labeled-left" href="/gerente/archivotarea/crear																				"><b><i class="icon-task"></i></b> Subir Archivo</a>
+			</div>
 		</div>
 
 		<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
@@ -55,14 +41,15 @@
 						<a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
-						
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="content">
-	
+    AQUI SE MOSTRARÁ LA LISTA DE PROYECTOS
 </div>
 @endsection

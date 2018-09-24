@@ -43,6 +43,8 @@
 	<script src="{{asset('global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/forms/selects/bootstrap_multiselect.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/content_page_header.js')}}"></script>
+	<script src="{{asset('global_assets/js/demo_pages/uploader_dropzone.js')}}"></script>
+	<script src="{{asset('global_assets/js/plugins/uploaders/dropzone.min.js')}}"></script>
 	<!-- /theme JS files -->
 	@yield('javascript')
 </head>
@@ -459,6 +461,21 @@
 									Proyectos
 								</span>
 							</a>
+						</li>
+
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-task"></i> <span>Tareas</span></a>
+							<ul class="nav nav-group-sub" data-submenu-title="Menu levels">
+								<li class="nav-item nav-item-submenu">
+									<a href="#" class="nav-link"><i class="icon-task"></i>Tareas</a>
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="#" class="nav-link"><i class="icon-task"></i> Registro de Tareas</a></li>
+										<li class="nav-item nav-item-submenu">
+											<a href="/gerente/archivotarea" class="nav-link"><i class="icon-task"></i> Archivo de Tareas</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
 						</li>
 
 					</ul>

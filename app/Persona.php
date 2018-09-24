@@ -4,7 +4,7 @@ namespace sgp;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tarea extends Model
+class Persona extends Model
 {
   protected $table = 't_persona';
   protected $primaryKey = 'per_id';

@@ -452,6 +452,14 @@
 								<li class="nav-item"><a href="#" class="nav-link"><i class="icon-chrome"></i> Segundo nivel</a></li>
 							</ul>
 						</li>
+						<li class="nav-item">
+							<a href="/admin/usuario" class="nav-link">
+								<i class="icon-portfolio"></i>
+								<span>
+									Usuarios
+								</span>
+							</a>
+						</li>
 
 					</ul>
 				</div>
