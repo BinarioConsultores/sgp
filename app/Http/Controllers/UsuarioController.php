@@ -27,38 +27,50 @@ class UsuarioController extends Controller
         return view('admin.usuario.crear', ['personas'=>$personas]);
     	//return view('admin.usuario.crear');
     }
-
+                                                                                                                                                                                                                                                    
     public function postCrear(Request $request)
     {
+
     	$this->validate($request,[
-            'usu_nom'=>'required',
+
+            't_nom'=>'required',
+            't_ape'=>'required',
+            't_tel'=>'required',
+            't_dni'=>'required',
             'usu_tip'=>'required',
-            'usu_email'=>'required',
-            'usu_pass'=>'required',
-            'per_id'=>'required',
-        ]
+            't_dir'=>'required',
+            't_email'=>'required',
+            'usu_pass'=>'required',   
+        ]);
         /*[   
             'pro_nom.required'=>'Por favor, ingrese el nombre del proyecto',
             'pro_cd.required'=>'Por favor, ingrese el Costo Directo',
             'pro_cd.numeric'=>'Por favor, el campo Costo Directo debe ser numérico',
-        ]*/);
+        ]*/
 
-        $usuario = Usuario::create($request->all());
-        $usuario->save();
+        /*$usuario = Usuario::create($request->all());
+        $usuario->save();*/
 
+        \DB::Transaction(function() use ($request){
 
+        $personas = new Persona();
+        $personas->per_nom = $request->get('t_nom');
+        $personas->per_ape = $request->get('t_ape');
+        $personas->per_tel = $request->get('t_tel');
+        $personas->per_dni = $request->get('t_dni');
+        $personas->per_dir = $request->get('t_dir');
+        $personas->per_email = $request->get('t_email');
+        $personas->save();
 
-       /*$proyecto = new Proyecto();
-        $proyecto->pro_nom = $request->get('pro_nom');
-        $proyecto->pro_ubi = $request->get('pro_ubi');
-        $proyecto->pro_tipo = $request->get('pro_tipo');
-        $proyecto->pro_fechin = $request->get('pro_fechin');
-        $proyecto->pro_gg = $request->get('pro_gg');
-        $proyecto->pro_uti = $request->get('pro_uti');
-        $proyecto->pro_cd = $request->get('pro_cd');
-        $proyecto->pro_fechfin = $request->get('pro_fechfin');
-        $proyecto->cli_id = $request->get('cli_id');
-        $proyecto->save();*/
+        $usuarios = new Usuario();
+        $usuarios->usu_nom = $request->get('t_nom');
+        $usuarios->usu_tip = $request->get('usu_tip');
+        $usuarios->usu_email = $request->get('t_email');
+        $usuarios->usu_pass = $request->get('usu_pass');
+        $usuarios->per_id = $personas->per_id;
+        $usuarios->save();
+
+    });
 
 
         return redirect('/admin/usuario')->with('creado','¡El Usuario se ha creado con éxito!');

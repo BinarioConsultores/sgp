@@ -26,8 +26,8 @@
 			<div class="page-title">
 				<h5>
 					<i class="icon-arrow-left52 mr-2"></i>
-					<span class="font-weight-semibold">Page Header</span> - Image
-					<small class="d-block opacity-75">With dark image</small>
+					<span class="font-weight-semibold">Lista de Usuarios</span>
+					<small class="d-block opacity-75">Crear o buscar usuario</small>
 				</h5>
 			</div>
 
@@ -76,12 +76,12 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-8 col-centered">
+		<div class="col-md-4">
 			<form action="/admin/usuario/crear" method="POST">
 				{{ csrf_field() }}
 				<div class="card" style="zoom: 1;">
-					<div class="card-header header-elements-inline">
-			            <h6 class="card-title">Ingresar los datos del Usuario</h6>
+					<div class="card-header header-elements-inline bg-teal-400">
+			            <h6 class="card-title">Buscar un Usuario</h6>
 						<div class="header-elements">
 							<div class="list-icons">
 			            		<a class="list-icons-item" data-action="collapse"></a>
@@ -94,8 +94,64 @@
 			        <div class="card-body" style="">
 			        	<form action="#">
 							<div class="form-group">
+								<label>Buscar por Nombre:</label>
+								<input type="text" class="form-control" placeholder="Ingrese el nombre de la persona: Buscar" name="usu_nom">
+							</div>
+
+						<div class="form-group">
+							<label>Buscar por DNI:</label>
+							<input type="text" class="form-control" placeholder="DNI" id="busqueda" onkeyup="buscar();">
+							<br/>
+							<select class="form-control" id="per_id" name="per_id">
+								@foreach($personas as $persona)
+									<option value="{{$persona->per_id}}"> {{$persona->per_nom}} </option>
+								@endforeach
+							</select>	
+						</div>
+
+							<div class="d-flex justify-content-between align-items-center">
+								<button type="submit" class="btn btn-light">Cancel</button>
+								<button type="submit" class="btn bg-blue">Submit <i class="icon-paperplane ml-2"></i></button>
+							</div>
+						</form>
+					</div>
+				</div>
+		    </form>
+		</div>
+		<div class="col-md-8">
+			<form action="/admin/usuario/crear" method="POST">
+				{{ csrf_field() }}
+				<div class="card" style="zoom: 1;">
+					<div class="card-header header-elements-inline bg-teal-400">
+			            <h6 class="card-title">Ingresar los datos del Usuario</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+			            		<a class="list-icons-item" data-action="collapse"></a>
+			            		<a class="list-icons-item" data-action="reload"></a>
+			            		<a class="list-icons-item" data-action="remove"></a>
+			            	</div>
+			        	</div>
+					</div>
+
+			        <div class="card-body" style="">
+							<div class="form-group">
 								<label>Nombre:</label>
-								<input type="text" class="form-control" placeholder="Ingrese su nombre de ususario" name="usu_nom">
+								<input type="text" class="form-control" placeholder="Ingrese su nombre de ususario" name="t_nom">
+							</div>
+
+							<div class="form-group">
+								<label>Apellido:</label>
+								<input type="text" class="form-control" placeholder="Ingrese su apellido" name="t_ape">
+							</div>
+
+							<div class="form-group">
+								<label>Telefono:</label>
+								<input type="text" class="form-control" placeholder="Ingrese su numero telefono" name="t_tel">
+							</div>
+
+							<div class="form-group">
+								<label>DNI:</label>
+								<input type="text" class="form-control" placeholder="Ingrese su numero de DNI" name="t_dni">
 							</div>
 
 							<div class="form-group form-group-float">
@@ -110,7 +166,7 @@
 
 							<div class="form-group">
 								<label>Email:</label>
-								<input type="text" class="form-control" placeholder="Ingrese su direccion de correo electronico" name="usu_email">
+								<input type="text" class="form-control" placeholder="Ingrese su direccion de correo electronico" name="t_email">
 							</div>
 
 							<div class="form-group">
@@ -119,21 +175,14 @@
 							</div>
 
 							<div class="form-group">
-							<label>Persona:</label>
-							<input type="text" class="form-control" placeholder="Término a buscar" id="busqueda" onkeyup="buscar();">
-							<br/>
-							<select class="form-control" id="per_id" name="per_id">
-								@foreach($personas as $persona)
-									<option value="{{$persona->per_id}}"> {{$persona->per_nom}} </option>
-								@endforeach
-							</select>	
-						</div>
+								<label>Direccion:</label>
+								<input type="text" class="form-control" placeholder="Ingrese su Direccion" name="t_dir">
+							</div>
 
 							<div class="d-flex justify-content-between align-items-center">
 								<button type="submit" class="btn btn-light">Cancel</button>
 								<button type="submit" class="btn bg-blue">Submit <i class="icon-paperplane ml-2"></i></button>
 							</div>
-						</form>
 					</div>
 				</div>
 		    </form>

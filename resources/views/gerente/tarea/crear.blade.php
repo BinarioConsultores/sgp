@@ -1,4 +1,4 @@
-@extends('plantillas.paginaenblanco')
+@extends('plantillas.headergerente')
 @section('javascript')
 <script type="text/javascript">
 	function buscar() {
@@ -114,6 +114,7 @@
 									<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text"> </span></span><input type="text" placeholder="Ej: 20" class="form-control touchspin-prefix" style="display: block;" name="tar_est" value="{{ old('tar_est')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
 								</div>
 							</div>
+
 						</div>
 						<div class="row">
 							<div class="col-4">
@@ -141,12 +142,12 @@
 							<div class="col-4">
 								<div class="form-group">
 									<label>Usuario:</label>
-									<div class="input-group">
-										<span class="input-group-prepend">
-											<span class="input-group-text"><i class="icon-calendar22"></i></span>
-										</span>
-										<input type="text" class="form-control daterange-single" name="usu_id" value="{{ old('usu_id')}}">
-									</div>
+									
+									<select class="form-control" id="usu_id" name="usu_id">
+										@foreach($usuarios as $usuario)
+											<option value="{{$usuario->usu_id}}"> {{$usuario->usu_nom}} </option>
+										@endforeach
+									</select>
 								</div>
 							</div>
 						</div>
@@ -161,9 +162,6 @@
 								@endforeach
 							</select>
 						</div>
-
-						
-						
 
 					</div>
 

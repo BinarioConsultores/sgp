@@ -464,12 +464,12 @@
 						</li>
 
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-task"></i> <span>Tareas</span></a>
+							<a href="/gerente/tarea/mostrar" class="nav-link"><i class="icon-task"></i> <span>Tareass</span></a>
 							<ul class="nav nav-group-sub" data-submenu-title="Menu levels">
 								<li class="nav-item nav-item-submenu">
 									<a href="#" class="nav-link"><i class="icon-task"></i>Tareas</a>
 									<ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="#" class="nav-link"><i class="icon-task"></i> Registro de Tareas</a></li>
+										<li class="nav-item"><a href="/gerente/tarea" class="nav-link"><i class="icon-task"></i> Registro de Tareas</a></li>
 										<li class="nav-item nav-item-submenu">
 											<a href="/gerente/archivotarea" class="nav-link"><i class="icon-task"></i> Archivo de Tareas</a>
 										</li>

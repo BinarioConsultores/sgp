@@ -3,9 +3,9 @@
 namespace sgp\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use sgp\tarea;
 use sgp\Cliente;
 use sgp\Proyecto;
-use sgp\Tarea;
 use sgp\Usuario;
 
 
@@ -25,7 +25,8 @@ class TareaController extends Controller
      */
     public function getIndex()
     {
-        return view("gerente.tarea.mostrar");
+        $tarea = Tarea::all();
+        return view('gerente.archivotarea.mostrar',['tarea'=>$tarea]);
     }
     public function getIndex2()
     {
@@ -34,7 +35,8 @@ class TareaController extends Controller
     public function getCrear()
     {
         $proyectos = Proyecto::all();
-        return view("gerente.tarea.crear", ["proyectos"=>$proyectos]);
+        $usuarios = Usuario::all();
+        return view('gerente.tarea.crear', ['proyectos'=>$proyectos, 'usuarios'=>$usuarios]);
     }
     public function postCrear(Request $request)
     {
@@ -48,6 +50,7 @@ class TareaController extends Controller
             'pro_id'=>'required',
             'usu_id'=>'required',
         ]);
+    
 
         $tarea = new Tarea();
         $tarea->tar_nom = $request->get('tar_nom');
@@ -56,11 +59,10 @@ class TareaController extends Controller
         $tarea->tar_fechfin = $request->get('tar_fechfin');
         $tarea->tar_prio = $request->get('tar_prio');
         $tarea->tar_est = $request->get('tar_est');
-        $tarea->tar_idpadre = 1;
+        $tarea->tar_idpadre = 2;
         $tarea->pro_id = $request->get('pro_id');
         $tarea->usu_id = $request->get('usu_id');
         $tarea->save();
-
 
         return redirect("/gerente/tarea/mostrar")->with('creada','¡La tarea se ha creado con éxito!');
     }

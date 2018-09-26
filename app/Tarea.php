@@ -21,13 +21,14 @@ class Tarea extends Model
    public function Usuario()
   {
       return $this->belongsTo('sgp\Usuario','usu_id');
-  }
-  /* public function Tarea()
-  {
-      return $this->belongsTo('sgp\Tarea','tar_idpadre');
-  } */
-  public function RegistroTareas()
+  } 
+   public function RegistroTareas()
   {
       return $this->hasMany('sgp\RegistroTarea','tar_id');
   }
 }
+  /* public function Tarea()
+  {
+      return $this->belongsTo('sgp\Tarea','tar_idpadre');
+  } */
+ 

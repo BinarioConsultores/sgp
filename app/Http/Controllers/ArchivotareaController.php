@@ -4,6 +4,7 @@ namespace sgp\Http\Controllers;
 
 use Illuminate\Http\Request;
 use sgp\ArchivoTarea;
+use sgp\tarea;
 
 class ArchivotareaController extends Controller
 {
@@ -14,9 +15,9 @@ class ArchivotareaController extends Controller
 
     public function getIndex()
     {
-    	/*$archivotareas = ArchivoTarea::all();
-    	return view('gerente.archivotarea.mostrar',['archivotareas'=>$archivotareas]);*/
-    	return view('gerente.archivotarea.mostrar');
+    	$tarea = Tarea::all();
+    	return view('gerente.archivotarea.mostrar',['tarea'=>$tarea]);
+    	//return view('gerente.archivotarea.mostrar');
 
     }
 
