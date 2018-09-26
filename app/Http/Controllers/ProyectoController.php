@@ -34,6 +34,18 @@ class ProyectoController extends Controller
         $clientes = Cliente::all();
         return view("gerente.proyecto.crear", ["clientes"=>$clientes]);
     }
+
+    public function postExcel(Request $request){
+        $this->validate($request,[
+            'presupuestoexcel'=>'required',
+        ]);
+        
+
+    }
+    public function getVer($pro_id){
+        $proyecto = Proyecto::findOrFail($pro_id);
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto]);
+    }
     
     public function postCrear(Request $request)
     {
@@ -66,7 +78,27 @@ class ProyectoController extends Controller
         $proyecto->cli_id = $request->get('cli_id');
         $proyecto->save();
 
+        $presupuestoexcel = $request->file('path');
 
         return redirect("/gerente/proyectos")->with('creado','¡El proyecto se ha creado con éxito!');
+    }
+
+    public function getVerProyectosPorTipo(Request $request){
+        
+        switch ($request->get('identificador')) {
+            case 0:
+                $proyectos = Proyecto::where('pro_tipo','obra')->get();
+                break;
+            case 1:
+                $proyectos = Proyecto::where('pro_tipo','supervision')->get();
+                break;
+            case 2:
+                $proyectos = Proyecto::where('pro_tipo','expediente')->get();
+                break;
+            default:
+                $proyectos = [];
+                break;
+        }
+        return $proyectos;
     }
 }

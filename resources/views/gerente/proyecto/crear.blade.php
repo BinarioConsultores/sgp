@@ -18,6 +18,8 @@
 		}
 	}
 </script>
+<script src="{{asset('global_assets/js/sgp/form_wizard.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/forms/wizards/steps.min.js')}}"></script>
 @endsection
 @section('content')
 <div class="page-header page-header-dark has-cover">
@@ -25,8 +27,8 @@
 		<div class="page-title">
 			<h5>
 				<i class="icon-arrow-left52 mr-2"></i>
-				<span class="font-weight-semibold">Page Header</span> - Image
-				<small class="d-block opacity-75">With dark image</small>
+				<span class="font-weight-semibold">Crear Proyecto</span>
+				<small class="d-block opacity-75">A continuación una serie de formularios para la creación de proyectos y sus recursos</small>
 			</h5>
 		</div>
 
@@ -72,6 +74,14 @@
 					<span class="font-weight-semibold">¡Oh No!</span>  {{ $errors->first() }}
 			    </div>
 			@endif
+			@if(!empty($errors))
+				@foreach ($errors->all() as $error)
+				  <div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+					<span class="font-weight-semibold">¡Oh No!</span>  {{ $error }}
+			    </div>
+				@endforeach
+			@endif
 		</div>
 	</div>
 
@@ -79,11 +89,10 @@
     	<div class="col-md-8 col-centered">
 
 			<!-- Custom background -->
-            <form action="/gerente/proyecto/crear" method="POST">
-            	{{ csrf_field() }}
+            
 	            <div class="card">
-					<div class="card-header header-elements-inline">
-		                <h6 class="card-title">Ingresar datos del Proyecto</h6>
+					<div class="card-header bg-teal-400 header-elements-inline">
+		                <h6 class="card-title">Creando el Proyecto</h6>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -92,114 +101,118 @@
 		                	</div>
 	                	</div>
 					</div>
-
-	                <div class="card-body">
-
-						<div class="form-group">
-							<label>Nombre del Proyecto:</label>
-							<input type="text" class="form-control {{ $errors->has('pro_nom') ? 'border-danger' : '' }}" placeholder="Ej: Alcantarillado de Av. Parra" name="pro_nom" value="{{ old('pro_nom')}}">
-							@if ($errors->has('pro_nom'))
-                                <span class="form-text text-danger">
-                                    <strong>{{ $errors->first('pro_nom') }}</strong>
-                                </span>
-                            @endif
-						</div>
-						<div class="row">
-							<div class="col-6">
+					<div class="card-body">
+						<form class="wizard-form steps-basic" action="/gerente/proyecto/crear" method="POST" data-fouc>
+							{{ csrf_field() }}
+							<h6>Información General del Proyecto</h6>
+							<fieldset>
 								<div class="form-group">
-									<label>Tipo del Proyecto:</label>
-									<select multiple="multiple" class="form-control listbox-custom-text" name="pro_tipo">
-										<option value="obra" selected="">Obra</option>
-										<option value="supervision">Supervisión</option>
-										<option value="expediente">Expediente</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group">
-									<label>Ubicación:</label>
-									<input type="text" class="form-control" placeholder="Ej: Arequipa" name="pro_ubi" value="{{ old('pro_ubi')}}">
-								</div>
-								<div class="form-group">
-									<label>Costo Directo: </label>
-									<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">S/. </span></span><input type="text" placeholder="Ej: 1200000.80" class="form-control touchspin-prefix {{ $errors->has('pro_cd') ? 'border-danger' : '' }}" style="display: block;" name="pro_cd" value="{{ old('pro_cd')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
-									@if ($errors->has('pro_cd'))
+									<label>Nombre del Proyecto:</label>
+									<input type="text" class="form-control {{ $errors->has('pro_nom') ? 'border-danger' : '' }} " placeholder="Ej: Alcantarillado de Av. Parra" name="pro_nom" value="{{ old('pro_nom')}}">
+									@if ($errors->has('pro_nom'))
 		                                <span class="form-text text-danger">
-		                                	@foreach($errors->get('pro_cd') as $message)
-		                                		<strong>{{ $message }}</strong>
-		                                	@endforeach
-		                                    
+		                                    <strong>{{ $errors->first('pro_nom') }}</strong>
 		                                </span>
 		                            @endif
 								</div>
-							</div>
-						</div>
-						
-
-						
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group">
-									<label>Gastos Generales: </label>
-									<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 15" class="form-control touchspin-prefix" style="display: block;" name="pro_gg" value="{{ old('pro_gg')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group">
-									<label>Utilidades: </label>
-									<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 20" class="form-control touchspin-prefix" style="display: block;" name="pro_uti" value="{{ old('pro_uti')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group">
-									<label>Fecha de Inicio:</label>
-									<div class="input-group">
-										<span class="input-group-prepend">
-											<span class="input-group-text"><i class="icon-calendar22"></i></span>
-										</span>
-										<input type="date" class="form-control daterange-single" name="pro_fechin" value="{{ old('pro_fechin')}}">
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label>Tipo del Proyecto:</label>
+											<select multiple="multiple" class="form-control listbox-custom-text" name="pro_tipo">
+												<option value="obra" selected="">Obra</option>
+												<option value="supervision">Supervisión</option>
+												<option value="expediente">Expediente</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label>Ubicación:</label>
+											<input type="text" class="form-control" placeholder="Ej: Arequipa" name="pro_ubi" value="{{ old('pro_ubi')}}">
+										</div>
+										<div class="form-group">
+											<label>Costo Directo: </label>
+											<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">S/. </span></span><input type="text" placeholder="Ej: 1200000.80" class="form-control touchspin-prefix {{ $errors->has('pro_cd') ? 'border-danger' : '' }}" style="display: block;" name="pro_cd" value="{{ old('pro_cd')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
+											@if ($errors->has('pro_cd'))
+				                                <span class="form-text text-danger">
+				                                	@foreach($errors->get('pro_cd') as $message)
+				                                		<strong>{{ $message }}</strong>
+				                                	@endforeach
+				                                    
+				                                </span>
+				                            @endif
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group">
-									<label>Fecha de Fin:</label>
-									<div class="input-group">
-										<span class="input-group-prepend">
-											<span class="input-group-text"><i class="icon-calendar22"></i></span>
-										</span>
-										<input type="date" class="form-control daterange-single" name="pro_fechfin" value="{{ old('pro_fechfin')}}">
+								
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label>Gastos Generales: </label>
+											<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 15" class="form-control touchspin-prefix" style="display: block;" name="pro_gg" value="{{ old('pro_gg')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label>Utilidades: </label>
+											<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 20" class="form-control touchspin-prefix" style="display: block;" name="pro_uti" value="{{ old('pro_uti')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label>Fecha de Inicio:</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+													<span class="input-group-text"><i class="icon-calendar22"></i></span>
+												</span>
+												<input type="date" class="form-control daterange-single" name="pro_fechin" value="{{ old('pro_fechin')}}">
+											</div>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label>Fecha de Fin:</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+													<span class="input-group-text"><i class="icon-calendar22"></i></span>
+												</span>
+												<input type="date" class="form-control daterange-single" name="pro_fechfin" value="{{ old('pro_fechfin')}}">
+											</div>
+										</div>
+									</div>
+								</div>
 
-						<div class="form-group">
-							<label>Cliente:</label>
-							<input type="text" class="form-control" placeholder="Término a buscar" id="busqueda" onkeyup="buscar();">
-							<br/>
-							<select class="form-control" id="cli_id" name="cli_id">
-								@foreach($clientes as $cliente)
-									<option value="{{$cliente->cli_id}}"> {{$cliente->cli_nom}} </option>
-								@endforeach
-							</select>
-
-							
-						</div>
-
-
-					</div>
-
-					<div class="card-footer d-flex justify-content-between align-items-center bg-teal-400 border-top-0">
-						<button type="submit" class="btn bg-transparent text-white border-white border-2">Cancelar</button>
-						<button type="submit" class="btn btn-outline bg-white text-white border-white border-2">Crear Proyecto <i class="icon-paperplane ml-2"></i></button>
+								<div class="form-group">
+									<label>Cliente:</label>
+									<input type="text" class="form-control" placeholder="Término a buscar" id="busqueda" onkeyup="buscar();">
+									<br/>
+									<select class="form-control" id="cli_id" name="cli_id">
+										@foreach($clientes as $cliente)
+											<option value="{{$cliente->cli_id}}"> {{$cliente->cli_nom}} </option>
+										@endforeach
+									</select>								
+								</div>
+							</fieldset>
+							<h6>Subir Hoja de Presupuesto</h6>
+							<fieldset>
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">Subir Hoja de Presupuestos</label>
+									<div class="col-lg-10">
+										<input type="file" name="presupuesto" class="form-control" accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+									</div>
+								</div>
+								<div class="text-right">
+		                        	<button type="submit" class="btn btn-primary">Crear Proyecto <i class="icon-paperplane ml-2"></i></button>
+		                        </div>
+		                        <br>
+							</fieldset>
+						</form>
 					</div>
                 </div>
-            </form>
             <!-- /custom background -->
-
 		</div>
     </div>
 </div>

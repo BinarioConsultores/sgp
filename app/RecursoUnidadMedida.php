@@ -4,7 +4,7 @@ namespace sgp;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UnidadMedida extends Model
+class RecursoUnidadMedida extends Model
 {
     protected $table = 't_recursounidadmedida';
     protected $primaryKey = 'recum';

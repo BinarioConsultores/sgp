@@ -12,6 +12,7 @@
 	function verProyectos(numero){
 		$('#proyectos').attr("hidden","hidden");
 		$('#proyectos').removeAttr("hidden");
+
 		if (numero==0) {
 			$('#tituloproyectos').text("Proyectos en Categoría: Obras");
 			$('#bordeproyectos').attr("class","card border-success-400");
@@ -27,25 +28,50 @@
 			$('#bordeproyectos').attr("class","card border-blue");
 			$('#rellenoproyectos').attr("class","card-header bg-blue text-white header-elements-inline");
 		}
+		$('#proyectoscuerpo').empty();
+		$('#proyectoscuerpo').append("<img src='{{asset('global_assets/gif/cargando_1.gif')}}'>");
 
-		$('#proyectoscuerpo').append("<img align='center' src='{{asset('assets/images/cargandop.gif')}}'>");
 		var request = $.ajax({
 		    url: 'ajax/gerente/getVerProyectosPorTipo',
 		    type: 'GET',
-		    data: { id: numero} ,
+		    data: { identificador: numero} ,
 		    contentType: 'application/json; charset=utf-8'
 		});
 
-		request.done(function(data) {
-	        $('#cement_id_editar').val(data.cement_id);
-	        $('#cement_nom_editar').val(data.cement_nom);
+		request.done(function(proyectos) {
+			$('#proyectoscuerpo').empty();
+			// $.each(proyectos, function(index,proyecto){
+			// 	$('#proyectoscuerpo').append($('<label>', { 
+			// 	    value: proyecto.pro_nom,
+			// 	    text: proyecto.pro_nom
+			// 	}));
+			// 	$('#proyectoscuerpo').append($('<br>'));
+			// });
+			
+			$.each(proyectos, function(index,proyecto){
+				if (proyecto.pro_tipo=='obra') {
+					$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-success-300'><div class='card-body'><div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'><i class='icon-home2 mr-2'></i>"+proyecto.pro_nom+"  Home</a></h3><span class='badge bg-success-800 badge-pill align-self-center ml-auto'>60%</span></div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-success-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
+				}
+				if (proyecto.pro_tipo=='supervision') {
+					$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-warning-300'><div class='card-body'>						<div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'>"+proyecto.pro_nom+"</h3>							<span class='badge bg-warning-800 badge-pill align-self-center ml-auto'>60%</span>	                	</div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-warning-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
+				}
+				if (proyecto.pro_tipo=='expediente') {
+					$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-blue-300'><div class='card-body'>						<div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'>"+proyecto.pro_nom+"</h3>							<span class='badge bg-blue-800 badge-pill align-self-center ml-auto'>60%</span>	                	</div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-blue-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
+				}
+				
+			});
+
+			
 
 		});
 
 		request.fail(function(jqXHR, textStatus) {
-		      alert(textStatus);
+			$('#proyectoscuerpo').empty();
+			$('#proyectoscuerpo').append($('<label>ERROR contacte al administrador -> </label>'));
 		});
 	}
+	
+
 </script>
 @endsection
 @section('content')
@@ -152,7 +178,6 @@
 						<div class="list-icons">
 	                		<a class="list-icons-item" data-action="collapse"></a>
 	                		<a class="list-icons-item" data-action="reload"></a>
-	                		<a class="list-icons-item" data-action="remove"></a>
 	                	</div>
 	            	</div>
 				</div>

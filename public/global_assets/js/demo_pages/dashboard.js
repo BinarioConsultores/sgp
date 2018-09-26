@@ -2867,6 +2867,7 @@ var Dashboard = function () {
 
     // Bar charts
     var _BarChart = function(element, barQty, height, animate, easing, duration, delay, color, tooltip) {
+        // _BarChart('#members-online', 24, 50, true, 'elastic', 1200, 50, 'rgba(255,255,255,0.5)', 'members');
         if (typeof d3 == 'undefined') {
             console.warn('Warning - d3.min.js is not loaded.');
             return;
