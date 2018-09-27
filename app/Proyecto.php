@@ -45,5 +45,9 @@ class Proyecto extends Model
   {
     return $this->hasMany('sgp\Egreso','pro_id');
   }
+  public function Cur()
+  {
+    return $this->hasMany('sgp\Cur','cur_id');
+  }
 }
 
