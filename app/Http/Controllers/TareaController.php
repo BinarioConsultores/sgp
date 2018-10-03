@@ -3,13 +3,13 @@
 namespace sgp\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use sgp\tarea;
+use sgp\Tarea;
 use sgp\Cliente;
 use sgp\Proyecto;
 use sgp\Usuario;
 
 
-
+/**/
 class TareaController extends Controller
 {
     //
@@ -26,7 +26,7 @@ class TareaController extends Controller
     public function getIndex()
     {
         $tarea = Tarea::all();
-        return view('gerente.archivotarea.mostrar',['tarea'=>$tarea]);
+        return view('gerente.tarea.mostrarquery',['tarea'=>$tarea]);
     }
     public function getIndex2()
     {
@@ -38,6 +38,36 @@ class TareaController extends Controller
         $usuarios = Usuario::all();
         return view('gerente.tarea.crear', ['proyectos'=>$proyectos, 'usuarios'=>$usuarios]);
     }
+
+    public function getVerTareas($pro_id,$tar_id){
+
+        $proyecto = Proyecto::all();
+        $tarea = Tarea::Where('pro_id', $pro_id)->Where('tar_idpadre',$tar_id)->get();
+
+        //$tarea = Tarea::all();
+        return view('gerente.tarea.side', ['tarea'=>$tarea, 'proyecto'=>$proyecto]);
+        //return $tarea;
+
+
+        /*$proyecto = Proyecto::findOrFail($pro_id);
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto]);*/
+    }
+
+    public function traerHijos($tar_id){
+
+        if ($hijos = Tarea::Where('tar_idpadre', $tar_id)->get()){
+            $hijos_total = $hijos->count();
+            if($hijos_total>0){
+                return response()->json([
+                    'totalhijos' => $hijos_total,
+                ]);
+            }
+        }
+        else{   
+            return false;
+        }
+    }
+
     public function postCrear(Request $request)
     {
         $this->validate($request,[
@@ -59,7 +89,7 @@ class TareaController extends Controller
         $tarea->tar_fechfin = $request->get('tar_fechfin');
         $tarea->tar_prio = $request->get('tar_prio');
         $tarea->tar_est = $request->get('tar_est');
-        $tarea->tar_idpadre = 2;
+        $tarea->tar_idpadre = 1;
         $tarea->pro_id = $request->get('pro_id');
         $tarea->usu_id = $request->get('usu_id');
         $tarea->save();
