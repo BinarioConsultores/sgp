@@ -40,12 +40,12 @@ class TareaController extends Controller
     }
 
     public function getVerTareas($pro_id,$tar_id){
-
-        $proyecto = Proyecto::all();
+        
+        
         $tarea = Tarea::Where('pro_id', $pro_id)->Where('tar_idpadre',$tar_id)->get();
 
         //$tarea = Tarea::all();
-        return view('gerente.tarea.side', ['tarea'=>$tarea, 'proyecto'=>$proyecto]);
+        return view('gerente.tarea.side', ['tarea'=>$tarea]);
         //return $tarea;
 
 
