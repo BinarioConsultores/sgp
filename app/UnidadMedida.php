@@ -14,10 +14,6 @@ class UnidadMedida extends Model
   	protected $fillable = [
   		'um_desc', 'um_abr'
   		];
-  	public function FacturaDetalles()
-  	{
-  		return $this->hasMany('sgp\FacturaDetalle','um_id');
-  	}
     public function Partidas()
     {
       return $this->hasMany('sgp\Partidas','um_id');

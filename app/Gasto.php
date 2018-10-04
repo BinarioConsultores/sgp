@@ -14,7 +14,7 @@ class Gasto extends Model
   protected $fillable = [
         'gas_nom',
   ];
-  public function Proyectos()
+  public function FacturaDetalles()
   {
       return $this->hasMany('sgp\FacturaDetalle','gas_id');
   }

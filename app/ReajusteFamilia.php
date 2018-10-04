@@ -16,6 +16,6 @@ class ReajusteFamilia extends Model
   ];
   public function ReajusteCategorias()
   {
-      return $this->hasMany('sgp\ReajusteCategorias','reaf_id');
+      return $this->hasMany('sgp\ReajusteCategoria','reaf_id');
   }
 }

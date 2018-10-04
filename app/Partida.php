@@ -21,7 +21,7 @@ class Partida extends Model
   {
       return $this->belongsTo('sgp\UnidadMedida','um_id');
   }
-  public function UnidadMedidaD2()
+  public function UnidadMedida2()
   {
       return $this->belongsTo('sgp\UnidadMedida','umr2_id');
   }

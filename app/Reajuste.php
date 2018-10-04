@@ -14,11 +14,11 @@ class Reajuste extends Model
   protected $fillable = [
         'rea_nom','rea_monto','rea_oper','reac_id','valr_id'
   ];
-  public function ReajusteCategorias()
+  public function ReajusteCategoria()
   {
-      return $this->belongsTo('sgp\ReajusteCategorias','reac_id');
+      return $this->belongsTo('sgp\ReajusteCategoria','reac_id');
   }
-  public function Valorizacionesr()
+  public function Valorizacionr()
   {
       return $this->belongsTo('sgp\Valorizacionr','valr_id');
   }

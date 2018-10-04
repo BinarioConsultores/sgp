@@ -22,8 +22,8 @@ class AnalisisCostoUnitario extends Model
   {
   	return $this->belongsTo('sgp\RecursoUnidadMedida','recum_id');
   }
-    public function RecursoUnidadMedida()
+    public function AnalisisCostoUnitario()
   {
-  	return $this->belongsTo('sgp\RecursoUnidadMedida','acu_idpadre');
+  	return $this->belongsTo('sgp\AnalisisCostoUnitario','acu_idpadre');
   }
 }

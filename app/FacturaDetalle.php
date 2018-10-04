@@ -26,7 +26,7 @@ class FacturaDetalle extends Model
   	{
   		return $this->belongsTo('sgp\RecursoUnidadMedida','recum_id');
   	}
-    public function Egreso()
+    public function Egresos()
     {
       return $this->hasMany('sgp\Egreso','facd_id');
     }
