@@ -39,13 +39,13 @@ class TareaController extends Controller
         return view('gerente.tarea.crear', ['proyectos'=>$proyectos, 'usuarios'=>$usuarios]);
     }
 
-    public function getVerTareas($pro_id,$tar_id){
-        
-        
-        $tarea = Tarea::Where('pro_id', $pro_id)->Where('tar_idpadre',$tar_id)->get();
+    public function getVerTareas($pro_id){
+
+
+        $tarea = Tarea::Where('pro_id', $pro_id)->get();
 
         //$tarea = Tarea::all();
-        return view('gerente.tarea.side', ['tarea'=>$tarea]);
+        return view('gerente.tarea.estesi', ['tarea'=>$tarea]);
         //return $tarea;
 
 
@@ -95,5 +95,15 @@ class TareaController extends Controller
         $tarea->save();
 
         return redirect("/gerente/tarea/mostrar")->with('creada','¡La tarea se ha creado con éxito!');
+    }
+
+    public function getEliminar(Request $request)
+    {
+      $this->validate($request,['tar_id'=>'required']);
+      $tar_id=$request->get('tar_id');
+      $tarea = Tarea::find($tar_id);
+      $tarea->delete();      
+
+      return view('gerente.tarea.estesi')->with('eliminado','Eliminado correctamente'); 
     }
 }
