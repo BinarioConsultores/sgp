@@ -40,7 +40,7 @@
 	<script src="{{asset('global_assets/js/plugins/forms/styling/switchery.min.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/ui/moment/moment.min.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/pickers/daterangepicker.js')}}"></script>
-	<script src="{{asset('global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/plugins/forms/selects/select2.full.min.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/forms/selects/bootstrap_multiselect.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/content_page_header.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/uploader_dropzone.js')}}"></script>
@@ -535,4 +535,5 @@
 
 </body>
 
+@yield('javascriptfinal')
 </html>

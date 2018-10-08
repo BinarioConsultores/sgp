@@ -15,10 +15,6 @@ class CrearTablaEmpleado extends Migration
     {
         Schema::create('t_empleado', function (Blueprint $table) {
             $table->increments('emp_id');
-            $table->string('emp_nom');
-            $table->string('emp_dni');
-            $table->string('emp_tel');
-            $table->text('emp_dir');
             $table->integer('per_id')->unsigned();
             $table->foreign('per_id')->references('per_id')->on('t_persona');
             $table->timestamps();

@@ -17,6 +17,7 @@ class CrearTablaCurdetalle extends Migration
             $table->increments('curd_id');
             $table->decimal('curd_cant');
             $table->decimal('curd_prec');
+            $table->integer('curd_idpadre')->unsigned();
             $table->integer('recum_id')->unsigned();
             $table->integer('cur_id')->unsigned();
             $table->foreign('recum_id')->references('recum_id')->on('t_recursounidadmedida');

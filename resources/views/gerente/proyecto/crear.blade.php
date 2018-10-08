@@ -68,12 +68,6 @@
 	
 	<div class="row">
 		<div class="col-12">
-			@if(!empty($errors->first()))
-			    <div class="alert alert-danger alert-dismissible">
-					<button type="button" class="close" data-dismiss="alert"><span>×</span></button>
-					<span class="font-weight-semibold">¡Oh No!</span>  {{ $errors->first() }}
-			    </div>
-			@endif
 			@if(!empty($errors))
 				@foreach ($errors->all() as $error)
 				  <div class="alert alert-danger alert-dismissible">
@@ -119,17 +113,28 @@
 									<div class="col-6">
 										<div class="form-group">
 											<label>Tipo del Proyecto:</label>
-											<select multiple="multiple" class="form-control listbox-custom-text" name="pro_tipo">
+											<select multiple="multiple" class="form-control listbox-custom-text {{ $errors->has('pro_tipo') ? 'border-danger' : '' }} " name="pro_tipo">
 												<option value="obra" selected="">Obra</option>
 												<option value="supervision">Supervisión</option>
 												<option value="expediente">Expediente</option>
 											</select>
 										</div>
+										@if ($errors->has('pro_tipo'))
+			                                <span class="form-text text-danger">
+			                                    <strong>{{ $errors->first('pro_tipo') }}</strong>
+			                                </span>
+			                            @endif
 									</div>
 									<div class="col-6">
 										<div class="form-group">
 											<label>Ubicación:</label>
-											<input type="text" class="form-control" placeholder="Ej: Arequipa" name="pro_ubi" value="{{ old('pro_ubi')}}">
+											<input type="text" class="form-control {{ $errors->has('pro_ubi') ? 'border-danger' : '' }} " placeholder="Ej: Arequipa" name="pro_ubi" value="{{ old('pro_ubi')}}">
+											@if ($errors->has('pro_ubi'))
+				                                <span class="form-text text-danger">
+				                                    <strong>{{ $errors->first('pro_ubi') }}</strong>
+				                                </span>
+				                            @endif
+
 										</div>
 										<div class="form-group">
 											<label>Costo Directo: </label>
@@ -139,7 +144,6 @@
 				                                	@foreach($errors->get('pro_cd') as $message)
 				                                		<strong>{{ $message }}</strong>
 				                                	@endforeach
-				                                    
 				                                </span>
 				                            @endif
 										</div>
@@ -150,13 +154,27 @@
 									<div class="col-6">
 										<div class="form-group">
 											<label>Gastos Generales: </label>
-											<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 15" class="form-control touchspin-prefix" style="display: block;" name="pro_gg" value="{{ old('pro_gg')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
+											<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 15" class="form-control touchspin-prefix {{ $errors->has('pro_gg') ? 'border-danger' : '' }}" style="display: block;" name="pro_gg" value="{{ old('pro_gg')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
+											@if ($errors->has('pro_gg'))
+				                                <span class="form-text text-danger">
+				                                	@foreach($errors->get('pro_gg') as $message)
+				                                		<strong>{{ $message }}</strong>
+				                                	@endforeach
+				                                </span>
+				                            @endif
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="form-group">
 											<label>Utilidades: </label>
-											<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 20" class="form-control touchspin-prefix" style="display: block;" name="pro_uti" value="{{ old('pro_uti')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
+											<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"></span><span class="input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">% </span></span><input type="text" placeholder="Ej: 20" class="form-control touchspin-prefix {{ $errors->has('pro_uti') ? 'border-danger' : '' }}" style="display: block;" name="pro_uti" value="{{ old('pro_uti')}}"><span class="input-group-append bootstrap-touchspin-postfix d-none"><span class="input-group-text"></span></span><span class="input-group-append"></span></div>
+											@if ($errors->has('pro_uti'))
+				                                <span class="form-text text-danger">
+				                                	@foreach($errors->get('pro_uti') as $message)
+				                                		<strong>{{ $message }}</strong>
+				                                	@endforeach
+				                                </span>
+				                            @endif
 										</div>
 									</div>
 								</div>
@@ -169,6 +187,13 @@
 													<span class="input-group-text"><i class="icon-calendar22"></i></span>
 												</span>
 												<input type="date" class="form-control daterange-single" name="pro_fechin" value="{{ old('pro_fechin')}}">
+												@if ($errors->has('pro_fechin'))
+					                                <span class="form-text text-danger">
+					                                	@foreach($errors->get('pro_fechin') as $message)
+					                                		<strong>{{ $message }}</strong>
+					                                	@endforeach
+					                                </span>
+					                            @endif
 											</div>
 										</div>
 									</div>
@@ -180,6 +205,13 @@
 													<span class="input-group-text"><i class="icon-calendar22"></i></span>
 												</span>
 												<input type="date" class="form-control daterange-single" name="pro_fechfin" value="{{ old('pro_fechfin')}}">
+												@if ($errors->has('pro_fechfin'))
+					                                <span class="form-text text-danger">
+					                                	@foreach($errors->get('pro_fechfin') as $message)
+					                                		<strong>{{ $message }}</strong>
+					                                	@endforeach
+					                                </span>
+					                            @endif
 											</div>
 										</div>
 									</div>
@@ -193,7 +225,14 @@
 										@foreach($clientes as $cliente)
 											<option value="{{$cliente->cli_id}}"> {{$cliente->cli_nom}} </option>
 										@endforeach
-									</select>								
+									</select>
+									@if ($errors->has('cli_id'))
+		                                <span class="form-text text-danger">
+		                                	@foreach($errors->get('cli_id') as $message)
+		                                		<strong>{{ $message }}</strong>
+		                                	@endforeach
+		                                </span>
+		                            @endif						
 								</div>
 							</fieldset>
 							<h6>Subir Hoja de Presupuesto</h6>

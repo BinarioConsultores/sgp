@@ -22,5 +22,8 @@ class Cur extends Model
   {
       return $this->hasMany('sgp\CurDetalle','cur_id');
   }
+  // public function approvedUsers() {
+  //     return $this->hasMany('App\User')->where('approved', 1)->orderBy('email');
+  // }
 }
 

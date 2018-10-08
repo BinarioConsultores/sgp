@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RecursoUnidadMedida extends Model
 {
     protected $table = 't_recursounidadmedida';
-    protected $primaryKey = 'recum';
+    protected $primaryKey = 'recum_id';
     protected $hidden = [
       'created_at', 'updated_at',
   	];
@@ -15,7 +15,7 @@ class RecursoUnidadMedida extends Model
   		'rec_id', 'um_id'
   	];
 
-    public function UnidadMedida()
+    public function Recurso()
     {
       return $this->belongsTo('sgp\Recurso','rec_id');
     }

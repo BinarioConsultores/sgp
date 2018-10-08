@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class CurDetalle extends Model
 {
-  protected $table = 'curd_id';
-  protected $primaryKey = 'cur_id';
+  protected $table = 't_curdetalle';
+  protected $primaryKey = 'curd_id';
  protected $hidden = [
       'created_at', 'updated_at',
   ];
   protected $fillable = [
-        'curd_cant','curd_prec','recum_id','cur_id',
+        'curd_cant','curd_prec','curd_idpadre','recum_id','cur_id',
   ];
 
   public function RecursoUnidadMedida()
@@ -27,6 +27,9 @@ class CurDetalle extends Model
   {
       return $this->hasMany('sgp\CurdPlazo','cur_id');
   }
-  
+  public function CurdPadre()
+  {
+      return $this->belongsTo('sgp\CurDetalle','curd_idpadre');
+  }
 }
 

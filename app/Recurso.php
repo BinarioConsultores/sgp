@@ -8,7 +8,7 @@ class Recurso extends Model
 {
   protected $table = 't_recurso';
   protected $primaryKey = 'rec_id';
- protected $hidden = [
+  protected $hidden = [
       'created_at', 'updated_at',
   ];
   protected $fillable = [

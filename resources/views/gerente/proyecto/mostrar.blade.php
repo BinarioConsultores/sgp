@@ -6,9 +6,7 @@
 <script src="{{asset('global_assets/js/demo_pages/animations_css3.js')}}"></script>
 <script type="text/javascript">
 
-	$( document ).ready(function() {
-	    console.log( "ready!" );
-	});
+	
 	function verProyectos(numero){
 		$('#proyectos').attr("hidden","hidden");
 		$('#proyectos').removeAttr("hidden");
@@ -40,29 +38,23 @@
 
 		request.done(function(proyectos) {
 			$('#proyectoscuerpo').empty();
-			// $.each(proyectos, function(index,proyecto){
-			// 	$('#proyectoscuerpo').append($('<label>', { 
-			// 	    value: proyecto.pro_nom,
-			// 	    text: proyecto.pro_nom
-			// 	}));
-			// 	$('#proyectoscuerpo').append($('<br>'));
-			// });
+			if (proyectos.length>0) {
+				$.each(proyectos, function(index,proyecto){
+					if (proyecto.pro_tipo=='obra') {
+						$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-success-300'><div class='card-body'><div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'><i class='icon-home2 mr-2'></i>"+proyecto.pro_nom+"</a></h3><span class='badge bg-success-800 badge-pill align-self-center ml-auto'>60%</span></div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-success-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
+					}
+					if (proyecto.pro_tipo=='supervision') {
+						$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-warning-300'><div class='card-body'><div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'><i class='icon-home2 mr-2'></i>"+proyecto.pro_nom+"</a></h3><span class='badge bg-warning-800 badge-pill align-self-center ml-auto'>60%</span></div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-warning-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
+					}
+					if (proyecto.pro_tipo=='expediente') {
+						$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-blue-300'><div class='card-body'><div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'><i class='icon-home2 mr-2'></i>"+proyecto.pro_nom+"</a></h3><span class='badge bg-blue-800 badge-pill align-self-center ml-auto'>60%</span></div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>		</div><div class='container-fluid'><div class='progress mb-3'><div class='progress-bar progress-bar-striped progress-bar-animated bg-blue-400' style='width: 60%'><span>60% Completado</span></div></div></div></div></div>");
+					}
+				});
+			}
+			else{
+				$('#proyectoscuerpo').text("No tienes Proyetos de éste tipo. Crea uno!");
+			}
 			
-			$.each(proyectos, function(index,proyecto){
-				if (proyecto.pro_tipo=='obra') {
-					$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-success-300'><div class='card-body'><div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'><i class='icon-home2 mr-2'></i>"+proyecto.pro_nom+"  Home</a></h3><span class='badge bg-success-800 badge-pill align-self-center ml-auto'>60%</span></div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-success-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
-				}
-				if (proyecto.pro_tipo=='supervision') {
-					$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-warning-300'><div class='card-body'>						<div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'>"+proyecto.pro_nom+"</h3>							<span class='badge bg-warning-800 badge-pill align-self-center ml-auto'>60%</span>	                	</div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-warning-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
-				}
-				if (proyecto.pro_tipo=='expediente') {
-					$('#proyectoscuerpo').append("<div class='col-lg-4'><div class='card bg-blue-300'><div class='card-body'>						<div class='d-flex'><h3 class='font-weight-semibold mb-0'><a href='/gerente/proyecto/"+proyecto.pro_id+"' class='breadcrumb-item'>"+proyecto.pro_nom+"</h3>							<span class='badge bg-blue-800 badge-pill align-self-center ml-auto'>60%</span>	                	</div><div>"+proyecto.cli_id+"<div class='font-size-sm opacity-75'>S/. 1,500,000.00</div></div>					</div><div class='container-fluid'>						<div class='progress mb-3'>						<div class='progress-bar progress-bar-striped progress-bar-animated bg-blue-400' style='width: 60%'>							<span>60% Completado</span>						</div>					</div>					</div>				</div></div>");
-				}
-				
-			});
-
-			
-
 		});
 
 		request.fail(function(jqXHR, textStatus) {
