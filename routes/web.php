@@ -43,6 +43,7 @@ Route::get('/gerente/proyectos','ProyectoController@getIndex');
 
 Route::get('/gerente/proyecto/crear','ProyectoController@getCrear');
 Route::post('/gerente/proyecto/crear','ProyectoController@postCrear');
+Route::get('/gerente/proyecto/{pro_id}','ProyectoController@getVer');
 
 Route::post('/gerente/tarea','TareaController@getIndex');
 Route::get('/gerente/tarea/crear','TareaController@getCrear');
@@ -53,7 +54,48 @@ Route::get('/usuario/crear','UsuarioController@getCrear');
 Route::post('/usuario/crear','UsuarioController@postCrear');
 
 
+Route::get('/gerente/ajax/gerente/getVerProyectosPorTipo','ProyectoController@getVerProyectosPorTipo');
 
-Route::get('prueba', function(){
-	return "Hola";
+
+Route::get('/excel', function(){
+	Excel::load('ejemplo.xls', function($reader) {
+	    // reader methods
+	});
+	return 'ok';
 });
+
+Route::get('/importExport', 'ProyectoController@importExport');
+Route::get('/downloadExcel/{type}', 'ProyectoController@downloadExcel');
+Route::post('/importExcel', 'ProyectoController@importExcel');
+
+Route::post('/gerente/proyecto/{pro_id}/loadcur','ProyectoController@postLoadCur');
+
+
+Route::get('/gerente/proyecto/{pro_id}/factura/crear', 'FacturaController@getCrearFactura');
+Route::post('/gerente/proyecto/{pro_id}/factura/crear', 'FacturaController@postCrearFactura');
+
+Route::post('/gerente/proyecto/{pro_id}/loadcur','ProyectoController@postLoadCur');
+Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/creardetalle', 'FacturaController@getCrearDetalleFactura');
+
+
+
+Route::get('/arbol', function(){
+	return "ejemplos.arbol";
+});
+
+
+//Ponce
+Route::get('/gerente/tarea','TareaController@getIndex');
+Route::get('/gerente/tarea/crear','TareaController@getCrear');
+Route::get('/gerente/tarea/mostrar','TareaController@getIndex');
+Route::post('/gerente/tarea/crear','TareaController@postCrear');
+
+Route::get('/gerente/archivotarea','ArchivotareaController@getIndex');
+Route::get('/gerente/archivotarea/crear','ArchivotareaController@getCrear');
+Route::post('/gerente/archivotarea/crear','ArchivotareaController@postCrear');
+Route::get('/gerente/archivotareaeliminar','ArchivotareaController@getEliminar');
+
+Route::get('/admin/usuario','UsuarioController@getIndex');
+Route::get('/admin/usuario/crear','UsuarioController@getCrear');
+Route::post('/admin/usuario/crear','UsuarioController@postCrear');
+Route::get('/admin/usuario/eliminar','UsuarioController@getEliminar');
