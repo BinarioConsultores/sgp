@@ -49,5 +49,9 @@ class Proyecto extends Model
   {
     return $this->hasMany('sgp\Cur','pro_id');
   }
+  public function Facturas()
+    {
+      return $this->hasMany('sgp\Factura', 'pro_id');
+    }
 }
 

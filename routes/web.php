@@ -1,5 +1,7 @@
 <?php
 
+use sgp\FacturaDetalle;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +12,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/information/create/ajax-state-verdetallefactura',function()
+{
+    $facd_id = Input::get('facd_id');
+
+    $detalle=FacturaDetalle::find($facd_id);
+    
+    echo $detalle; die();
+});
 
 Route::get('/', function () {
     return redirect('/home');
@@ -73,9 +84,15 @@ Route::post('/gerente/proyecto/{pro_id}/loadcur','ProyectoController@postLoadCur
 
 Route::get('/gerente/proyecto/{pro_id}/factura/crear', 'FacturaController@getCrearFactura');
 Route::post('/gerente/proyecto/{pro_id}/factura/crear', 'FacturaController@postCrearFactura');
+Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'FacturaController@getEditarFactura');
+Route::post('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'FacturaController@postEditarFactura');
 
 Route::post('/gerente/proyecto/{pro_id}/loadcur','ProyectoController@postLoadCur');
 Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/creardetalle', 'FacturaController@getCrearDetalleFactura');
+Route::post('/gerente/proyecto/{pro_id}/factura/{fact_id}/creardetalle', 'FacturaController@postCrearDetalleFactura');
+Route::post('/gerente/proyecto/{pro_id}/factura/{fact_id}/editardetalle', 'FacturaController@postEditarDetalleFactura');
+Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/eliminar', 'FacturaController@getEliminarFactura');
+Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/eliminardetalle/{facd_id}', 'FacturaController@getEliminarDetalleFactura');
 
 
 
@@ -99,3 +116,5 @@ Route::get('/admin/usuario','UsuarioController@getIndex');
 Route::get('/admin/usuario/crear','UsuarioController@getCrear');
 Route::post('/admin/usuario/crear','UsuarioController@postCrear');
 Route::get('/admin/usuario/eliminar','UsuarioController@getEliminar');
+
+

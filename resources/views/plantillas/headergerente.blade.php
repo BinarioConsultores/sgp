@@ -45,6 +45,12 @@
 	<script src="{{asset('global_assets/js/demo_pages/content_page_header.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/uploader_dropzone.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/uploaders/dropzone.min.js')}}"></script>
+
+	<script src="{{asset('global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/demo_pages/datatables_basic.js')}}"></script>
+
+	<script src="{{asset('global_assets/js/sgp/zelect.js')}}"></script>
+
 	<!-- /theme JS files -->
 	@yield('javascript')
 </head>

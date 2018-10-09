@@ -466,12 +466,59 @@
                 	</div>
 				</div>
 				<div class="card-body">
-					
-				</div>
-			</div>
-			
 
-    	</div>
+
+					<div class="datatable-scroll">
+						<table class="table datatable-pagination dataTable no-footer" id="DataTables_Table_1" role="grid" aria-describedby="DataTables_Table_1_info">
+							<thead>
+								<tr role="row">
+									<th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="First Name: activate to sort column descending">Número</th>
+									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Fecha</th>
+									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Last Name: activate to sort column ascending">Tipo</th>
+									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Job Title: activate to sort column ascending">Estado</th>
+									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Observaciones</th>
+									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Proveedor</th>
+									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Empleado</th>
+									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Total</th>
+									<th class="text-center sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 100px;">Actions</th></tr>
+							</thead>
+							<tbody>
+								@foreach($proyecto->facturas as $factura)
+									<tr role="row" class="odd">
+										<td class="sorting_1">{{$factura->fac_nro}}</td>
+										<td>{{$factura->fac_fech}}</td>
+										<td>{{$factura->fac_tipo}}</td>
+										<td>{{$factura->fac_est}}</td>
+										<td>{{$factura->fac_obs}}</td>
+										<td>{{$factura->proveedor->prov_nom}}</td>
+										<td>{{$factura->empleado->persona->per_nom}}</td>
+										<?php $total=0;?>
+										@foreach($factura->FacturaDetalles as $detalle)
+											<?php $total=$total+($detalle->facd_cant*$detalle->facd_punit);?>
+										@endforeach
+										<td>{{number_format($total,2)}}</td>
+										<td class="text-center">
+											<div class="list-icons">
+												<div class="dropdown">
+													<a href="#" class="list-icons-item" data-toggle="dropdown">
+														<i class="icon-menu9"></i>
+													</a>
+													<div class="dropdown-menu dropdown-menu-right">
+														<a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/creardetalle" class="dropdown-item"><i class="icon-eye"></i> Ver</a>
+														<a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/editar" class="dropdown-item"><i class="icon-pencil5"></i> Editar</a>
+														<a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/eliminar" onclick="return confirm('Esta seguro que desea eliminar?')" class="dropdown-item"><i class="icon-bin2"></i> Eliminar</a>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+		    	</div>
+		    </div>
+		 </div>
 
 	    <div class="tab-pane fade" id="settings">
 			<!-- Profile info -->
