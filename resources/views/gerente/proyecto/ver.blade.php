@@ -13,6 +13,16 @@
 </script>
 @endsection
 @section('content')
+@if (Session::has('creado'))
+    <div class="alert alert-success">
+        {{Session::get('creado')}}
+    </div>
+@endif
+@if (Session::has('error'))
+    <div class="alert alert-danger">
+        {{Session::get('error')}}
+    </div>
+@endif
 <!-- Full width modal -->
 <div id="modal_formato" class="modal fade" tabindex="-1">
 	<div class="modal-dialog modal-full">

@@ -202,9 +202,8 @@
 	<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 		<div class="d-flex">
 			<div class="breadcrumb">
-				<a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-				<a href="components_page_header.html" class="breadcrumb-item">Current</a>
-				<span class="breadcrumb-item active">Location</span>
+				<a href="/gerente/proyecto/{{$proyecto->pro_id}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Proyecto</a>
+				<span class="breadcrumb-item active">Factura</span>
 			</div>
 
 			<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -355,7 +354,6 @@
 				</div>
 			</div>
 
-			<!--<div class="datatable-header"><div id="DataTables_Table_1_filter" class="dataTables_filter"><label><span>Filter:</span> <input type="search" class="" placeholder="Type to filter..." aria-controls="DataTables_Table_1"></label></div><div class="dataTables_length" id="DataTables_Table_1_length"><label><span>Show:</span> <select name="DataTables_Table_1_length" aria-controls="DataTables_Table_1" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div>-->
 
 			<div class="datatable-scroll">
 				<table class="table datatable-pagination dataTable no-footer" id="DataTables_Table_1" role="grid" aria-describedby="DataTables_Table_1_info">

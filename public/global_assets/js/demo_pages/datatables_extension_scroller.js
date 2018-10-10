@@ -42,8 +42,8 @@ var DatatableScroller = function() {
             scrollY: 419,
             scrollCollapse: true,
             language: {
-                search: '<span>Filter:</span> _INPUT_',
-                searchPlaceholder: 'Type to filter...',
+                search: '<span>Filtro:</span> _INPUT_',
+                searchPlaceholder: 'Buscar...',
                 lengthMenu: '<span>Show:</span> _MENU_',
                 paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
             }

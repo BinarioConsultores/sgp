@@ -22,9 +22,8 @@
 	<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 		<div class="d-flex">
 			<div class="breadcrumb">
-				<a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-				<a href="components_page_header.html" class="breadcrumb-item">Current</a>
-				<span class="breadcrumb-item active">Location</span>
+				<a href="/gerente/proyecto/{{$proyecto->pro_id}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Proyecto</a>
+				<span class="breadcrumb-item active">Crear Factura</span>
 			</div>
 
 			<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>

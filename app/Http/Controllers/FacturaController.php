@@ -52,7 +52,7 @@ class FacturaController extends Controller
         $objFactura->pro_id = $pro_id;
     	$objFactura->save();
 
-    	return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$objFactura->fac_id.'/creardetalle');
+    	return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$objFactura->fac_id.'/creardetalle')->with('creado','Se creó la factura exitosamente');
     }
 
     public function getEditarFactura($pro_id,$fact_id){
@@ -90,7 +90,7 @@ class FacturaController extends Controller
         $objFactura->pro_id = $pro_id;
         $objFactura->save();
 
-        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$objFactura->fac_id.'/creardetalle');
+        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$objFactura->fac_id.'/creardetalle')->with('creado','Se editó la factura exitosamente');;
 
         
     }
@@ -124,7 +124,7 @@ class FacturaController extends Controller
         $objDetalleFactura->fac_id = $fac_id;
         $objDetalleFactura->save();
 
-        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$fac_id.'/creardetalle');
+        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$fac_id.'/creardetalle')->with('creado','Se creó el detalle de factura exitosamente');
     }
 
     public function postEditarDetalleFactura($pro_id, $fac_id,Request $request)
@@ -147,7 +147,7 @@ class FacturaController extends Controller
         $objDetalleFactura->fac_id = $fac_id;
         $objDetalleFactura->save();
 
-        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$fac_id.'/creardetalle');
+        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$fac_id.'/creardetalle')->with('creado','Se editó el detalle de factura exitosamente');
     }
 
     public function getEliminarDetalleFactura($pro_id, $fac_id,$facd_id)
@@ -155,7 +155,7 @@ class FacturaController extends Controller
         $objfacturadetalle = FacturaDetalle::find($facd_id);
         $objfacturadetalle->delete();
 
-        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$fac_id.'/creardetalle');
+        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$fac_id.'/creardetalle')->with('creado','Se eliminó la factura exitosamente');;
     }
 
     public function getEliminarFactura($pro_id,$fact_id)
