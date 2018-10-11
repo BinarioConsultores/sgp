@@ -53,18 +53,30 @@ class TareaController extends Controller
         return view("gerente.proyecto.ver", ["proyecto"=>$proyecto]);*/
     }
 
-    public function traerHijos($tar_id){
+    public function getCrearTarea($tar_id, $pro_id){
 
-        if ($hijos = Tarea::Where('tar_idpadre', $tar_id)->get()){
-            $hijos_total = $hijos->count();
-            if($hijos_total>0){
-                return response()->json([
-                    'totalhijos' => $hijos_total,
-                ]);
-            }
+        $tarea = Tarea::Where('pro_id', $pro_id)->Where('tar_id',$tar_id)->get();
+        return redirect ('/gerente/tarea/crear/{pro_id}/{tar_id}');    
+    }
+
+    public function getverTareaPadre(Request $request){
+
+        $tareapadre_id = $request->get('tareita');
+        $tareaG = Tarea::findOrFail($tareapadre_id);
+        return $tareaG;
+    }
+
+    public function getverTareasHijas(Request $request){
+
+        $tarea_id = $request->get('tareita');
+
+        $tareasHijas = Tarea::Where('tar_idpadre', $tarea_id)->get();
+        if($tareasHijas->count()>0){
+            return $tareasHijas;
         }
+        
         else{   
-            return false;
+            return 0;
         }
     }
 
