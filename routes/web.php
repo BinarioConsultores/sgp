@@ -56,8 +56,9 @@ Route::get('/gerente/proyecto/crear','ProyectoController@getCrear');
 Route::post('/gerente/proyecto/crear','ProyectoController@postCrear');
 Route::get('/gerente/proyecto/{pro_id}','ProyectoController@getVer');
 
-Route::post('/gerente/tarea','TareaController@getIndex');
+Route::get('/gerente/tarea','TareaController@getIndex');
 Route::get('/gerente/tarea/crear','TareaController@getCrear');
+Route::get('/gerente/tarea/mostrar','TareaController@getIndex');
 Route::post('/gerente/tarea/crear','TareaController@postCrear');
 
 Route::post('/usuario','UsuarioController@getIndex');
@@ -116,5 +117,18 @@ Route::get('/admin/usuario','UsuarioController@getIndex');
 Route::get('/admin/usuario/crear','UsuarioController@getCrear');
 Route::post('/admin/usuario/crear','UsuarioController@postCrear');
 Route::get('/admin/usuario/eliminar','UsuarioController@getEliminar');
+
+
+Route::get('/gerente/tarea/{pro_id}', 'TareaController@getVerTareas');
+
+Route::get('/gerente/tarea/eliminar/{pro_id}/{tar_id}','TareaController@getEliminar');
+Route::get('/gerente/tarea/crear/{pro_id}/{tar_id}','TareaController@getCrear');
+
+
+Route::get('/gerente/ajax/gerente/getVerProyectosPorTipo','ProyectoController@getVerProyectosPorTipo');
+Route::get('ajax/tarea/verTareasHijas','TareaController@getverTareasHijas');
+Route::get('/ajax/tarea/verTareaPadre','TareaController@getverTareaPadre');
+
+
 
 

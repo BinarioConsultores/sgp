@@ -12,37 +12,108 @@
 <script src="{{asset('global_assets/js/tarea/task_manager_list_tarea.js')}}"></script>
 <script type="text/javascript">
 
-		function verTareas(dato){
+	function verTareas(dato){
+		//alert(dato);
 
-		var dato = $.ajax({
-		    url: 'ajax/gerente/verTareasHijas',
+				
+		$('#hijocuerpo').attr("hidden","hidden");
+		$('#hijocuerpo').removeAttr("hidden");
+		$('#hijocuerpo2').removeAttr("hidden");
+		$('#listadetareas').attr("class","col-md-9");
+		//$('#tareadetalle').removeAttr("hidden");
+
+		var request = $.ajax({
+		    url: '/ajax/tarea/verTareaPadre',
 		    type: 'GET',
-		    data: { pro_id: pro_id},
+		    data: { tareita: dato},
 		    contentType: 'application/json; charset=utf-8'
 		});
 
-		request.done(function(tareas) {
+		request.done(function(tareaG){
 
-			$('#tareascuerpo').empty();
+			//alert(tareaG);
+
+			$('#hijocuerpo').empty();
+
+			$('#hijocuerpo').append("<div class='card border-success-400'><div class='card-body'><div class='d-sm-flex align-item-sm-center flex-sm-nowrap'><div><h6><a href='#'>"+tareaG.tar_nom+"</a></h6><p class='mb-3'>"+tareaG.tar_desc+"</p><a href='#'> <img src='../../../../global_assets/images/demo/users/face2.jpg' class='rounded-circle' width='36' height='36'> </a> <h6 class='font-weight-semibold mb-0'> Descripcion: "+tareaG.tar_desc+"</h6> </div><ul class='list list-unstyled mb-0 mt-3 mt-sm-0 ml-auto'><li><span class='text-muted'>"+tareaG.tar_fechin+"</span></li><li class='dropdown'> Prioridad: <a href='#' class='badge bg-success-400 align-top dropdown-toggle' data-toggle='dropdown'>"+tareaG.tar_prio+"</a></li></ul></div></div><div class='card-footer d-sm-flex justify-content-sm-between align-items-sm-center'><span>Fecha de Finalizacion: <span class='font-weight-semibold'>"+tareaG.tar_fechfin+"</span></span><ul class='list-inline mb-0 mt-2 mt-sm-0'><li class='list-inline-item dropdown'><a href='#' class='text-default dropdown-toggle' data-toggle='dropdown'>Opciones</a><div class='dropdown-menu dropdown-menu-right'><a href='#' class='dropdown-item active' data-toggle='modal' data-target='#eliminarModal' onclick='setEliminarModal(this)'>Eliminar </a> <a href='#' class='dropdown-item'>Editar</a><div class='dropdown-divider'></div><a href='#' data-toggle='modal' data-target='#subirArchivoModal' class='dropdown-item'>Subir Archivo</a><a href='#' class='dropdown-item'>Dublicate</a></div></li><li class='list-inline-item dropdown'><a href='#' class='text-default dropdown-toggle' data-toggle='dropdown'><i class='icon-menu7'></i></a><div class='dropdown-menu dropdown-menu-right'><a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a><a href='#' class='dropdown-item'><i class='icon-attachment'></i> Attach screenshot</a><a href='#' class='dropdown-item'><i class='icon-rotate-ccw2'></i> 'Reassign'</a><div class='dropdown-divider'></div><a href='#' class='dropdow n-item'><i class='icon-pencil7'></i> Edit task</a><a href='#' class='dropdown-item'><i class='icon-cross2'></i> Remove</a></div></li></ul></div></div>");
+
+			verTareasHijas(dato);
+		});
+
+		request.fail(function(jqXHR, textStatus) {
+			$('#hijocuerpo').empty();
+			$('#hijocuerpo').append($('<label>ERROR contacte al administrador -> </label>'));
+		});
+	}
+
+	function verTareasHijas(dato){
+
+		
+		$('#titulo').text("Lista de Subtareas");
+
+		
+		//alert(dato);
+		var request = $.ajax({
+		url: '/ajax/tarea/verTareasHijas',
+		type: 'GET',
+		data: { tareita: dato},
+		contentType: 'application/json; charset=utf-8'
+		});
+
+		request.done(function(tareasHijas) {
+
+			$('#listatareas').removeAttr("hidden");
+			$('#hijocuerpo2').empty();
+
 			
-			$.each(tarea, function(index,tarea){
+			//alert(tareasHijas);
+			//$('#hijocuerpo').empty();
+			//htrhtr(9);
+			//$('#tareadetalle').empty();
 
-				if (tarea.pro_id=='3') {
+			$.each(tareasHijas, function(index,tarea){
 
-					$('#tareascuerpo').append("<li class='nav-item nav-item-submenu'><a href="#" class='nav-link'><i class='icon-portfolio'></i>"+tarea.tar_nom+" </a></li>");
-				}	
+			$('#hijocuerpo2').append("<div class='card-body'><div class='d-sm-flex align-item-sm-center flex-sm-nowrap'><div><h6><a href='#' onclick='VerTareaHija("+tarea.tar_id+");'>"+tarea.tar_nom+"</a></h6><p class='mb-3'>"+tarea.tar_desc+"</p><a href='#'> <img src='../../../../global_assets/images/demo/users/face2.jpg' class='rounded-circle' width='36' height='36'> </a><h6 class='font-weight-semibold mb-0'> Usuario:</h6></div></div></div>");
 			});
 
 		});
 
-
-
 		request.fail(function(jqXHR, textStatus) {
-			$('#tareascuerpo').empty();
-			$('#tareascuerpo').append($('<label>ERROR contacte al administrador -> </label>'));
+			$('#hijocuerpo2').empty();
+			$('#hijocuerpo2').append($('<label>ERROR contacte al administrador -> </label>'));
 		});
 	}
 
+	function VerTareaHija(dato){
+		alert(dato);
+
+
+		$('#tareadetalle').removeAttr("hidden");
+
+		var request = $.ajax({
+		    url: '/ajax/tarea/verTareaPadre',
+		    type: 'GET',
+		    data: { tareita: dato},
+		    contentType: 'application/json; charset=utf-8'
+		});
+
+		request.done(function(tareaG){
+
+			//alert(tareaG);
+
+			$('#tareadetalle').empty();
+
+			$('#tareadetalle').append("<div class='row'><div class='card-body border-top-info col-md-9'><div class='text-center'><h3 class='font-weight-semibold mb-0'>Construccion el primer tramo - carretera AQP-Los Angeles </h3><label>Progreso de la tarea: </label><br/><div class='container-fluid'><div><div class='progress mb-3'><div class='progress-bar progress-bar-striped progress-bar-animated bg-blue-400' style='width: 60%'><span>60% Completado</span></div></div><label class='text-left'>23-01-1994</label></div></div><button type='button' class='btn btn-primary' data-toggle='collapse' data-target='#collapse-button-collapsed' aria-expanded='true'>Detalles de la Tarea</button></div><div class='collapse show' id='collapse-button-collapsed'><div class='mt-3'><ul class='list-group'> <li class='list-group-item'>Primer avance</li><li class='list-group-item'>Segundo avance</li><li class='list-group-item'>Tercer Avance</li></ul></div></div></div><div class='col-md-3'><div class='card-body text-center'><div class='card-img-actions d-inline-block mb-3'><img class='img-fluid rounded-circle' src='../../../../global_assets/images/demo/users/face2.jpg' width='170' height='170' alt='><div class='card-img-actions-overlay card-img rounded-circle'><a href='#' class='btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round'><i class='icon-plus3'></i></a><a href='user_pages_profile.html' class='btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2'><i class='icon-link'></i></a></div><h6 class='font-weight-semibold mb-0'>Raydy Ponce</h6> <span class='d-block text-muted'>Gerente de Proyecto</span> <div class='list-icons list-icons-extended mt-3'> <a href='#' class='list-icons-item' data-popup='tooltip' title=' data-container='body' data-original-title='Google Drive'><i class='icon-google-drive'></i></a> <a href='#' class='list-icons-item' data-popup='tooltip' title=' data-container='body' data-original-title='Twitter'><i class='icon-twitter'></i></a> <a href='#' class='list-icons-item' data-popup='tooltip' title=' data-container='body' data-original-title='Github'><i class='icon-github'></i></a> </div></div></div></div>");
+		});
+
+		request.fail(function(jqXHR, textStatus) {
+			$('#tareadetalle').empty();
+			$('#tareadetalle').append($('<label>ERROR contacte al administrador -> </label>'));
+		});
+	}
+	//function x (id_padre){
+
+	//}
 	/*function setEliminarModal(btn){
     var tar_id = $(btn).attr( "tar_id" )
 
@@ -139,7 +210,7 @@
 	</div>
 
 	<!-- Horizontal form modal -->
-	<div id="editarModal" class="modal fade" tabindex="-1">
+	<div id="subirArchivoModal" class="modal fade" tabindex="-1">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -219,247 +290,136 @@
 				<!-- /horizontal form modal -->
 
 	<div class="row">
-		<div class="col-md-9">
 
-		    <div class="card border-success-400">
-					<div class="card-header bg-transparent header-elements-inline">
-						<h4 class="card-title">LISTA DE TAREAS</h4>
-						<div class="header-elements">
-							<div class="list-icons">
-		                		<a class="list-icons-item" data-action="collapse"></a>
-		                		<a class="list-icons-item" data-action="reload"></a>
-		                		<a class="list-icons-item" data-action="remove"></a>
+		<div class="col-md-12" id="listadetareas">
+
+			<div class="col-md-12">
+
+			    <div class="card border-success-400">
+						<div class="card-header bg-success-400 header-elements-inline">
+							<h4 class="card-title">LISTA DE TAREAS</h4>
+							<div class="header-elements">
+								<div class="list-icons">
+			                		<a class="list-icons-item" data-action="collapse"></a>
+			                		<a class="list-icons-item" data-action="reload"></a>
+			                		<a class="list-icons-item" data-action="remove"></a>
+			                	</div>
 		                	</div>
-	                	</div>
-					</div>
+						</div>
 
-					<table class="table tasks-list table-lg">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>IS</th>
-				                <th>Nombre de la Tarea</th>
-				                <th>Prioridad</th>
-				                <th>Fecha de inicio</th>
-				               
-				                <th>Usuario</th>
-								<th class="text-center text-muted" style="width: 30px;"><i class="icon-checkmark3"></i></th>
-				            </tr>
-						</thead>
-						@if(sizeof($tarea)>0)
-						<tbody>
-							@foreach ($tarea as $tare)
+						<table class="table tasks-list table-lg">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>IS</th>
+					                <th>Nombre de la Tarea</th>
+					                <th>Prioridad</th>
+					                <th>Fecha de inicio</th>
+					               
+					                <th>Usuario</th>
+									<th class="text-center text-muted" style="width: 30px;"><i class="icon-checkmark3"></i></th>
+					            </tr>
+							</thead>
+							@if(sizeof($tarea)>0)
+							<tbody>
+								@foreach ($tarea as $tare)
 
-							<tr>
-								<td>#{{$tare->tar_id}}</td>
-								<td>TAREAS</td>
-								
-				                <td>
+								<tr onclick="verTareas($tare->tar_id)">
+									<td>#{{$tare->tar_id}}</td>
+									<td>TAREAS</td>
+									
+					                <td>
 
-				                	<div class="font-weight-semibold"><a href="task_manager_detailed.html">{{$tare->tar_nom}}</a></div>
-				                	<div class="text-muted">{{$tare->tar_desc}}</div>
-				                </td>
-				                <td>
-				                	<div class="btn-group">
-										<a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">{{$tare->tar_prio}}</a>
-										<!--<div class="dropdown-menu dropdown-menu-right">
-											<a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
-											<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
-											<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
-											<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
-										-->
-										</div>
-									</div>
-			                	</td>
-				                <td>
-				                	<div class="d-inline-flex align-items-center">
-				                		<i class="icon-calendar2 mr-2"></i>
-				                		<input type="text" class="form-control datepicker p-0 border-0 bg-transparent" value="{{$tare->tar_fechin}}">
-				                	</div>
-			                	</td>
-				              
-				                <td>
-				                	<h6 class="font-weight-semibold mb-0">{{$tare->Usuario->usu_nom}}</h6>
-				                	<a href="#"><img src="../../../../global_assets/images/demo/users/face2.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
-				                	
-				                </td>
-								<td class="text-center">
-									<div class="list-icons">
-										<div class="list-icons-item dropdown">
-											<a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a href="#" class="dropdown-item active" data-toggle="modal" data-target="#eliminarModal" tar_id="{{$tare->tar_id}}" onclick="setEliminarModal(this)">Eliminar tarea
-                                                </a>
-                                                <a href="#" class="dropdown-item">Editar tarea</a>
-												<div class="dropdown-divider"></div>
-												<a href="#" class="dropdown-item" data-toggle="modal" data-target="#editarModal" tar_id="{{$tare->tar_id}}" onclick="setEditarrModal(this)">Agregar archivo
-												<a href="#" class="dropdown-item">Dublicate</a>
+					                	<div class="font-weight-semibold"><a onclick="verTareas({{$tare->tar_id}});">{{$tare->tar_nom}}</a></div>
+					                	<div class="text-muted">{{$tare->tar_desc}}</div>
+					                </td>
+					                <td>
+					                	<div class="btn-group">
+											<a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">{{$tare->tar_prio}}</a>
+											<!--<div class="dropdown-menu dropdown-menu-right">
+												<a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+												<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+												<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+												<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+											-->
 											</div>
-										</li>
-									</div>
-								</td>
-				            </tr>
+										</div>
+				                	</td>
+					                <td>
+					                	<div class="d-inline-flex align-items-center">
+					                		<i class="icon-calendar2 mr-2"></i>
+					                		<input type="text" class="form-control datepicker p-0 border-0 bg-transparent" value="{{$tare->tar_fechin}}">
+					                	</div>
+				                	</td>
+					              
+					                <td>
+					                	<h6 class="font-weight-semibold mb-0">{{$tare->Usuario->usu_nom}}</h6>
+					                	<a href="#"><img src="../../../../global_assets/images/demo/users/face2.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+					                	
+					                </td>
+									<td class="text-center">
+										<div class="list-icons">
+											<div class="list-icons-item dropdown">
+												<a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+												<div class="dropdown-menu dropdown-menu-right">
+													<a href="#" class="dropdown-item active" data-toggle="modal" data-target="#eliminarModal" tar_id="{{$tare->tar_id}}" onclick="setEliminarModal(this)">Eliminar tarea
+	                                                </a>
+	                                                <a class="dropdown-item" onclick="verTareas(5);">Editar tarea</a>
+													<div class="dropdown-divider"></div>
+													<a href="#" class="dropdown-item" data-toggle="modal" data-target="#subirArchivoModal" tar_id="{{$tare->tar_id}}" onclick="setSubirArchivoModal(this)">Agregar archivo
+													<a href="#" class="dropdown-item">Dublicate</a>
+												</div>
+											</li>
+										</div>
+									</td>
+					            </tr>
 
-				            @endforeach
+					            @endforeach
 
-				        @else
-                            <div class="alert alert-danger" role="alert">
-                                No tienes Tareas asignadas a este proyecto                            
-                            </div>
-                        @endif
-
-						
-
-						
+					        @else
+	                            <div class="alert alert-danger" role="alert">
+	                                No tienes Tareas asignadas a este proyecto                            
+	                            </div>
+	                        @endif
 
 							
-						</tbody>
-					</table>
-				</div>
 
-		    <div class="card border-success-400 hidden="hidden">
-				<div class="row">
-					<div class="card-body border-top-info col-md-9">
-
-						
-							<div class="text-center">
-								<h3 class="font-weight-semibold mb-0">Construccion el primer tramo - carretera AQP-Los Angeles </h3>
 							
-								<label>Progreso de la tarea: </label>
-								<br/>
 
-								<div class='container-fluid'>
-								<div>						
-									<div class='progress mb-3'>						
-										<div class='progress-bar progress-bar-striped progress-bar-animated bg-blue-400' style='width: 60%'>
-											<span>60% Completado</span>
-										</div>					
-									</div>
-
-									<label class="text-left">23-01-1994</i></label>				
-								</div>
-								</div>
-								<!--<p class="mb-3 text-muted">Specify target in <code>data-target</code> attribute</p>-->
-								<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapse-button-collapsed" aria-expanded="true">Detalles de la Tarea
-								</button>
-							</div>
-
-							<div class="collapse show" id="collapse-button-collapsed" style="">
-								<div class="mt-3">
-									<ul class="list-group">
-  										<li class="list-group-item">Primer avance</li>
-  										<li class="list-group-item">Segundo avance</li>
-  										<li class="list-group-item">Tercer Avance</li>
-									</ul>										
-								</div>
-							</div>
-						
-						
-					</div>
-					<div class="col-md-3">
-						
-							<div class="card-body text-center">
-								<div class="card-img-actions d-inline-block mb-3">
-									<img class="img-fluid rounded-circle" src="../../../../global_assets/images/demo/users/face2.jpg" width="170" height="170" alt="">
-									<div class="card-img-actions-overlay card-img rounded-circle">
-										<a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
-											<i class="icon-plus3"></i>
-										</a>
-										<a href="user_pages_profile.html" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
-											<i class="icon-link"></i>
-										</a>
-									</div>
-								</div>
-
-					    		<h6 class="font-weight-semibold mb-0">Raydy Ponce</h6>
-					    		<span class="d-block text-muted">Gerente de Proyecto</span>
-
-				    			<div class="list-icons list-icons-extended mt-3">
-			                    	<a href="#" class="list-icons-item" data-popup="tooltip" title="" data-container="body" data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
-			                    	<a href="#" class="list-icons-item" data-popup="tooltip" title="" data-container="body" data-original-title="Twitter"><i class="icon-twitter"></i></a>
-			                    	<a href="#" class="list-icons-item" data-popup="tooltip" title="" data-container="body" data-original-title="Github"><i class="icon-github"></i></a>
-		                    	</div>
-					    	</div>
-				    	
-
-					</div>
+								
+							</tbody>
+						</table>
 				</div>
+
+			    <div class="card border-success-400" id="tareadetalle" hidden="hidden">
+
+				</div>
+
 			</div>
 
 		</div>
 		
 		<div class="col-md-3">
-			<div class="row">
-					@foreach($tarea as $tare)
+			<div class="row">	
+				<div class="col-md-12" id="hijocuerpo" hidden="hidden">			
+				</div>
 				<div class="col-md-12">
-								
-					<div class="card border-success-400">
+					<div class="card border-success-400" id="listatareas" hidden="hidden">
+						<div class="card-header bg-success-400 text-white header-elements-inline">
+							<h6 class="card-title" id="titulo"></h6>
+							<div class="header-elements">
+								<div class="list-icons">
+			                		<a class="list-icons-item" data-action="collapse"></a>
+			                		<a class="list-icons-item" data-action="reload"></a>
+			                	</div>
+			            	</div>
+						</div>
 
-									<div class="card-body">
-										<div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
-											<div>
-												<h6><a href="#">{{$tare->tar_nom}}</a></h6>
-												<p class="mb-3">{{$tare->Proyecto->pro_nom}}</p>
+						<div class="card-body" id="hijocuerpo2">
 
-							                	<a href="#">
-							                		<img src="../../../../global_assets/images/demo/users/face2.jpg" class="rounded-circle" width="36" height="36" alt="">
-						                		</a>
-
-						                		<h6 class="font-weight-semibold mb-0"> Usuario: {{$tare->Usuario->usu_nom}}</h6>
-							                
-											</div>
-
-											<ul class="list list-unstyled mb-0 mt-3 mt-sm-0 ml-auto">
-												<li><span class="text-muted">{{$tare->tar_fechin}}</span></li>
-												<li class="dropdown">
-							                		Prioridad: &nbsp; 
-													<a href="#" class="badge bg-success-400 align-top dropdown-toggle" data-toggle="dropdown">{{$tare->tar_prio}}</a>
-													<div class="dropdown-menu dropdown-menu-right">
-														<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 border-danger"></span> Blocker</a>
-														<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 border-warning-400"></span> High priority</a>
-														<a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 border-success"></span> Normal priority</a>
-														<a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 border-grey-300"></span> Low priority</a>
-													</div>
-												</li>
-												
-											</ul>
-										</div>
-									</div>
-
-									<div class="card-footer d-sm-flex justify-content-sm-between align-items-sm-center">
-										<span>Fecha de Finalizacion: <span class="font-weight-semibold">{{$tare->tar_fechfin}}</span></span>
-
-										<ul class="list-inline mb-0 mt-2 mt-sm-0">
-											<li class="list-inline-item dropdown">
-												<a href="#" class="text-default dropdown-toggle" data-toggle="dropdown">Opciones</a>
-
-												<div class="dropdown-menu dropdown-menu-right">
-													<a href="#" class="dropdown-item active" data-toggle="modal" data-target="#eliminarModal" tar_id="{{$tare->tar_id}}" onclick="setEliminarModal(this)">Eliminar
-                                                    </a>
-                                                    <a href="#" class="dropdown-item">Editar</a>
-													<div class="dropdown-divider"></div>
-													<a href="/gerente/archivotarea/crear" class="dropdown-item">Subir Archivo</a>
-													<a href="#" class="dropdown-item">Dublicate</a>
-
-												</div>
-											</li>
-											<li class="list-inline-item dropdown">
-												<a href="#" class="text-default dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-
-												<div class="dropdown-menu dropdown-menu-right">
-													<a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
-													<a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
-													<a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
-													<div class="dropdown-divider"></div>
-													<a href="#" class="dropdow n-item"><i class="icon-pencil7"></i> Edit task</a>
-													<a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
-												</div>
-											</li>
-										</ul>
-									</div>
+						</div>
 					</div>
 				</div>
-					@endforeach
 			</div>
 		
 			
