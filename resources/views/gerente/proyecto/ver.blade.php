@@ -560,7 +560,56 @@
 										</div>
 		                        	</div>
 		                        </div>
-		                       
+		                        <div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>Fecha de Inicio: </label>
+											<input type="date" class="form-control daterange-single" name="pro_fechin" value="{{ $proyecto->pro_fechin}}">
+											@if ($errors->has('pro_fechin'))
+				                                <span class="form-text text-danger">
+				                                	@foreach($errors->get('pro_fechin') as $message)
+				                                		<strong>{{ $message }}</strong>
+				                                	@endforeach
+				                                </span>
+				                            @endif
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>Nro de Etapas: </label>
+											<input type="number" class="form-control daterange-single" name="cur_etapas" value="1" min="1">
+											@if ($errors->has('cur_etapas'))
+				                                <span class="form-text text-danger">
+				                                	@foreach($errors->get('cur_etapas') as $message)
+				                                		<strong>{{ $message }}</strong>
+				                                	@endforeach
+				                                </span>
+				                            @endif
+										</div>
+									</div>
+								</div>
+		                        <div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>Fila de Cabecera: </label>
+											<input type="text" placeholder="Ej: 15" class="form-control touchspin-prefix {{ $errors->has('cur_fc') ? 'border-danger' : '' }}" style="display: block;" name="cur_fc" value="{{ old('cur_fc')}}">
+											@if ($errors->has('cur_fc'))
+				                                <span class="form-text text-danger">
+				                                	@foreach($errors->get('cur_fc') as $message)
+				                                		<strong>{{ $message }}</strong>
+				                                	@endforeach
+				                                </span>
+				                            @endif
+										</div>
+									</div>
+									<div class="col-md-4 mt-4">
+										<div class="form-group">
+											<button type="button" class="btn btn-block bg-blue-400" data-toggle="modal" data-target="#modal_formato"><i class="icon-search4"></i> <span>Ver Formato</span></button>
+										</div>
+									</div>
+								</div>
 		                       	<div class="row">
 									<div class="col-md-8">
 										<div class="form-group">

@@ -10,7 +10,6 @@ use sgp\Recurso;
 use sgp\UnidadMedida;
 use sgp\Cur;
 use sgp\CurDetalle;
-use sgp\CurdPlazo;
 use sgp\RecursoUnidadMedida;
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
@@ -156,11 +155,9 @@ class ProyectoController extends Controller
                 $reader->open($path);
 
                 $flagCurdPadre = false;
-                $arrayFechas=array();
-
                 foreach ($reader->getSheetIterator() as $hojas =>$sheet) {
                     foreach ($sheet->getRowIterator() as $contfilas =>$fila) {
-
+                        
                         if (($contfilas >= $request->get('cur_pl')-1) and ($contfilas<=$request->get('cur_ul')-1)) {
 
                             $objCurd = new CurDetalle();
@@ -177,9 +174,6 @@ class ProyectoController extends Controller
                                 $objCurd->recum_id = $objRecursoUnidadMedida->recum_id;
                                 $objCurd->curd_idpadre = 1;
                                 $flagCurdPadre = true;
-
-                                $objCurd->save();
-
                             }else{
 
                                 $objRecProp = $this->traerOCrearRecurso(strtoupper(trim($fila[1])),trim($fila[0]));
@@ -204,39 +198,14 @@ class ProyectoController extends Controller
                                     $objCurd->curd_idpadre = $objCurdAntiguo->curd_id;
                                 }
                                 $flagCurdPadre = false;
-
-                                $objCurd->save();
-
-                                for($i=1;$i<=3;$i++)
-                                {
-                                    $objCurdPlazo = new CurdPlazo();
-                                    $objCurdPlazo->curd_id = $objCurd->curd_id;
-                                    $objCurdPlazo->curdp_cant = round($fila[5+$i], 2);
-                                    $objCurdPlazo->curdp_fechin = $arrayFechas[$i-1][0];
-                                    $objCurdPlazo->curdp_fechfin = $arrayFechas[$i-1][1];
-                                    $objCurdPlazo->curdp_nro = $i;
-                                    $objCurdPlazo->save();
-                                }
                             }
                                                         
+                            $objCurd->save();
                             //guardando el ultimo padre creado
                             if ($flagCurdPadre) {
                                 $objCurdAntiguo = CurDetalle::find($objCurd->curd_id);
                             }
                             
-                        }
-                        //verficando fila cabecera
-                        elseif ($contfilas == $request->get('cur_fc')-1) {
-                            $fechaini = date('Y-m-d',strtotime($request->get('pro_fechin')));
-
-                            for($i=1;$i<=$request->get('cur_etapas');$i++)
-                            {
-                                $dias=trim($fila[5+$i]);
-                                $nrodias=intval(preg_replace('/[^0-9]+/', '', $dias), 10);
-                                $fechafin=date('Y-m-d',strtotime('+'.$nrodias.' day' , strtotime ( $fechaini ) ));
-                                array_push($arrayFechas,array($fechaini,$fechafin));
-                                $fechaini=$fechafin;                              
-                            }
                         }
 
                     }
