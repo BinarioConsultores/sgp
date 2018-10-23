@@ -52,42 +52,29 @@ var TaskManagerList = function () {
                     targets: 1
                 },
                 {
-                    width: '40%',
+                    width: '35%',
                     targets: 2
                 },
                 {
                     width: '10%',
                     targets: 3
                 },
-                {
-                    orderDataType: 'dom-text',
-                    type: 'string',
-                    targets: 4
-                },
-                {
-                    orderDataType: 'dom-select',
-                    type: 'string',
-                    targets: 5
-                },
-                { 
-                    orderable: false,
-                    width: 100,
-                    targets: 6
-                },
+                
                 {
                     width: '15%',
                     targets: [4, 5, 6]
                 }
             ],
-            order: [[ 0, 'desc' ]],
+            order: [[ 1, 'desc' ]],
             dom: '<"datatable-header"fl><"datatable-scroll-lg"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Filtro:</span> _INPUT_',
                 searchPlaceholder: 'Buscar...',
-                lengthMenu: '<span>Show:</span> _MENU_',
-                paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+                lengthMenu: '<span>Mostrar:</span> _MENU_',
+                paginate: { 'first': 'Primero', 'last': 'Ultimo', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' },
+                info: "Mostrando pagina _PAGE_ de _PAGES_",
             },
-            lengthMenu: [ 3, 10, 15, 20],
+            lengthMenu: [ 15, 25, 50, 75, 100 ],
             displayLength: 25,
             drawCallback: function (settings) {
                 var api = this.api();

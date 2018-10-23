@@ -35,7 +35,8 @@ class ProyectoController extends Controller
      */
     public function getIndex()
     {
-        return view("gerente.proyecto.mostrar");
+        return view("gerente.proyecto.mostrar", ["proyectos"=>Proyecto::All()]);
+        // return json_encode(\DB::table('t_proyecto')->get());
     }
     
     public function getCrear()
@@ -157,6 +158,7 @@ class ProyectoController extends Controller
 
                 $flagCurdPadre = false;
                 $arrayFechas=array();
+                $objCurdAntiguo = new CurDetalle();
 
                 foreach ($reader->getSheetIterator() as $hojas =>$sheet) {
                     foreach ($sheet->getRowIterator() as $contfilas =>$fila) {
@@ -170,6 +172,8 @@ class ProyectoController extends Controller
                                 //es titulo de recurso
                                 $objRecTipo = $this->traerOCrearRecurso(strtoupper(trim($fila[1])),trim($fila[0]));
                                 $objRecursoUnidadMedida = $this->traerOCrearRecursoUnidadMedida(1,$objRecTipo->rec_id);
+
+                                return "s";
                                 
                                 //setteando los campos del curd
                                 $objCurd->curd_cant = 0;
@@ -222,6 +226,7 @@ class ProyectoController extends Controller
                             //guardando el ultimo padre creado
                             if ($flagCurdPadre) {
                                 $objCurdAntiguo = CurDetalle::find($objCurd->curd_id);
+                                //return CurDetalle::find($objCurd->curd_id);
                             }
                             
                         }

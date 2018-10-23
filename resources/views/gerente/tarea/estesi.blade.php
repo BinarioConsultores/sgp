@@ -4,9 +4,7 @@
 <link href="{{asset('global_assets/css/extras/animate.min.css')}}" rel="stylesheet" type="text/css">
 @endsection
 @section('javascript')
-<script src="{{asset('global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
-<script src="{{asset('global_assets/js/plugins/cliente/datatable_cliente.js')}}"></script>
-<script src="{{asset('global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
+
 <script src="{{asset('global_assets/js/demo_pages/animations_css3.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/components_modals.js')}}"></script>
 <script src="{{asset('global_assets/js/tarea/task_manager_list_tarea.js')}}"></script>

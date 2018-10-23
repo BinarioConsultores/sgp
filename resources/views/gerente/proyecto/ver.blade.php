@@ -1,14 +1,24 @@
 @extends('plantillas.headergerente')
 @section('css')
 <link href="{{asset('global_assets/css/extras/animate.min.css')}}" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+
+	.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+	  background-color: #81A8BA;
+	  color: #000000;
+	}
+	.content {
+	    background-image: url("{{asset('assets/img/textura.jpg')}}");
+	}
+
+</style>
 @endsection
 @section('javascript')
-<script src="{{asset('global_assets/js/demo_pages/animations_css3.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/components_modals.js')}}"></script>
-<script src="{{asset('global_assets/js/sgp/task_manager_list.js')}}"></script>
+<script src="{{asset('global_assets/js/sgp/task_manager_list_cur.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
 <script type="text/javascript">
-
 
 </script>
 @endsection
@@ -44,56 +54,22 @@
 </div>
 
 <!-- /full width modal -->
-<div class="page-header page-header-dark has-cover mb-0">
-	<div class="page-header-content header-elements-inline">
-		<div class="page-title">
-			<h5>
-				<i class="icon-arrow-left52 mr-2"></i>
-				<span class="font-weight-semibold">Dashboard</span> - Proyecto - {{$proyecto->pro_nom}}
-				<small class="d-block opacity-75">With dark image</small>
-			</h5>
-		</div>
-	</div>
 
-	<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-		<div class="d-flex">
-			<div class="breadcrumb">
-				<a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Gerencia</a>
-				<a href="#" class="breadcrumb-item">Proyectos</a>
-				<span class="breadcrumb-item active">Ver Proyecto</span>
-			</div>
 
-		</div>
 
-		<div class="header-elements d-none">
-			<div class="breadcrumb justify-content-center">
-				<a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
-					Actions
-				</a>
-				<div class="dropdown-menu dropdown-menu-right">
-					<a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
-					<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
-					<a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
-					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
+@if(Session::has('creado'))
 <div class="row">
 	<div class="col-12">
-		@if(Session::has('creado'))
-		    <div class="alert alert-success alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert"><span>×</span></button>
-				{{Session::get('creado')}}
-		    </div>
-		@endif
+		<div class="alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+		{{Session::get('creado')}}
+		</div>
 	</div>
 </div>
+@endif
+	
 <!-- Profile navigation -->
-<div class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="navbar navbar-expand-lg navbar-dark bg-dark m-0">
 	<div class="text-center d-lg-none w-100">
 		<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-second">
 			<i class="icon-menu7 mr-2"></i>
@@ -476,21 +452,19 @@
                 	</div>
 				</div>
 				<div class="card-body">
-
-
-					<div class="datatable-scroll">
-						<table class="table datatable-pagination dataTable no-footer" id="DataTables_Table_1" role="grid" aria-describedby="DataTables_Table_1_info">
+					<table class="table table-bordered table-hover datatable-basic table-xs" id="tablaGastos">
 							<thead>
-								<tr role="row">
-									<th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="First Name: activate to sort column descending">Número</th>
-									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Fecha</th>
-									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Last Name: activate to sort column ascending">Tipo</th>
-									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Job Title: activate to sort column ascending">Estado</th>
-									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Observaciones</th>
-									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Proveedor</th>
-									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Empleado</th>
-									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending">Total</th>
-									<th class="text-center sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 100px;">Actions</th></tr>
+								<tr>
+									<th>Número</th>
+									<th>Fecha</th>
+									<th>Tipo</th>
+									<th>Estado</th>
+									<th>Observaciones</th>
+									<th>Proveedor</th>
+									<th>Empleado</th>
+									<th>Total</th>
+									<th>Actions</th>
+								</tr>
 							</thead>
 							<tbody>
 								@foreach($proyecto->facturas as $factura)
@@ -524,8 +498,7 @@
 									</tr>
 								@endforeach
 							</tbody>
-						</table>
-					</div>
+					</table>
 		    	</div>
 		    </div>
 		 </div>
