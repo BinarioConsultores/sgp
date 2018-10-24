@@ -42,12 +42,8 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 
-			<div class="modal-body">
-				<img src="">
-			</div>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+			<div class="modal-body col-centered">
+				<img src="{{asset('assets/img/fila_cabecera.png')}}">
 			</div>
 		</div>
 	</div>
@@ -452,7 +448,7 @@
                 	</div>
 				</div>
 				<div class="card-body">
-					<table class="table table-bordered table-hover datatable-basic table-xs" id="tablaGastos">
+					<table class="table table-bordered table-hover datatable-basic table-xs">
 							<thead>
 								<tr>
 									<th>Número</th>
@@ -657,7 +653,7 @@
                 	</div>
 				</div>
 				@if(!empty($proyecto->Curs->first()->CurDetalles))
-					<table class="table tasks-list table-lg">
+					<table class="table tasks-list table-xs table-hover">
 						<thead>
 							<tr>
 								<th>Cod.</th>

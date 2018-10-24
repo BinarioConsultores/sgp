@@ -77,9 +77,9 @@
 								                <td>{{$proyecto->pro_ubi}}</td>
 								                <td style="text-align: center;">{{$proyecto->pro_fechin}}</td>
 								                <td style="text-align: center;">{{$proyecto->pro_fechfin}}</td>
-								                <td style="text-align: center;">S/. {{$proyecto->pro_cd}}</td>
-								                <td style="text-align: center;">{{$proyecto->pro_uti}} %</td>
-								                <td style="text-align: center;">{{$proyecto->pro_gg}} %</td>
+								                <td style="text-align: center;">S/.{{$proyecto->pro_cd}}</td>
+								                <td style="text-align: center;">{{$proyecto->pro_uti}}%</td>
+								                <td style="text-align: center;">{{$proyecto->pro_gg}}%</td>
 												<td class="text-center">
 													<div class="list-icons">
 														<div class="dropdown">
@@ -123,9 +123,9 @@
 								                <td>{{$proyecto->pro_ubi}}</td>
 								                <td style="text-align: center;">{{$proyecto->pro_fechin}}</td>
 								                <td style="text-align: center;">{{$proyecto->pro_fechfin}}</td>
-								                <td style="text-align: center;">S/. {{$proyecto->pro_cd}}</td>
-								                <td style="text-align: center;">{{$proyecto->pro_uti}} %</td>
-								                <td style="text-align: center;">{{$proyecto->pro_gg}} %</td>
+								                <td style="text-align: center;">S/.{{$proyecto->pro_cd}}</td>
+								                <td style="text-align: center;">{{$proyecto->pro_uti}}%</td>
+								                <td style="text-align: center;">{{$proyecto->pro_gg}}%</td>
 												<td class="text-center">
 													<div class="list-icons">
 														<div class="dropdown">

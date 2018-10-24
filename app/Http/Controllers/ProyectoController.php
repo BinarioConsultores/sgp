@@ -137,7 +137,7 @@ class ProyectoController extends Controller
 
         if(Input::hasFile('import_file')){
 
-            \DB::transaction(function() use ($request, $pro_id){
+             \DB::transaction(function() use ($request, $pro_id){
                 /**
                  * Se crea el Calendario de Utilización de Recursos
                  *
@@ -155,26 +155,26 @@ class ProyectoController extends Controller
                 //$reader = ReaderFactory::create(Type::ODS); // for ODS files
                 
                 $reader->open($path);
-
+                $objCurdAntiguo = new CurDetalle();
                 $flagCurdPadre = false;
                 $arrayFechas=array();
-                $objCurdAntiguo = new CurDetalle();
-
+                
+                
                 foreach ($reader->getSheetIterator() as $hojas =>$sheet) {
                     foreach ($sheet->getRowIterator() as $contfilas =>$fila) {
-
-                        if (($contfilas >= $request->get('cur_pl')-1) and ($contfilas<=$request->get('cur_ul')-1)) {
+                        
+                        if (($contfilas >= $request->get('cur_pl')-2) and ($contfilas<=$request->get('cur_ul')-1)) {
+                            
 
                             $objCurd = new CurDetalle();
                             $objCurd->cur_id = $objCur->cur_id;
+                            return $fila[1];
                             //analizar si es recurso o no
                             if (trim($fila[0])=="" and trim($fila[2])=="" and trim($fila[3])=="" and trim($fila[4])=="" and trim($fila[5])=="" ) {
                                 //es titulo de recurso
                                 $objRecTipo = $this->traerOCrearRecurso(strtoupper(trim($fila[1])),trim($fila[0]));
                                 $objRecursoUnidadMedida = $this->traerOCrearRecursoUnidadMedida(1,$objRecTipo->rec_id);
 
-                                return "s";
-                                
                                 //setteando los campos del curd
                                 $objCurd->curd_cant = 0;
                                 $objCurd->curd_prec = 0;
@@ -183,6 +183,7 @@ class ProyectoController extends Controller
                                 $flagCurdPadre = true;
 
                                 $objCurd->save();
+                                return "padres";
 
                             }else{
 
@@ -226,9 +227,7 @@ class ProyectoController extends Controller
                             //guardando el ultimo padre creado
                             if ($flagCurdPadre) {
                                 $objCurdAntiguo = CurDetalle::find($objCurd->curd_id);
-                                //return CurDetalle::find($objCurd->curd_id);
                             }
-                            
                         }
                         //verficando fila cabecera
                         elseif ($contfilas == $request->get('cur_fc')-1) {
@@ -247,7 +246,7 @@ class ProyectoController extends Controller
                     }
                 }
                 $reader->close();
-            });            
+             });          
         }
         return "ok";
     }
