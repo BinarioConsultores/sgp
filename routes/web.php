@@ -55,6 +55,9 @@ Route::get('/gerente/proyectos','ProyectoController@getIndex');
 Route::get('/gerente/proyecto/crear','ProyectoController@getCrear');
 Route::post('/gerente/proyecto/crear','ProyectoController@postCrear');
 Route::get('/gerente/proyecto/{pro_id}','ProyectoController@getVer');
+Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'ProyectoController@getVerEditar');
+Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/ver', 'ProyectoController@getVerMostrar');
+Route::post('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'ProyectoController@postEditarFacturayDetalle');
 
 Route::get('/gerente/tarea','TareaController@getIndex');
 Route::get('/gerente/tarea/crear','TareaController@getCrear');
@@ -84,9 +87,9 @@ Route::post('/gerente/proyecto/{pro_id}/loadcur','ProyectoController@postLoadCur
 
 
 Route::get('/gerente/proyecto/{pro_id}/factura/crear', 'FacturaController@getCrearFactura');
-Route::post('/gerente/proyecto/{pro_id}/factura/crear', 'FacturaController@postCrearFactura');
-Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'FacturaController@getEditarFactura');
-Route::post('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'FacturaController@postEditarFactura');
+Route::post('/gerente/proyecto/{pro_id}/factura/crear', 'ProyectoController@postCrearFacturayDetalle');
+//Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'FacturaController@getEditarFactura');
+//Route::post('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'FacturaController@postEditarFactura');
 
 Route::post('/gerente/proyecto/{pro_id}/loadcur','ProyectoController@postLoadCur');
 Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/creardetalle', 'FacturaController@getCrearDetalleFactura');

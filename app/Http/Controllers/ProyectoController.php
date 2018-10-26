@@ -9,9 +9,14 @@ use sgp\Proyecto;
 use sgp\Recurso;
 use sgp\UnidadMedida;
 use sgp\Cur;
+use sgp\Gasto;
+use sgp\Empleado;
+use sgp\Proveedor;
 use sgp\CurDetalle;
 use sgp\CurdPlazo;
 use sgp\RecursoUnidadMedida;
+use sgp\Factura;
+use sgp\FacturaDetalle;
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 use Illuminate\Support\Facades\Input;
@@ -48,8 +53,43 @@ class ProyectoController extends Controller
 
     public function getVer($pro_id){
         $proyecto = Proyecto::findOrFail($pro_id);
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto]);
+        $empleados = Empleado::All();
+        $proveedores = Proveedor::All();
+        $gastos = Gasto::All();
+        $factura=Factura::findOrFail(10);
+        $modo="normal";
+
+        /*return $facturas->where('fac_id',1)->get();
+        die();*/
+        return view("gerente.proyecto.ver", ['empleados'=>$empleados,'proveedores'=>$proveedores,'proyecto'=>$proyecto,'gastos'=>$gastos,'factura'=>$factura,'modo'=>$modo]);
     }
+
+    public function getVerEditar($pro_id,$fact_id){
+        $proyecto = Proyecto::findOrFail($pro_id);
+        $empleados = Empleado::All();
+        $proveedores = Proveedor::All();
+        $gastos = Gasto::All();
+        $factura = Factura::findOrFail($fact_id);
+        $modo="editar";
+
+        /*return $facturas->where('fac_id',1)->get();
+        die();*/
+        return view("gerente.proyecto.ver", ['empleados'=>$empleados,'proveedores'=>$proveedores,'proyecto'=>$proyecto,'gastos'=>$gastos,'factura'=>$factura,'modo'=>$modo]);
+    }
+
+    public function getVerMostrar($pro_id,$fact_id){
+        $proyecto = Proyecto::findOrFail($pro_id);
+        $empleados = Empleado::All();
+        $proveedores = Proveedor::All();
+        $gastos = Gasto::All();
+        $factura = Factura::findOrFail($fact_id);
+        $modo="ver";
+
+        /*return $facturas->where('fac_id',1)->get();
+        die();*/
+        return view("gerente.proyecto.ver", ['empleados'=>$empleados,'proveedores'=>$proveedores,'proyecto'=>$proyecto,'gastos'=>$gastos,'factura'=>$factura,'modo'=>$modo]);
+    }
+    
     
     public function postCrear(Request $request)
     {
@@ -92,6 +132,127 @@ class ProyectoController extends Controller
 
         return redirect("/gerente/proyecto/".$proyecto->pro_id)->with('creado','¡El proyecto se ha creado con éxito!');
     }
+
+    public function postCrearFacturayDetalle($pro_id, Request $request){
+
+        $this->validate($request,[
+            'fac_nro'=>'required',
+            'fac_fech'=>'required',
+            'fac_tipo'=>'required',
+            'fac_est'=>'required',
+            'fac_obs'=>'required',
+            'prov_id'=>'required',
+            'emp_id'=>'required',
+            'pro_id'=>'required',
+        ]);
+        //para la factura
+        //factura = 1
+        //boleta = 2
+        //sinvalor = 3
+        $objFactura = new Factura();
+        $objFactura->fac_nro = $request->get('fac_nro');
+        $objFactura->fac_fech = $request->get('fac_fech');
+        $objFactura->fac_est = $request->get('fac_est');
+        $objFactura->fac_obs = $request->get('fac_obs');
+        $objFactura->fac_tipo = $request->get('fac_tipo');
+        $objFactura->prov_id = $request->get('prov_id');
+        $objFactura->emp_id = $request->get('emp_id');
+        $objFactura->pro_id = $pro_id;
+        $objFactura->save();
+
+        if($request->get('cambio')=="SI")
+        {
+            //$comprobante->pagos()->delete();
+            
+            $nro_filas = strtoupper($request->get('nro_filas'));
+
+            
+            for ($i=2; $i < $nro_filas ; $i++) { 
+                $desc=$request->get('desc'.$i);
+                $recuid=$request->get('recuid'.$i);
+                $cant=$request->get('cant'.$i);
+                $puni=$request->get('puni'.$i);
+                $gasid=$request->get('gasid'.$i);
+
+                $objDetalleFactura = new FacturaDetalle();
+                $objDetalleFactura->facd_desc = $desc;
+                $objDetalleFactura->facd_cant = $cant;
+                $objDetalleFactura->facd_punit = $puni;
+                $objDetalleFactura->gas_id = $gasid;
+                $objDetalleFactura->recum_id = $recuid;
+                $objDetalleFactura->fac_id = $objFactura->fac_id;
+                $objDetalleFactura->save();
+            }
+        }
+
+
+        /*$objDetalleFactura = new FacturaDetalle();
+        $objDetalleFactura->facd_desc = $request->get('facd_desc');
+        $objDetalleFactura->facd_cant = $request->get('facd_cant');
+        $objDetalleFactura->facd_punit = $request->get('facd_punit');
+        $objDetalleFactura->gas_id = $request->get('gas_id');
+        $objDetalleFactura->recum_id = $request->get('recum_id');
+        $objDetalleFactura->fac_id = $fac_id;
+        $objDetalleFactura->save();*/
+
+        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$objFactura->fac_id.'/creardetalle')->with('creado','Se creó la factura exitosamente');
+    }
+
+    public function postEditarFacturayDetalle($pro_id, $fac_id,Request $request){
+
+        $this->validate($request,[
+            'efac_nro'=>'required',
+            'efac_fech'=>'required',
+            'efac_tipo'=>'required',
+            'efac_est'=>'required',
+            'efac_obs'=>'required',
+            'eprov_id'=>'required',
+            'eemp_id'=>'required',
+        ]);
+        //para la factura
+        //factura = 1
+        //boleta = 2
+        //sinvalor = 3
+        $objFactura = Factura::findOrFail($fac_id);
+        $objFactura->fac_nro = $request->get('efac_nro');
+        $objFactura->fac_fech = $request->get('efac_fech');
+        $objFactura->fac_est = $request->get('efac_est');
+        $objFactura->fac_obs = $request->get('efac_obs');
+        $objFactura->fac_tipo = $request->get('efac_tipo');
+        $objFactura->prov_id = $request->get('eprov_id');
+        $objFactura->emp_id = $request->get('eemp_id');
+        $objFactura->pro_id = $pro_id;
+        $objFactura->save();
+
+        if($request->get('ecambio')=="SI")
+        {
+            $objFactura->FacturaDetalles()->delete();
+            
+            $nro_filas = strtoupper($request->get('enro_filas'));
+
+            
+            for ($i=2; $i < $nro_filas ; $i++) { 
+
+                $desc=$request->get('edesc'.$i);
+                $recuid=$request->get('erecuid'.$i);
+                $cant=$request->get('ecant'.$i);
+                $puni=$request->get('epuni'.$i);
+                $gasid=$request->get('egasid'.$i);
+
+                $objDetalleFactura = new FacturaDetalle();
+                $objDetalleFactura->facd_desc = $desc;
+                $objDetalleFactura->facd_cant = $cant;
+                $objDetalleFactura->facd_punit = $puni;
+                $objDetalleFactura->gas_id = $gasid;
+                $objDetalleFactura->recum_id = $recuid;
+                $objDetalleFactura->fac_id = $objFactura->fac_id;
+                $objDetalleFactura->save();
+            }
+        }
+
+        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$objFactura->fac_id.'/creardetalle')->with('creado','Se creó la factura exitosamente');
+    }
+
 
     public function getVerProyectosPorTipo(Request $request){
         
