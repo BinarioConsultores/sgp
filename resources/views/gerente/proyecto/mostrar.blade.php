@@ -14,9 +14,7 @@
 @section('javascript')
 
 <script src="{{asset('global_assets/js/sgp/datatables_api_para_proyectos.js')}}"></script>
-<script type="text/javascript">
 
-</script>
 @endsection
 @section('content')
 
@@ -32,6 +30,7 @@
 </div>
 
 <div class="content">
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -57,6 +56,7 @@
 							<table class="table table-bordered table-hover datatable-basic table-xs">
 								<thead class="">
 									<tr>
+										<th>Id</th>
 						                <th>Nombre de Proyecto</th>
 						                <th>Cliente</th>
 						                <th>Ubicación</th>
@@ -72,6 +72,7 @@
 									@foreach($proyectos as $proyecto)
 										@if($proyecto->pro_tipo == "obra")
 											<tr>
+												<td>{{$proyecto->pro_id}}</td>
 								                <td>{{$proyecto->pro_nom}}</td>
 								                <td>{{$proyecto->Cliente->cli_nom}}</td>
 								                <td>{{$proyecto->pro_ubi}}</td>
@@ -100,9 +101,10 @@
 						</div>
 
 						<div class="tab-pane fade" id="supervisiones">
-							<table class="table table-bordered table-hover datatable-basic">
+							<table class="table table-bordered table-hover datatable-basic table-xs">
 								<thead class="">
 									<tr>
+										<th>ID</th>
 						                <th>Nombre de Proyecto</th>
 						                <th>Cliente</th>
 						                <th>Ubicación</th>
@@ -118,6 +120,7 @@
 									@foreach($proyectos as $proyecto)
 										@if($proyecto->pro_tipo == "supervision")
 											<tr>
+												<td>{{$proyecto->pro_id}}</td>
 								                <td>{{$proyecto->pro_nom}}</td>
 								                <td>{{$proyecto->Cliente->cli_nom}}</td>
 								                <td>{{$proyecto->pro_ubi}}</td>
@@ -146,9 +149,10 @@
 						</div>
 
 						<div class="tab-pane fade" id="expedientes">
-							<table class="table table-bordered table-hover datatable-basic">
+							<table class="table table-bordered table-hover datatable-basic table-xs">
 								<thead class="">
 									<tr>
+										<th>id</th>
 						                <th>Nombre de Proyecto</th>
 						                <th>Cliente</th>
 						                <th>Ubicación</th>
@@ -164,12 +168,13 @@
 									@foreach($proyectos as $proyecto)
 										@if($proyecto->pro_tipo == "expediente")
 											<tr>
+												<td>{{$proyecto->pro_id}}</td>
 								                <td>{{$proyecto->pro_nom}}</td>
 								                <td>{{$proyecto->Cliente->cli_nom}}</td>
 								                <td>{{$proyecto->pro_ubi}}</td>
 								                <td style="text-align: center;">{{$proyecto->pro_fechin}}</td>
 								                <td style="text-align: center;">{{$proyecto->pro_fechfin}}</td>
-								                <td style="text-align: center;">S/. {{$proyecto->pro_cd}}</td>
+								                <td style="text-align: center;">S/.{{$proyecto->pro_cd}}</td>
 								                <td style="text-align: center;">{{$proyecto->pro_uti}} %</td>
 								                <td style="text-align: center;">{{$proyecto->pro_gg}} %</td>
 												<td class="text-center">
