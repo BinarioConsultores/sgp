@@ -34,7 +34,7 @@ class ProyectoController extends Controller
      */
     public function getIndex()
     {
-        return view("gerente.proyecto.mostrar");
+        return view("gerente.proyecto.mostrar", ["proyectos"=>Proyecto::All()]);
     }
     
     public function getCrear()
