@@ -155,13 +155,15 @@ class ProyectoController extends Controller
                 $reader->open($path);
 
                 $flagCurdPadre = false;
+                $objCurdAntiguo = new CurDetalle();
                 foreach ($reader->getSheetIterator() as $hojas =>$sheet) {
                     foreach ($sheet->getRowIterator() as $contfilas =>$fila) {
                         
-                        if (($contfilas >= $request->get('cur_pl')-1) and ($contfilas<=$request->get('cur_ul')-1)) {
-
-                            $objCurd = new CurDetalle();
-                            $objCurd->cur_id = $objCur->cur_id;
+                        
+                        if (($contfilas >= $request->get('cur_pl')) and ($contfilas<=$request->get('cur_ul'))) {
+                            
+                            $objCurd = new CurDetalle(); 
+                            $objCurd->cur_id = $objCur->cur_id; 
                             //analizar si es recurso o no
                             if (trim($fila[0])=="" and trim($fila[2])=="" and trim($fila[3])=="" and trim($fila[4])=="" and trim($fila[5])=="" ) {
                                 //es titulo de recurso
@@ -202,8 +204,9 @@ class ProyectoController extends Controller
                                                         
                             $objCurd->save();
                             //guardando el ultimo padre creado
-                            if ($flagCurdPadre) {
-                                $objCurdAntiguo = CurDetalle::find($objCurd->curd_id);
+                            if ($flagCurdPadre == true) {
+                                
+                                $objCurdAntiguo = $objCurd;
                             }
                             
                         }
