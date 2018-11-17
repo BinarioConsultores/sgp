@@ -74,7 +74,7 @@ var TaskManagerList = function () {
                 paginate: { 'first': 'Primero', 'last': 'Ultimo', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' },
                 info: "Mostrando pagina _PAGE_ de _PAGES_",
             },
-            lengthMenu: [ 15, 25, 50, 75, 100 ],
+            lengthMenu: [ 15, 25, 50, 75, 100,1000 ],
             displayLength: 25,
             drawCallback: function (settings) {
                 var api = this.api();

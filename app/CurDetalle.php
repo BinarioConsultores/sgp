@@ -25,7 +25,7 @@ class CurDetalle extends Model
   }
   public function CurdPlazos()
   {
-      return $this->hasMany('sgp\CurdPlazo','cur_id');
+      return $this->hasMany('sgp\CurdPlazo','curd_id');
   }
   public function CurdPadre()
   {

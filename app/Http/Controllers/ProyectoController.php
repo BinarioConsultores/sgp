@@ -11,9 +11,11 @@ use sgp\UnidadMedida;
 use sgp\Cur;
 use sgp\CurDetalle;
 use sgp\RecursoUnidadMedida;
+use sgp\CurdPlazo;
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 class ProyectoController extends Controller
 {
@@ -131,6 +133,9 @@ class ProyectoController extends Controller
             'import_file'=>'required',
             'cur_pl'=>'required',
             'cur_ul'=>'required',
+            'pro_fechin' => 'required',
+            'cur_etapas' => 'required',
+            'cur_fc' => 'required'
         ]);
 
         if(Input::hasFile('import_file')){
@@ -156,10 +161,18 @@ class ProyectoController extends Controller
 
                 $flagCurdPadre = false;
                 $objCurdAntiguo = new CurDetalle();
+                
+                $aux_dias = Array();
+
                 foreach ($reader->getSheetIterator() as $hojas =>$sheet) {
+
                     foreach ($sheet->getRowIterator() as $contfilas =>$fila) {
-                        
-                        
+                        if ($contfilas == $request->get('cur_fc')) {
+                           for ($i=6; $i < $request->get('cur_etapas')+6; $i++) { 
+                              array_push($aux_dias, filter_var($fila[$i], FILTER_SANITIZE_NUMBER_INT));
+                           }
+                        }
+
                         if (($contfilas >= $request->get('cur_pl')) and ($contfilas<=$request->get('cur_ul'))) {
                             
                             $objCurd = new CurDetalle(); 
@@ -205,10 +218,23 @@ class ProyectoController extends Controller
                             $objCurd->save();
                             //guardando el ultimo padre creado
                             if ($flagCurdPadre == true) {
-                                
                                 $objCurdAntiguo = $objCurd;
                             }
                             
+                            //guardando la fecha de inicio del proyecto en una variable auxiliar
+                            $aux_fechafin = $request->get("pro_fechin");
+                            //Codigo para crear los plazos en CURD_PLAZO CON UN SUPER ALGORITMO
+                            for ($i=6; $i < $request->get("cur_etapas") + 6; $i++) { 
+                                 $objCurdPlazo = new CurdPlazo();
+                                 $objCurdPlazo->curdp_cant = round(trim($fila[$i]), 2);
+                                 $objCurdPlazo->curdp_fechin = $aux_fechafin;
+                                 $nuevaFechaFinal = date('Y-m-d', strtotime($aux_fechafin. ' + '.trim($aux_dias[$i-6]).' days'));
+                                 $aux_fechafin = $nuevaFechaFinal;
+                                 $objCurdPlazo->curdp_fechfin = $aux_fechafin;
+                                 $objCurdPlazo->curdp_nro = $i-5;
+                                 $objCurdPlazo->curd_id = $objCurd->curd_id;
+                                 $objCurdPlazo->save();
+                            }
                         }
 
                     }
