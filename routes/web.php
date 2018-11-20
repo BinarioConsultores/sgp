@@ -51,10 +51,18 @@ Route::post('/admin/proveedor/editar','ProveedorController@postEditar');
 Route::get('/admin/proveedor/eliminar','ProveedorController@getEliminar');
 
 Route::get('/gerente/proyectos','ProyectoController@getIndex');
+Route::get('/gerente/control','ControlController@getIndex');
 
 Route::get('/gerente/proyecto/crear','ProyectoController@getCrear');
 Route::post('/gerente/proyecto/crear','ProyectoController@postCrear');
 Route::get('/gerente/proyecto/{pro_id}','ProyectoController@getVer');
+Route::get('/gerente/control/mostrar','ControlController@getIndex');
+Route::get('/gerente/VerRecursos/{pro_id}','ControlController@getVerRecursos');
+Route::get('/gerente/VerRecurso/{pro_id}/recurso/{recum_id}','ControlController@getVerRecurso');
+Route::get('/gerente/VerRec','ControlController@getVerRec');
+
+
+
 Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'ProyectoController@getVerEditar');
 Route::get('/gerente/proyecto/{pro_id}/factura/{fact_id}/ver', 'ProyectoController@getVerMostrar');
 Route::post('/gerente/proyecto/{pro_id}/factura/{fact_id}/editar', 'ProyectoController@postEditarFacturayDetalle');

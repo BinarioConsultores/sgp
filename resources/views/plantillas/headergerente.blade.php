@@ -66,11 +66,15 @@
 
 		<div class="navbar-collapse collapse" id="navbar-nav-lists">
 			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="{{url('gerente/control')}}" class="navbar-nav-link" aria-expanded="false">Control</a>
+				</li>
 				<li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Menú</a>
-
+				
 					<div class="dropdown-menu">
 						<a href="{{url('gerente/proyectos')}}" class="dropdown-item rounded"> <i class="icon-folder"></i>Ver Proyectos</a>
+						<a href="{{url('gerente/control')}}" class="dropdown-item rounded"> <i class="icon-folder"></i>Control</a>
 						<div class="dropdown-submenu">
 							<a href="#" class="dropdown-item dropdown-toggle"><i class="icon-firefox"></i> Has child</a>
 							<div class="dropdown-menu">
