@@ -18,6 +18,10 @@
 <script src="{{asset('global_assets/js/demo_pages/components_modals.js')}}"></script>
 <script src="{{asset('global_assets/js/sgp/task_manager_list_cur.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
+<script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/forms/selects/select2.full.min.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+<script src="../../assets/js/app.js"></script>
 
 <script type="text/javascript">
 	function obtenerTotal(){
@@ -840,7 +844,7 @@
    <!-- /inner container -->
 </div>
 <!-- Modal para ingresar un nuevo gasto -->
-<div id="modal_gasto" class="modal fade" tabindex="-1">
+<div id="modal_gasto" class="modal fade">
 	<div class="modal-dialog modal-full">
 		<div class="modal-content">
 		    <div class="col-md-12 col-centered">
@@ -863,7 +867,9 @@
 								<label>Persona que genera la Factura:</label>
 								<input type="text" name="pro_id" value="{{$proyecto->pro_id}}" hidden="hidden">
 								<select class="form-control select-search" data-fouc name="emp_id" required="required" style="width:100%;">
-									<option value="1">Empleado</option>
+                           @foreach($empleados as $empleado)
+										<option value="{{$empleado->emp_id}}">{{$empleado->Persona->per_nom}} {{$empleado->Persona->per_ape}}</option>	
+									@endforeach
 								</select>
 							</div>
 							<div class="col-md-4 form-group">
@@ -905,7 +911,9 @@
 							<div class="col-md-4 form-group">
 								<label>Proveedor</label>
 								<select class="form-control select-search" data-fouc name="prov_id" required="required" style="width:100%;">
-									<option value="1">Proveedor</option>
+                           @foreach($proveedores as $proveedor)
+										<option value="{{$proveedor->prov_id}}">{{$proveedor->prov_nom}}</option>	
+									@endforeach
 								</select>
 
 							</div>

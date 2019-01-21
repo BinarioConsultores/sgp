@@ -53,7 +53,7 @@ class ProyectoController extends Controller
 
     public function getVer($pro_id){
         $proyecto = Proyecto::findOrFail($pro_id);
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto]);
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All()]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){
