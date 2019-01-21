@@ -19,7 +19,128 @@
 <script src="{{asset('global_assets/js/sgp/task_manager_list_cur.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
 
+<script type="text/javascript">
+	function obtenerTotal(){
 
+		var facd_cant = parseFloat($('#facd_cant').val());
+		var facd_punit = parseFloat($('#facd_punit').val());
+		if (isNaN(Math.round(parseFloat(facd_cant*facd_punit) * 100) / 100)) {
+			$('#facd_total').val(0);
+		}
+		else{
+			$('#facd_total').val(Math.round(parseFloat(facd_cant*facd_punit) * 100) / 100);
+		}
+	}
+	function obtenerTotaledit(){
+
+		var facd_cant = parseFloat($('#efacd_cant').val());
+		var facd_punit = parseFloat($('#efacd_punit').val());
+		if (isNaN(Math.round(parseFloat(facd_cant*facd_punit) * 100) / 100)) {
+			$('#efacd_total').val(0);
+		}
+		else{
+			$('#efacd_total').val(Math.round(parseFloat(facd_cant*facd_punit) * 100) / 100);
+		}
+	}
+
+</script>
+<script type="text/javascript">
+	function obtenerEdit(id){
+
+		$('#facd_id1').val(id.facd_id);
+        $('#facd_desc1').val(id.facd_desc);
+		$('#facd_cant1').val(id.facd_cant);
+		$('#facd_punit1').val(id.facd_punit);
+		$('#recum_id1').val(id.recum_id);
+		$('#facd_total1').val(id.facd_cant*id.facd_punit);
+	};
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var datos=new Array();
+        $("#add").click(function(){
+            
+            var nuevaFila="<tr>";
+            var trs=$("#historial tr").length;
+            var texto = $("#recum_id option:selected").text().replace(/ /g, "");
+            nuevaFila+="<td><input type=text readonly style='border-width: 0px' name=desc"+trs+" value="+$("#facd_desc").val()+"></input></td>";
+            nuevaFila+="<td style='display:none'><input type=text readonly readonly style='border-width: 0px' name=gasid"+trs+" value="+$("#gas_id").val()+"></input></td>";
+            nuevaFila+="<td style='display:none'><input type=text readonly readonly style='border-width: 0px' name=recuid"+trs+" value="+$("#recum_id").val()+"></input></td>";
+            nuevaFila+="<td><input type=text style='border-width: 0px' name=recu"+trs+" value="+texto+"></input></td>";
+            nuevaFila+="<td><input type=text readonly style='border-width: 0px' name=cant"+trs+" value="+$("#facd_cant").val()+"></input></td>";
+            nuevaFila+="<td><input type=text readonly style='border-width: 0px' name=puni"+trs+" value="+$("#facd_punit").val()+"></input></td>";
+            nuevaFila+="<td><input type=text readonly style='border-width: 0px' name=ptot"+trs+" value="+$("#facd_total").val()+"></input></td>";
+            nuevaFila+="</tr>";
+            $("#historial").append(nuevaFila);
+
+            trs=$("#historial tr").length;
+            $('#nro_filas').val(trs);
+            $('#cambio').val("SI");
+        });
+ 
+        /**
+         * Funcion para eliminar la ultima columna de la tabla.
+         * Si unicamente queda una columna, esta no sera eliminada
+         */
+        $("#del").click(function(){
+            // Obtenemos el total de columnas (tr) del id "tabla"
+            var trs=$("#historial tr").length;
+            if(trs>2)
+            {
+                // Eliminamos la ultima columna
+                $("#historial tr:last").remove();              
+
+            }
+
+            trs=$("#historial tr").length;
+            $('#nro_filas').val(trs);
+            $('#cambio').val("SI");
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var datos=new Array();
+        $("#eadd").click(function(){
+            
+            var enuevaFila="<tr>";
+            var etrs=$("#ehistorial tr").length;
+            var etexto = $("#erecum_id option:selected").text().replace(/ /g, "");
+            enuevaFila+="<td><input type=text readonly style='border-width: 0px' name=edesc"+etrs+" value="+$("#efacd_desc").val()+"></input></td>";
+            enuevaFila+="<td style='display:none'><input type=text readonly readonly style='border-width: 0px' name=egasid"+etrs+" value="+$("#egas_id").val()+"></input></td>";
+            enuevaFila+="<td style='display:none'><input type=text readonly readonly style='border-width: 0px' name=erecuid"+etrs+" value="+$("#erecum_id").val()+"></input></td>";
+            enuevaFila+="<td><input type=text style='border-width: 0px' name=erecu"+etrs+" value="+etexto+"></input></td>";
+            enuevaFila+="<td><input type=text readonly style='border-width: 0px' name=ecant"+etrs+" value="+$("#efacd_cant").val()+"></input></td>";
+            enuevaFila+="<td><input type=text readonly style='border-width: 0px' name=epuni"+etrs+" value="+$("#efacd_punit").val()+"></input></td>";
+            enuevaFila+="<td><input type=text readonly style='border-width: 0px' name=eptot"+etrs+" value="+$("#efacd_total").val()+"></input></td>";
+            enuevaFila+="</tr>";
+            $("#ehistorial").append(enuevaFila);
+
+            etrs=$("#ehistorial tr").length;
+            $('#enro_filas').val(etrs);
+            $('#ecambio').val("SI");
+        });
+ 
+        /**
+         * Funcion para eliminar la ultima columna de la tabla.
+         * Si unicamente queda una columna, esta no sera eliminada
+         */
+        $("#edel").click(function(){
+            // Obtenemos el total de columnas (tr) del id "tabla"
+            var etrs=$("#ehistorial tr").length;
+            if(etrs>2)
+            {
+                // Eliminamos la ultima columna
+                $("#ehistorial tr:last").remove();              
+
+            }
+
+            etrs=$("#ehistorial tr").length;
+            $('#enro_filas').val(etrs);
+            $('#ecambio').val("SI");
+        });
+    });
+</script>
 @endsection
 @section('content')
 @if (Session::has('creado'))
@@ -49,7 +170,6 @@
 </div>
 
 <!-- /full width modal -->
-
 
 @if(Session::has('creado'))
 <div class="row">
@@ -490,7 +610,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                        <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/ver" class="dropdown-item"><i class="icon-eye"></i> Ver</a>
-                                       <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/editar" class="dropdown-item"><i class="icon-pencil5"></i> Editar</a>
+                                       <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/creardetalle" class="dropdown-item"><i class="icon-pencil5"></i> Editar</a>
                                        <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/eliminar" onclick="return confirm('Esta seguro que desea eliminar?')" class="dropdown-item"><i class="icon-bin2"></i> Eliminar</a>
                                     </div>
                                  </div>
@@ -719,4 +839,154 @@
    </div>
    <!-- /inner container -->
 </div>
+<!-- Modal para ingresar un nuevo gasto -->
+<div id="modal_gasto" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-full">
+		<div class="modal-content">
+		    <div class="col-md-12 col-centered">
+		        <form method="POST" action="/gerente/proyecto/{{$proyecto->pro_id}}/factura/crear">
+		        	<input type="hidden" name="nro_filas" id="nro_filas" value="0" >
+					<input type="hidden" name="cambio" id="cambio" value="NO" >
+					<div class="card-header header-elements-inline bg-light">
+		                <h4 class="card-title mx-auto">Cabecera de Factura</h4>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                		<a class="list-icons-item" data-action="reload"></a>
+		                	</div>
+		            	</div>
+					</div>
+		            <div class="card-body">
+						{{ csrf_field() }}
+						<div class="row">
+							<div class="col-md-4 form-group">
+								<label>Persona que genera la Factura:</label>
+								<input type="text" name="pro_id" value="{{$proyecto->pro_id}}" hidden="hidden">
+								<select class="form-control select-search" data-fouc name="emp_id" required="required" style="width:100%;">
+									<option value="1">Empleado</option>
+								</select>
+							</div>
+							<div class="col-md-4 form-group">
+								<label>Tipo de Gasto:</label>
+								<select class="form-control select-search" data-fouc name="fac_tipo" required="required" style="width: 100%;">
+									<option value="1">Factura</option>
+									<option value="2">Boleta</option>
+									<option value="3">Sin Documento</option>
+								</select>
+							</div>
+							<div class="col-md-4 form-group">
+								<label>Fecha <span id="tipo_gasto">de la Factura</span></label>
+								<div class="input-group">
+									<span class="input-group-prepend">
+										<span class="input-group-text"><i class="icon-calendar22"></i></span>
+									</span>
+									<input type="date" class="form-control daterange-single" name="fac_fech" required="required">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4 form-group">
+								<label>Estado <span id="tipo_gasto_est">de la Factura</span></label>
+								<input type="text" class="form-control daterange-single" name="fac_est" value="Realizada" readonly="readonly" required="required">
+							</div>
+							<div class="col-md-4 form-group">
+								<label>Número <span id="tipo_gasto_nro">de la Factura</span></label>
+								<input type="text" class="form-control daterange-single" name="fac_nro" value="0" required="required">
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4 form-group">
+								<label>Observación <span id="tipo_gasto_obs">de la Factura</span></label>
+								<textarea name="fac_obs" rows="3" cols="3" class="form-control" placeholder="Coloque los detalles que justifiquen el gasto"></textarea>
+							</div>
+							<div class="col-md-4 form-group">
+								<label>Proveedor</label>
+								<select class="form-control select-search" data-fouc name="prov_id" required="required" style="width:100%;">
+									<option value="1">Proveedor</option>
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="modal-header bg-slate-600">
+						<h6 class="modal-title">Agregar Detalle de Factura</h6>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-content">
+					<div class="modal-body">				
+						<hr>
+						<div class="card card-table table-responsive shadow-3 mb-0">
+							<table class="table table-bordered table-xs">
+								<thead>
+									<tr>
+										<th width="35%">Descripción: 
+											<textarea name="facd_desc" id="facd_desc" rows="1" cols="3" class="form-control" placeholder="Coloque una Descripción"></textarea>
+										</th>
+										<th width="25%">Recurso y Unidad de Medida:
+											</br>
+											<input type="text" id="gas_id" name="gas_id" value="1" hidden="hidden">
+											<select class="form-control select-search" data-fouc name="recum_id" id="recum_id" required="required">
+												<option value="1">************ OTROS ************</option>
+												@foreach($proyecto->Curs[0]->CurDetalles as $curdetalle)
+													@if($curdetalle->curd_idpadre != 1)
+														<option value="{{$curdetalle->RecursoUnidadMedida->recum_id}}">{{$curdetalle->RecursoUnidadMedida->Recurso->rec_nom}} || {{$curdetalle->RecursoUnidadMedida->UnidadMedida->um_abr}}</option>
+													@endif
+												@endforeach
+											</select>
+										</th>
+										<th width="10%">Cantidad:
+											<input type="text" class="form-control daterange-single" name="facd_cant" id="facd_cant" onkeyup="obtenerTotal();" required="required" value="0">
+										</th>
+										<th width="10%">Precio Unitario:
+											<input type="text" class="form-control daterange-single" name="facd_punit" id="facd_punit" onkeyup="obtenerTotal();" required="required" value="0">
+										</th>
+										<th width="10%">Total:
+											<input type="text" class="form-control daterange-single font-weight-black" id="facd_total" required="required" value="0" disabled>
+										</th>
+										<td>
+											<input type="button" id="add" style="width: 100%; height: 100%; background-color: #5cb85c;border-width: 0px;font-size: 20px; color: #fff; font-style: bold" value="+" ></input>
+											</td>
+										<td>
+											<input type="button" id="del" style="width: 100%; height: 100%; background-color: #d9534f;border-width: 0px;font-size: 20px; color: #fff; font-style: bold" value="-"></input>
+										</td>
+									</tr>
+								</thead>
+							</table>
+							<div class="card-body">
+								<table class="table table-bordered datatable-basic table-xs" id="historial" name="historial">
+									<thead>
+										<tr>
+											<th>Descripción</th>
+											<th style='display:none'>gasid</th>
+											<th style='display:none'>Idconcepto</th>
+											<th>Concepto</th>
+											<th>Cantidad</th>
+											<th>P. Unitario</th>
+											<th>P. Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr role="row" class="odd">
+										</tr>
+									</tbody>
+								</table>
+					    	</div>
+						</div>			
+		            
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-lg bg-green-700">Crear Factura <i class="icon-paperplane ml-2"></i></button>
+					</div>
+				</form>
+		        </div>
+			</div>
+		</div>		
+	</div>
+</div>
+<!-- /full width modal -->
 @endsection
