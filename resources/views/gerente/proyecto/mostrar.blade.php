@@ -30,7 +30,24 @@
 </div>
 
 <div class="content">
+<ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover" id="fab-menu-affixed-demo-right">
+		<li>
+			<a class="fab-menu-btn btn bg-teal-400 btn-float rounded-round btn-icon">
+				<i class="fab-icon-open icon-paragraph-justify3"></i>
+				<i class="fab-icon-close icon-cross2"></i>
+			</a>
 
+			<ul class="fab-menu-inner">
+				<li>
+					<div data-fab-label="Agregar">
+						<a href="/gerente/proyecto/crear" class="btn btn-light rounded-round btn-icon btn-float bg-teal-400">
+							<i class="icon-plus3"></i>
+						</a>
+					</div>
+				</li>
+			</ul>
+		</li>
+	</ul>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
