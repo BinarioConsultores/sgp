@@ -53,7 +53,7 @@
 	<!-- Main navbar -->
 	<div class="navbar navbar-expand-xl navbar-dark bg-dark navbar-component mb-0">
 		<div class="navbar-brand">
-			<a href="index.html" class="d-inline-block">
+			<a href="{{url('home')}}" class="d-inline-block">
 				<img src="../../../../global_assets/images/logo_light.png" alt="">
 			</a>
 		</div>
@@ -69,11 +69,13 @@
 				<li class="nav-item">
 					<a href="{{url('gerente/control')}}" class="navbar-nav-link" aria-expanded="false">Control</a>
 				</li>
+				<li class="nav-item">
+					<a href="{{url('gerente/proyectos')}}" class="navbar-nav-link">Ver Proyectos</a>
+				</li>
 				<li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Menú</a>
 				
 					<div class="dropdown-menu">
-						<a href="{{url('gerente/proyectos')}}" class="dropdown-item rounded"> <i class="icon-folder"></i>Ver Proyectos</a>
 						<a href="{{url('gerente/control')}}" class="dropdown-item rounded"> <i class="icon-folder"></i>Control</a>
 						<div class="dropdown-submenu">
 							<a href="#" class="dropdown-item dropdown-toggle"><i class="icon-firefox"></i> Has child</a>
