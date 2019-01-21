@@ -243,8 +243,8 @@
     <div class="col-md-12 col-centered">
         
         <div class="card">
-			<div class="card-header header-elements-inline bg-slate-600">
-                <h1 class="card-title mx-auto">Cabecera de Factura</h1>
+			<div class="card-header header-elements-inline bg-slate-600" style="padding: 8.5px">
+                <label class="card-title mx-auto"><font size="3.5">Cabecera de Factura</font></label>
 				<div class="header-elements">
 					<div class="list-icons">
                 		<a class="list-icons-item" data-action="collapse"></a>
@@ -336,8 +336,8 @@
         </div>
 
         <div class="card">
-			<div class="card-header header-elements-inline bg-slate-600">
-                <h1 class="card-title mx-auto">Detalle de Factura</h1>
+			<div class="card-header header-elements-inline bg-slate-600" style="padding: 8.5px">
+                <label class="card-title mx-auto"><font size="3.5">Detalle de la Factura</font></label>
 				<div class="header-elements">
 					<div class="list-icons">
                 		<a class="list-icons-item" data-action="collapse"></a>

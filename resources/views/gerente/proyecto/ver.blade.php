@@ -847,8 +847,8 @@
 		        <form method="POST" action="/gerente/proyecto/{{$proyecto->pro_id}}/factura/crear">
 		        	<input type="hidden" name="nro_filas" id="nro_filas" value="0" >
 					<input type="hidden" name="cambio" id="cambio" value="NO" >
-					<div class="card-header header-elements-inline bg-light">
-		                <h4 class="card-title mx-auto">Cabecera de Factura</h4>
+					<div class="card-header header-elements-inline bg-light" style="padding: 8.5px">
+		                <label class="card-title mx-auto" ><font size="3.5">Cabecera de Factura</font></label>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -911,7 +911,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal-header bg-slate-600">
+					<div class="modal-header bg-slate" style="padding: 8.5px">
 						<h6 class="modal-title">Agregar Detalle de Factura</h6>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
