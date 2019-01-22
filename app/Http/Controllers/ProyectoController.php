@@ -66,8 +66,8 @@ class ProyectoController extends Controller
         $etapas =  0;
         foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
              $etapas++;   
-        }                 
-        
+        }
+
         return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas]);
     }
 
