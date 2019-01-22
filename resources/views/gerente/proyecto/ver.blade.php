@@ -666,7 +666,7 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 						<div class="row">
 							<div class="col-md-4 form-group">
 								<label>Observación <span id="tipo_gasto_obs">de la Factura</span></label>
-								<textarea name="fac_obs" rows="3" cols="3" class="form-control" placeholder="Coloque los detalles que justifiquen el gasto"></textarea>
+								<textarea name="fac_obs" rows="1" cols="3" class="form-control" placeholder="Coloque los detalles que justifiquen el gasto"></textarea>
 							</div>
 							
 						</div>
