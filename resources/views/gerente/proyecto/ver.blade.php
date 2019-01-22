@@ -20,14 +20,16 @@
 <script>
 var total = JSON.parse("{{ json_encode($total) }}");
 var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
+var etapas =  JSON.parse("{{ json_encode($etapas) }}");
 
-/*var etapas = {{$etapas}};
-var arrEtapas = new Array();
-for (var i = 0;i<etapas;i++){
-      arrEtapas.push('Etapa'+(i+1));
-}
-//var jsonEtapas = JSON.stringify(arrEtapas);
-var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
+alert(etapas);
+   var arrEtapas = new Array();
+   for (var i = 0;i<etapas;i++){
+         arrEtapas.push('Etapa'+(i+1));
+   }
+   //var jsonEtapas = JSON.stringify(arrEtapas);
+   var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
+
 //alert(jsonEtapas);
  /*var etapa1 = {{$etapa1}};
  var etapa2 = {{$etapa2}};

@@ -2,6 +2,7 @@
 
 namespace sgp\Http\Controllers;
 
+error_reporting(0); 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use sgp\Cliente;
@@ -21,6 +22,7 @@ use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+
 
 class ProyectoController extends Controller
 {
@@ -62,7 +64,15 @@ class ProyectoController extends Controller
              $presutil=$presutil+($detalle->facd_cant*$detalle->facd_punit);
             }
         }
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil]);
+
+        $etapas=0;
+   
+        foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
+            $etapas++;   
+        }
+
+        
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){
