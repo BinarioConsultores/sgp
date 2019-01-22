@@ -1,3 +1,5 @@
+<?php error_reporting(0);?>
+
 @extends('plantillas.headergerente')
 @section('css')
 <link href="{{asset('global_assets/css/extras/animate.min.css')}}" rel="stylesheet" type="text/css">
