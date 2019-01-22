@@ -284,6 +284,7 @@ var EchartsColumnsWaterfalls = function() {
         // Define elements
         var columns_basic_element = document.getElementById('columns_basic');
         var columns_basic_element2 = document.getElementById('columns_basic2');
+        var columns_basic_element3 = document.getElementById('columns_basic3');
         // Charts configuration
         //
 
@@ -318,6 +319,21 @@ var EchartsColumnsWaterfalls = function() {
 
             columns_basic2.setOption(JsonChart2);
         }
+        if (columns_basic_element3) {
+
+            // Initialize chart
+            var columns_basic3 = echarts.init(columns_basic_element3);
+
+
+            //
+            // Chart config
+            //
+
+            // Options
+            // columns_basic.setOption();
+
+            columns_basic3.setOption(JsonChart2);
+        }
 
 
         //
@@ -327,6 +343,8 @@ var EchartsColumnsWaterfalls = function() {
         // Resize function
         var triggerChartResize = function() {
             columns_basic_element && columns_basic.resize();
+            columns_basic_element2 && columns_basic2.resize();
+            columns_basic_element3 && columns_basic3.resize();
         };
 
         // On sidebar width change
