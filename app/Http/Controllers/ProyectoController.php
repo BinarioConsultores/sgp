@@ -64,6 +64,15 @@ class ProyectoController extends Controller
              $presutil=$presutil+($detalle->facd_cant*$detalle->facd_punit);
             }
         }
+        $arrCategos=array();
+        if(!empty($proyecto->Curs->first()->CurDetalles)){
+            foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle)
+                if($CurDetalle->curd_idpadre!=1)
+                   array_push($arrCategos,$CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom);
+        }
+        $arrCatego = array_unique($arrCategos);
+        $arrCategor = implode(",",$arrCatego);
+        $arrCat =  explode(",", $arrCategor);
 
         $etapas=0;
    
@@ -97,7 +106,7 @@ class ProyectoController extends Controller
             }
             $j++; 
         }
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado]);
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado,"categorias"=>$arrCat]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){

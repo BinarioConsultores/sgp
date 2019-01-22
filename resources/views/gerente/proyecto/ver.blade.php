@@ -23,7 +23,7 @@
 </script>
 <script>
    var etapas =  JSON.parse("{{ json_encode($etapas) }}");
-
+   var categorias = JSON.parse("{{ json_encode(count($categorias)) }}");
    //alert(etapas);
    var arrEtapas = new Array();
    for (var i = 0;i<etapas;i++){
@@ -31,6 +31,7 @@
    }
    //var jsonEtapas = JSON.stringify(arrEtapas);
    var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
+   var arrCategorias = {!!json_encode($categorias)!!}
    var arrEtapasTotal = JSON.parse("{{ json_encode($arrEtapasTotal)}}");
    var arrEtapasUtilizado = JSON.parse("{{ json_encode($arrEtapasUtilizado)}}");
 </script>
@@ -346,7 +347,25 @@
                </div>
             </div>
          </div>
+         <div class="row">
+            <div class="card col-md">
+               <div class="card-header header-elements-sm-inline">
+                  <h6 class="card-title">Estadisticas por Categoria</h6>
+                  <div class="header-elements">
+                     <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
 
+                     <div class="list-icons ml-3">
+                        <a class="list-icons-item" data-action="reload"></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+						<div class="chart-container">
+							<div class="chart has-fixed-height" id="columns_basic3"></div>
+						</div>
+					</div>
+            </div>
+         </div>
             <!-- /sales stats -->
         </div>
 
