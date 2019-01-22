@@ -62,7 +62,13 @@ class ProyectoController extends Controller
              $presutil=$presutil+($detalle->facd_cant*$detalle->facd_punit);
             }
         }
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil]);
+
+        $etapas =  0;
+        foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
+             $etapas++;   
+        }                 
+        
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){

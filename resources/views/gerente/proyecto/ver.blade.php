@@ -20,6 +20,18 @@
 <script>
 var total = JSON.parse("{{ json_encode($total) }}");
 var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
+
+var etapas = {{$etapas}};
+var arrEtapas = new Array();
+for (var i = 0;i<etapas;i++){
+      arrEtapas.push('Etapa'+(i+1));
+}
+//var jsonEtapas = JSON.stringify(arrEtapas);
+var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
+//alert(jsonEtapas);
+
+
+
 </script>
 
 <script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
@@ -31,6 +43,10 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 <script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/forms/selects/select2.full.min.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+
+
+
+
 <script src="../../assets/js/app.js"></script>
 
 
@@ -294,6 +310,7 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
          <div class="tab-pane fade active show" id="activity">
 
             <!-- Sales stats -->
+            <div class="row">
             <div class="card col-md-6">
                <div class="card-header header-elements-sm-inline">
                   <h6 class="card-title">Estadisticas Generales</h6>
@@ -311,6 +328,24 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 						</div>
 					</div>
             </div>
+             <div class="card col-md-6">
+               <div class="card-header header-elements-sm-inline">
+                  <h6 class="card-title">Estadisticas Por etapas</h6>
+                  <div class="header-elements">
+                     <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
+
+                     <div class="list-icons ml-3">
+                        <a class="list-icons-item" data-action="reload"></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="chart-container">
+                     <div class="chart has-fixed-height" id="columns_basic2"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
             <!-- /sales stats -->
         </div>
 
@@ -409,7 +444,7 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
                         <div class="col-md-6">
                            <div class="form-group">
                               <label class="h5">Archivo - Calendario De Utilización de Recursos</label>
-                              <input type="file" class="form-input-styled" name="import_file" data-fouc>
+                              <input type="file" class="form-input-styled" name="import_file">
                               <span class="form-text text-muted">Formatos Aceptados: XLSX</span>
                            </div>
                         </div>
