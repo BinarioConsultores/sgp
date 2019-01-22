@@ -19,6 +19,11 @@
 var total = JSON.parse("{{ json_encode($total) }}");
 var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 </script>
+
+<script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
+<script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
+
 <script src="{{asset('global_assets/js/demo_pages/components_modals.js')}}"></script>
 <script src="{{asset('global_assets/js/sgp/task_manager_list_cur.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
@@ -26,9 +31,6 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 <script src="{{asset('global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
 <script src="../../assets/js/app.js"></script>
 
-<script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
-<script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
 
 <script src="{{asset('global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/charts/echarts/charts_sgp_home.js')}}"></script>
@@ -650,6 +652,15 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 								<input type="text" class="form-control daterange-single" name="fac_nro" value="0" required="required">
 
 							</div>
+                     <div class="col-md-4 form-group">
+                        <label>Proveedor</label>
+                        <select class="form-control select-search" data-fouc name="prov_id" required="required" style="width:100%;">
+                           @foreach($proveedores as $proveedor)
+                              <option value="{{$proveedor->prov_id}}">{{$proveedor->prov_nom}}</option>  
+                           @endforeach
+                        </select>
+
+                     </div>
 						</div>
 
 						<div class="row">
@@ -657,15 +668,7 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 								<label>Observación <span id="tipo_gasto_obs">de la Factura</span></label>
 								<textarea name="fac_obs" rows="3" cols="3" class="form-control" placeholder="Coloque los detalles que justifiquen el gasto"></textarea>
 							</div>
-							<div class="col-md-4 form-group">
-								<label>Proveedor</label>
-								<select class="form-control select-search" data-fouc name="prov_id" required="required" style="width:100%;">
-                           @foreach($proveedores as $proveedor)
-										<option value="{{$proveedor->prov_id}}">{{$proveedor->prov_nom}}</option>	
-									@endforeach
-								</select>
-
-							</div>
+							
 						</div>
 					</div>
 					<div class="modal-header bg-slate" style="padding: 8.5px">
