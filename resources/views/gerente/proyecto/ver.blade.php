@@ -202,19 +202,6 @@ var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
    </div>
 </div>
 
-<!-- /full width modal -->
-
-@if(Session::has('creado'))
-<div class="row">
-   <div class="col-12">
-      <div class="alert alert-success alert-dismissible">
-         <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
-         {{Session::get('creado')}}
-      </div>
-   </div>
-</div>
-@endif
-
 <!-- Profile navigation -->
 <div class="navbar navbar-expand-lg navbar-dark bg-dark m-0">
    <div class="text-center d-lg-none w-100">
