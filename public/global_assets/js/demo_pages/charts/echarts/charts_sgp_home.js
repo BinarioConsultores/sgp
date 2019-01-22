@@ -159,6 +159,7 @@ var EchartsColumnsWaterfalls = function() {
 
         // Define elements
         var columns_basic_element = document.getElementById('columns_basic');
+        var columns_basic_element2 = document.getElementById('columns_basic2');
         // Charts configuration
         //
 
@@ -177,6 +178,21 @@ var EchartsColumnsWaterfalls = function() {
             // columns_basic.setOption();
 
             columns_basic.setOption(miJson);
+        }
+        if (columns_basic_element2) {
+
+            // Initialize chart
+            var columns_basic2 = echarts.init(columns_basic_element2);
+
+
+            //
+            // Chart config
+            //
+
+            // Options
+            // columns_basic.setOption();
+
+            columns_basic2.setOption(miJson);
         }
         //
         // Resize charts

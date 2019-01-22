@@ -331,7 +331,23 @@ alert(jsonEtapasTotal);*/
 						</div>
 					</div>
             </div>
-             
+             <div class="card col-md-6">
+               <div class="card-header header-elements-sm-inline">
+                  <h6 class="card-title">Estadisticas Generales</h6>
+                  <div class="header-elements">
+                     <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
+
+                     <div class="list-icons ml-3">
+                        <a class="list-icons-item" data-action="reload"></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="chart-container">
+                     <div class="chart has-fixed-height" id="columns_basic2"></div>
+                  </div>
+               </div>
+            </div>
          </div>
 
             <!-- /sales stats -->
