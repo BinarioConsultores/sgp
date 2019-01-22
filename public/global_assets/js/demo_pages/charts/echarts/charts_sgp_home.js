@@ -138,131 +138,7 @@ var miJson = {
     ]
     };
 
-var JsonChart2 = { // Define colors
-    color: ['#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80'],
 
-    // Global text styles
-    textStyle: {
-       fontFamily: 'Roboto, Arial, Verdana, sans-serif',
-       fontSize: 13
-    },
-
-    // Chart animation duration
-    animationDuration: 750,
-
-    // Setup grid
-    grid: {
-       left: 0,
-       right: 40,
-       top: 35,
-       bottom: 0,
-       containLabel: true
-    },
-
-    // Add legend
-    legend: {
-       data: ['PRESUPUESTO TOTAL', 'PRESUPUESTO UTILIZADO'],
-       itemHeight: 8,
-       itemGap: 20,
-       textStyle: {
-          padding: [0, 5]
-       }
-    },
-
-    // Add tooltip
-    tooltip: {
-       trigger: 'axis',
-       backgroundColor: 'rgba(0,0,0,0.75)',
-       padding: [10, 15],
-       textStyle: {
-          fontSize: 13,
-          fontFamily: 'Roboto, sans-serif'
-       }
-    },
-
-    // Horizontal axis
-    xAxis: [{
-       type: 'category',
-       data: jsonEtapas,
-       axisLabel: {
-          color: '#333'
-       },
-       axisLine: {
-          lineStyle: {
-                color: '#999'
-          }
-       },
-       splitLine: {
-          show: true,
-          lineStyle: {
-                color: '#eee',
-                type: 'dashed'
-          }
-       }
-    }
-   ],
-
-    // Vertical axis
-    yAxis: [{
-       type: 'value',
-       axisLabel: {
-          color: '#333'
-       },
-       axisLine: {
-          lineStyle: {
-                color: '#999'
-          }
-       },
-       splitLine: {
-          lineStyle: {
-                color: ['#eee']
-          }
-       },
-       splitArea: {
-          show: true,
-          areaStyle: {
-                color: ['rgba(250,250,250,0.1)', 'rgba(0,0,0,0.01)']
-          }
-       }
-    }],
-
-    // Add series
-    series: [
-       {
-          name:'PRESUPUESTO TOTAL',
-          type: 'bar',
-          data: [total],
-          itemStyle: {
-                normal: {
-                   label: {
-                      show: true,
-                      position: 'top',
-                      textStyle: {
-                            fontWeight: 500
-                      }
-                   }
-                }
-          },
-          
-       },
-       {
-         name:'PRESUPUESTO UTILIZADO',
-         type: 'bar',
-         data: [utilizado],
-         itemStyle: {
-               normal: {
-                  label: {
-                     show: true,
-                     position: 'top',
-                     textStyle: {
-                           fontWeight: 500
-                     }
-                  }
-               }
-         },
-         
-      }
-    ]};
     
 // Setup module
 // ------------------------------
@@ -283,8 +159,6 @@ var EchartsColumnsWaterfalls = function() {
 
         // Define elements
         var columns_basic_element = document.getElementById('columns_basic');
-        var columns_basic_element2 = document.getElementById('columns_basic2');
-        var columns_basic_element3 = document.getElementById('columns_basic3');
         // Charts configuration
         //
 
@@ -304,38 +178,6 @@ var EchartsColumnsWaterfalls = function() {
 
             columns_basic.setOption(miJson);
         }
-        if (columns_basic_element2) {
-
-            // Initialize chart
-            var columns_basic2 = echarts.init(columns_basic_element2);
-
-
-            //
-            // Chart config
-            //
-
-            // Options
-            // columns_basic.setOption();
-
-            columns_basic2.setOption(JsonChart2);
-        }
-        if (columns_basic_element3) {
-
-            // Initialize chart
-            var columns_basic3 = echarts.init(columns_basic_element3);
-
-
-            //
-            // Chart config
-            //
-
-            // Options
-            // columns_basic.setOption();
-
-            columns_basic3.setOption(JsonChart2);
-        }
-
-
         //
         // Resize charts
         //
@@ -343,8 +185,6 @@ var EchartsColumnsWaterfalls = function() {
         // Resize function
         var triggerChartResize = function() {
             columns_basic_element && columns_basic.resize();
-            columns_basic_element2 && columns_basic2.resize();
-            columns_basic_element3 && columns_basic3.resize();
         };
 
         // On sidebar width change

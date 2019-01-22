@@ -21,7 +21,7 @@
 var total = JSON.parse("{{ json_encode($total) }}");
 var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
 
-var etapas = {{$etapas}};
+/*var etapas = {{$etapas}};
 var arrEtapas = new Array();
 for (var i = 0;i<etapas;i++){
       arrEtapas.push('Etapa'+(i+1));
@@ -29,9 +29,25 @@ for (var i = 0;i<etapas;i++){
 //var jsonEtapas = JSON.stringify(arrEtapas);
 var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
 //alert(jsonEtapas);
-
-
-
+ /*var etapa1 = {{$etapa1}};
+ var etapa2 = {{$etapa2}};
+ var etapa3 = {{$etapa3}};
+ alert(etapa1);
+var arrEtapasTotal = new Array();
+for (var i = 0;i<etapas;i++){
+   if(i==0){
+      arrEtapas.push(etapa1);
+   }
+   if(i==1){
+      arrEtapas.push(etapa2);
+   }
+   if(i==2){
+      arrEtapas.push(etapa3);
+   }
+   alert(arrEtapas[i]);
+}
+var jsonEtapasTotal = JSON.parse(JSON.stringify(arrEtapasTotal));
+alert(jsonEtapasTotal);*/
 </script>
 
 <script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
@@ -315,43 +331,9 @@ var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
 						</div>
 					</div>
             </div>
-             <div class="card col-md-6">
-               <div class="card-header header-elements-sm-inline">
-                  <h6 class="card-title">Estadisticas Por etapas</h6>
-                  <div class="header-elements">
-                     <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
-
-                     <div class="list-icons ml-3">
-                        <a class="list-icons-item" data-action="reload"></a>
-                     </div>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <div class="chart-container">
-                     <div class="chart has-fixed-height" id="columns_basic2"></div>
-                  </div>
-               </div>
-            </div>
+             
          </div>
-          <div class="row">
-            <div class="card col-md-6">
-               <div class="card-header header-elements-sm-inline">
-                  <h6 class="card-title">Estadisticas Generales</h6>
-                  <div class="header-elements">
-                     <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
 
-                     <div class="list-icons ml-3">
-                        <a class="list-icons-item" data-action="reload"></a>
-                     </div>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <div class="chart-container">
-                     <div class="chart has-fixed-height" id="columns_basic3"></div>
-                  </div>
-               </div>
-            </div>
-         </div>
             <!-- /sales stats -->
         </div>
 
