@@ -18,38 +18,21 @@
 @endsection
 @section('javascript')
 <script>
-var total = JSON.parse("{{ json_encode($total) }}");
-var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
-var etapas =  JSON.parse("{{ json_encode($etapas) }}");
+   var total = JSON.parse("{{ json_encode($total) }}");
+   var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
+</script>
+<script>
+   var etapas =  JSON.parse("{{ json_encode($etapas) }}");
 
-alert(etapas);
+   //alert(etapas);
    var arrEtapas = new Array();
    for (var i = 0;i<etapas;i++){
-         arrEtapas.push('Etapa'+(i+1));
+         arrEtapas.push('Valorización'+(i+1));
    }
    //var jsonEtapas = JSON.stringify(arrEtapas);
    var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
-
-//alert(jsonEtapas);
- /*var etapa1 = {{$etapa1}};
- var etapa2 = {{$etapa2}};
- var etapa3 = {{$etapa3}};
- alert(etapa1);
-var arrEtapasTotal = new Array();
-for (var i = 0;i<etapas;i++){
-   if(i==0){
-      arrEtapas.push(etapa1);
-   }
-   if(i==1){
-      arrEtapas.push(etapa2);
-   }
-   if(i==2){
-      arrEtapas.push(etapa3);
-   }
-   alert(arrEtapas[i]);
-}
-var jsonEtapasTotal = JSON.parse(JSON.stringify(arrEtapasTotal));
-alert(jsonEtapasTotal);*/
+   var arrEtapasTotal = JSON.parse("{{ json_encode($arrEtapasTotal)}}");
+   var arrEtapasUtilizado = JSON.parse("{{ json_encode($arrEtapasUtilizado)}}");
 </script>
 
 <script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
@@ -70,6 +53,18 @@ alert(jsonEtapasTotal);*/
 
 <script src="{{asset('global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/charts/echarts/charts_sgp_home.js')}}"></script>
+<script type="text/javascript">
+      $(document).ready(function () {
+            $('#comp_nro').keyup(function () {
+               var tipo_gasto_nro = $('#tipo_gasto_nro').val();
+
+              $.get('{{ url('information') }}/create/ajax-state-vercomps?comp_nro=' + tipo_gasto_nro, function(data) {
+                      $('#label').val(data);
+              });
+            });
+         
+      });
+</script>
 <script type="text/javascript">
 	function obtenerTotal(){
 
@@ -335,7 +330,7 @@ alert(jsonEtapasTotal);*/
             </div>
              <div class="card col-md-6">
                <div class="card-header header-elements-sm-inline">
-                  <h6 class="card-title">Estadisticas Generales</h6>
+                  <h6 class="card-title">Estadisticas por valorización</h6>
                   <div class="header-elements">
                      <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
 

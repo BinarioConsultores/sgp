@@ -71,8 +71,33 @@ class ProyectoController extends Controller
             $etapas++;   
         }
 
-        
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas]);
+        $arrEtapasTotal = array(0,0,0);
+        $i = 0;
+        foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle){
+            if($CurDetalle->curd_idpadre!=1){
+                foreach($CurDetalle->CurdPlazos as $objCurdPlazo){
+                    $arrEtapasTotal[$i]=(int)($arrEtapasTotal[$i]+$objCurdPlazo->curdp_cant);
+                    $i++;
+                }
+                $i=0;
+            }
+        }
+
+        $arrEtapasUtilizado = array(0,0,0);
+        $j = 0;
+        foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
+            foreach ($facturas as $factura){
+                if($factura->fac_fech>=$objCurdPlazo->curdp_fechin && $factura->fac_fech<= $objCurdPlazo->curdp_fechfin){
+                    $detalles = FacturaDetalle::where('fac_id',$factura->fac_id)->get();
+                    foreach ($detalles as $detalle){
+                         $arrEtapasUtilizado[$j]=$arrEtapasUtilizado[$j]+($detalle->facd_cant*$detalle->facd_punit);
+                    }
+                }
+                       
+            }
+            $j++; 
+        }
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){
@@ -87,6 +112,7 @@ class ProyectoController extends Controller
             'emp_id'=>'required',
             'pro_id'=>'required',
         ]);
+        
         //para la factura
         //factura = 1
         //boleta = 2

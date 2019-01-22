@@ -231,7 +231,7 @@ var JsonChart2 = { // Define colors
        {
           name:'PRESUPUESTO TOTAL',
           type: 'bar',
-          data: [total],
+          data: arrEtapasTotal,
           itemStyle: {
                 normal: {
                    label: {
@@ -248,7 +248,7 @@ var JsonChart2 = { // Define colors
        {
          name:'PRESUPUESTO UTILIZADO',
          type: 'bar',
-         data: [utilizado],
+         data: arrEtapasUtilizado,
          itemStyle: {
                normal: {
                   label: {
