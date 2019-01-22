@@ -223,7 +223,7 @@ class ProyectoController extends Controller
                 /**
                  * Se crea el Calendario de Utilización de Recursos
                  *
-                 * @var        Cur
+                 * @var Cur
                  */
                 $objCur = new Cur();
                 $objCur->cur_dir = $request->import_file->storeAs('curs', $pro_id.".xlsx");
@@ -321,6 +321,7 @@ class ProyectoController extends Controller
                 $reader->close();
             });            
         }
+        return back();
         return "ok";
     }
 

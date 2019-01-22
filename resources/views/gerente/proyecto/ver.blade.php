@@ -186,19 +186,6 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
    </div>
 </div>
 
-<!-- /full width modal -->
-
-@if(Session::has('creado'))
-<div class="row">
-   <div class="col-12">
-      <div class="alert alert-success alert-dismissible">
-         <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
-         {{Session::get('creado')}}
-      </div>
-   </div>
-</div>
-@endif
-
 <!-- Profile navigation -->
 <div class="navbar navbar-expand-lg navbar-dark bg-dark m-0">
    <div class="text-center d-lg-none w-100">
@@ -409,7 +396,7 @@ var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
                         <div class="col-md-6">
                            <div class="form-group">
                               <label class="h5">Archivo - Calendario De Utilización de Recursos</label>
-                              <input type="file" class="form-input-styled" name="import_file" data-fouc>
+                              <input type="file" class="form-input-styled" name="import_file">
                               <span class="form-text text-muted">Formatos Aceptados: XLSX</span>
                            </div>
                         </div>
