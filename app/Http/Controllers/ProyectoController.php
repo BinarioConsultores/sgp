@@ -97,6 +97,7 @@ class ProyectoController extends Controller
                 }
             }
         }
+
         $presutilcate = array();
         $i = 0;
         while($i<count($arrCat)){
@@ -105,12 +106,14 @@ class ProyectoController extends Controller
         }
         
         $i=0;
-        if(!empty($proyecto->Curs->first()->CurDetalles)){
-            foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle){
-                if($CurDetalle->curd_idpadre!=1){
+        if(!empty($proyecto->facturas)){
+            foreach($proyecto->facturas as $factura){
+                foreach($factura->FacturaDetalles as $detalle){
+                    $total=0;
                     while($i<count($arrCat)){
                         if($arrCat[$i] == $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom){
-                            $presutilcate[$i]=round($presutilcate[$i]+$CurDetalle->curd_cant*$CurDetalle->curd_prec,2);
+                            $total=$total+($detalle->facd_cant*$detalle->facd_punit);
+                            $presutilcate[$i]=round($presutilcate[$i]+$total,2);
                         }
                         $i++;
                     }

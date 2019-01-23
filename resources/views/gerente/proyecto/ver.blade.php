@@ -34,7 +34,7 @@
    var jsonEtapas = JSON.parse(JSON.stringify(arrEtapas));
    var arrCategorias = {!!json_encode($categorias)!!}
    
-   console.log({!!json_encode($presupuestotcate)!!});
+   console.log({!!json_encode($presupuestouticate)!!});
    var arrCateTotal = JSON.parse("{{ json_encode($presupuestotcate)}}");
    var arrCateUtil= JSON.parse("{{ json_encode($presupuestouticate)}}");
    var arrEtapasTotal = JSON.parse("{{ json_encode($arrEtapasTotal)}}");
