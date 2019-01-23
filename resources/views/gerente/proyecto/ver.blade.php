@@ -453,10 +453,17 @@
             </div>
          </div>
 
-         <div class="tab-pane fade" id="settings">
+         <div class="tab-pane fade text-center" id="settings" >
             <!-- Profile info -->
-
-            <div class="card col-md-8 m-auto">
+            @if(!$proyecto->Curs->count()>0) 
+            <div class="card col-md-6 m-auto float-left">
+               <div class="card-header header-elements-inline">
+                  <h5 class="card-title h3">Formato A Subir</h5>
+               </div>
+               <img class="img-fluid" src="{{asset('assets/img/fila_cabecera.png')}}">
+               <br>
+            </div>
+            <div class="card col-md-6 m-auto float-right">
                <div class="card-header header-elements-inline">
                   <h5 class="card-title h3">Calendario de Utilización de Recursos</h5>
                   <div class="header-elements">
@@ -466,8 +473,20 @@
                      </div>
                   </div>
                </div>
-               @if(!$proyecto->Curs->count()>0)
-               <div class="card-body">
+            @else
+            <div class="card col-md-6 m-auto">
+               <div class="card-header header-elements-inline">
+                  <h5 class="card-title h3">Calendario de Utilización de Recursos</h5>
+                  <div class="header-elements">
+                     <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="reload"></a>
+                     </div>
+                  </div>
+               </div>
+            @endif
+            
+               @if(!$proyecto->Curs->count()>0)   
                   <form action="/gerente/proyecto/{{$proyecto->pro_id}}/loadcur" method="POST" enctype="multipart/form-data">
                      {{ csrf_field() }}
                      <div class="row">
@@ -492,7 +511,7 @@
                            </div>
                         </div>
                      </div>
-
+                     
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
@@ -550,28 +569,23 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="row mt-3">
-                        <div class="col-md-4">
-                           <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal_formato"><i class="icon-search4"></i> <span>Ver Formato</span></button>
-                        </div>
                         <div class="col-md-4"></div>
                         <div class="col-md-4 text-right">
                            <button type="submit" class="btn btn-primary btn-block">Subir Formato</button>
                         </div>
                      </div>
-
-                  </form>
-               </div>
+                     <br>
+                  </form>   
                @else
                <div class="alert bg-success text-white alert-styled-left alert-dismissible ml-3 mr-3">
                   <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                   <span class="font-weight-semibold">Bien!</span> EL PROYECTO YA TIENE EL <strong>CALENDARIO DE UTILIZACIÓN DE RECURSOS</strong>
                </div>
-               @endif
-
+               @endif   
+               <br>
+               
             </div>
-
             <!-- /profile info -->
          </div>
 
