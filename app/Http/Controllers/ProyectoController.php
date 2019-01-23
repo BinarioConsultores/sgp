@@ -125,26 +125,36 @@ class ProyectoController extends Controller
             $etapas++;   
         }
         
-        $arrEtapasTotal = array(0,0,0);
+        $arrEtapasTotal = array();
+        $i = 0;
+        while($i<count($etapas)){
+            array_push($arrEtapasTotal,0);
+            $i++; 
+        }
         $i = 0;
         foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle){
             if($CurDetalle->curd_idpadre!=1){
                 foreach($CurDetalle->CurdPlazos as $objCurdPlazo){
-                    $arrEtapasTotal[$i]=(int)($arrEtapasTotal[$i]+$objCurdPlazo->curdp_cant);
+                    $arrEtapasTotal[$i]=round($arrEtapasTotal[$i]+$objCurdPlazo->curdp_cant,2);
                     $i++;
                 }
                 $i=0;
             }
         }
 
-        $arrEtapasUtilizado = array(0,0,0);
+        $arrEtapasUtilizado = array();
+        $i = 0;
+        while($i<count($etapas)){
+            array_push($arrEtapasUtilizado,0);
+            $i++; 
+        }
         $j = 0;
         foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
             foreach ($facturas as $factura){
                 if($factura->fac_fech>=$objCurdPlazo->curdp_fechin && $factura->fac_fech<= $objCurdPlazo->curdp_fechfin){
                     $detalles = FacturaDetalle::where('fac_id',$factura->fac_id)->get();
                     foreach ($detalles as $detalle){
-                         $arrEtapasUtilizado[$j]=$arrEtapasUtilizado[$j]+($detalle->facd_cant*$detalle->facd_punit);
+                         $arrEtapasUtilizado[$j]=round($arrEtapasUtilizado[$j]+($detalle->facd_cant*$detalle->facd_punit),2);
                     }
                 }
                        
