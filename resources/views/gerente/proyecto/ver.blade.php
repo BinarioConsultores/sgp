@@ -608,7 +608,6 @@
                   <thead>
                      <tr>
                         <th>Cod.</th>
-                        <th>Period</th>
                         <th>Insumo</th>
                         <th>Unidad</th>
                         <th>Cantidad</th>
@@ -620,11 +619,15 @@
                      </tr>
                   </thead>
                   <tbody>
+                  <?php $catego="";?>
                      @foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle)
+                        @if($catego != $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom)
+                              <th class="bg-success"><div class="font-weight-bold">{{$CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom}}</div></th>
+                        @else
+                        @endif
                         @if($CurDetalle->curd_idpadre!=1)
                         <tr>
                            <td>{{str_replace(" ","_",$CurDetalle->RecursoUnidadMedida->Recurso->rec_cod)}}</td>
-                           <td>{{$CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom}}</td>
                            <td>
                               <div class="font-weight-semibold">{{$CurDetalle->RecursoUnidadMedida->Recurso->rec_nom}}</div>
                            </td>
@@ -645,7 +648,7 @@
                                  <div class="font-weight-semibold">S/. {{$objCurdPlazo->curdp_cant}}</div>
                               </td>
                            @endforeach
-
+                           <?php $catego=$CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom;?>
                         </tr>
                         @endif
                      @endforeach
