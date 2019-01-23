@@ -17,6 +17,7 @@
 </style>
 @endsection
 @section('javascript')
+
 <script>
    var total = JSON.parse("{{ json_encode($total) }}");
    var utilizado = JSON.parse("{{ json_encode($utilizado) }}");
@@ -41,8 +42,11 @@
    var arrEtapasUtilizado = JSON.parse("{{ json_encode($arrEtapasUtilizado)}}");
 </script>
 
+
 <script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
 <script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/cliente/datatable_cliente.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
 
 <script src="{{asset('global_assets/js/demo_pages/components_modals.js')}}"></script>
@@ -50,8 +54,6 @@
 <script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/forms/selects/select2.full.min.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
-
-
 
 
 <script src="../../assets/js/app.js"></script>
@@ -619,13 +621,14 @@
                      </tr>
                   </thead>
                   <tbody>
-                  <?php $catego="";?>
+                     <?php $catego="";?>
                      @foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle)
-                        @if($catego != $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom)
-                              <th class="bg-success"><div class="font-weight-bold">{{$CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom}}</div></th>
-                        @else
-                        @endif
                         @if($CurDetalle->curd_idpadre!=1)
+                        @if($catego != $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom)
+                           <tr>
+                              <td class="bg-success"><div class="font-weight-bold">{{$CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom}}</div></td>
+                           </tr>
+                        @endif
                         <tr>
                            <td>{{str_replace(" ","_",$CurDetalle->RecursoUnidadMedida->Recurso->rec_cod)}}</td>
                            <td>
@@ -813,8 +816,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr role="row" class="odd">
-										</tr>
+                              <tr></tr>
 									</tbody>
 								</table>
 					    	</div>
