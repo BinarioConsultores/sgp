@@ -30,7 +30,7 @@ var miJson = {
 
     // Add legend
     legend: {
-       data: ['PRESUPUESTO TOTAL', 'PRESUPUESTO UTILIZADO'],
+       data: ['PRESUPUESTO UTILIZADO (S/.)','PRESUPUESTO TOTAL (S/.)'],
        itemHeight: 8,
        itemGap: 20,
        textStyle: {
@@ -98,9 +98,9 @@ var miJson = {
     // Add series
     series: [
        {
-          name:'PRESUPUESTO TOTAL',
+          name:'PRESUPUESTO UTILIZADO (S/.)',
           type: 'bar',
-          data: [total],
+          data: [utilizado],
           itemStyle: {
                 normal: {
                    label: {
@@ -117,9 +117,9 @@ var miJson = {
           }
        },
        {
-         name:'PRESUPUESTO UTILIZADO',
+         name:'PRESUPUESTO TOTAL (S/.)',
          type: 'bar',
-         data: [utilizado],
+         data: [total],
          itemStyle: {
                normal: {
                   label: {
@@ -161,7 +161,7 @@ var JsonChart2 = { // Define colors
 
     // Add legend
     legend: {
-       data: ['PRESUPUESTO TOTAL', 'PRESUPUESTO UTILIZADO'],
+       data: ['PRESUPUESTO UTILIZADO (S/.)','PRESUPUESTO TOTAL (S/.)'],
        itemHeight: 8,
        itemGap: 20,
        textStyle: {
@@ -229,9 +229,9 @@ var JsonChart2 = { // Define colors
     // Add series
     series: [
        {
-          name:'PRESUPUESTO TOTAL',
+          name:'PRESUPUESTO UTILIZADO (S/.)',
           type: 'bar',
-          data: arrEtapasTotal,
+          data: arrEtapasUtilizado,
           itemStyle: {
                 normal: {
                    label: {
@@ -243,12 +243,14 @@ var JsonChart2 = { // Define colors
                    }
                 }
           },
-          
+           markLine: {
+                data: [{type: 'average', name: 'Average'}]
+          }
        },
        {
-         name:'PRESUPUESTO UTILIZADO',
+         name:'PRESUPUESTO TOTAL (S/.)',
          type: 'bar',
-         data: arrEtapasUtilizado,
+         data: arrEtapasTotal,
          itemStyle: {
                normal: {
                   label: {
@@ -260,9 +262,13 @@ var JsonChart2 = { // Define colors
                   }
                }
          },
-         
+          markLine: {
+                data: [{type: 'average', name: 'Average'}]
+          }
       }
     ]};
+
+
     var JsonChart3 = { // Define colors
       color: ['#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80'],
   
@@ -286,7 +292,7 @@ var JsonChart2 = { // Define colors
   
       // Add legend
       legend: {
-         data: ['PRESUPUESTO TOTAL', 'PRESUPUESTO UTILIZADO'],
+         data: ['PRESUPUESTO UTILIZADO (S/.)','PRESUPUESTO TOTAL (S/.)'],
          itemHeight: 8,
          itemGap: 20,
          textStyle: {
@@ -354,9 +360,9 @@ var JsonChart2 = { // Define colors
       // Add series
       series: [
          {
-            name:'PRESUPUESTO TOTAL',
+            name:'PRESUPUESTO UTILIZADO (S/.)',
             type: 'bar',
-            data: [total],
+            data: [utilizado],
             itemStyle: {
                   normal: {
                      label: {
@@ -368,12 +374,14 @@ var JsonChart2 = { // Define colors
                      }
                   }
             },
-            
+             markLine: {
+                data: [{type: 'average', name: 'Average'}]
+          }
          },
          {
-           name:'PRESUPUESTO UTILIZADO',
+           name:'PRESUPUESTO TOTAL (S/.)',
            type: 'bar',
-           data: [utilizado],
+           data: [total],
            itemStyle: {
                  normal: {
                     label: {
@@ -385,7 +393,9 @@ var JsonChart2 = { // Define colors
                     }
                  }
            },
-           
+            markLine: {
+                data: [{type: 'average', name: 'Average'}]
+          }
         }
       ]};
 // Setup module

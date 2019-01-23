@@ -18,8 +18,19 @@
 		}
 	}
 </script>
+<script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
+<script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
+
 <script src="{{asset('global_assets/js/sgp/form_wizard.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/forms/wizards/steps.min.js')}}"></script>
+
+<script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/forms/selects/select2.full.min.js')}}"></script>
+<script src="{{asset('global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+
+<script src="../../assets/js/app.js"></script>
+
 @endsection
 @section('content')
 <div class="page-header page-header-dark has-cover">
@@ -218,14 +229,17 @@
 								</div>
 
 								<div class="form-group">
+									
+									
 									<label>Cliente:</label>
-									<input type="text" class="form-control" placeholder="Término a buscar" id="busqueda" onkeyup="buscar();">
-									<br/>
-									<select class="form-control" id="cli_id" name="cli_id">
-										@foreach($clientes as $cliente)
-											<option value="{{$cliente->cli_id}}"> {{$cliente->cli_nom}} </option>
+									<input type="text" name="cli_id" value="{{$cliente->cli_id}}" hidden="hidden">
+									<select class="form-control select-search" data-fouc id="cli_id" name="cli_id" required="required" style="width:100%;">
+		                           		@foreach($clientes as $cliente)
+											<option value="{{$cliente->cli_id}}">{{$cliente->cli_nom}}</option>	
 										@endforeach
 									</select>
+									
+
 									@if ($errors->has('cli_id'))
 		                                <span class="form-text text-danger">
 		                                	@foreach($errors->get('cli_id') as $message)

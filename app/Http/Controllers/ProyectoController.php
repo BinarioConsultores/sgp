@@ -172,7 +172,7 @@ class ProyectoController extends Controller
         $objDetalleFactura->fac_id = $fac_id;
         $objDetalleFactura->save();*/
 
-        return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$objFactura->fac_id.'/creardetalle')->with('creado','Se creó la factura exitosamente');
+        return redirect('/gerente/proyecto/'.$pro_id)->with('creado','Se creó la factura exitosamente');
     }
 
     public function postCrear(Request $request)

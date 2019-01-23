@@ -190,11 +190,16 @@
 </script>
 @endsection
 @section('content')
-@if (Session::has('creado'))
-<div class="alert alert-success">
-   {{Session::get('creado')}}
+<div class="row">
+   <div class="col-12">
+      @if(Session::has('creado'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+            {{Session::get('creado')}}
+          </div>
+      @endif
+   </div>
 </div>
-@endif
 @if (Session::has('error'))
 <div class="alert alert-danger">
    {{Session::get('error')}}
