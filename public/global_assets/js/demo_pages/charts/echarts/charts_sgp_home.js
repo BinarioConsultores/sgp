@@ -52,7 +52,7 @@ var miJson = {
     // Horizontal axis
     xAxis: [{
        type: 'category',
-       data: ['PRESUPUESTO TOTAL VS. PRESUPUESTO UTILIZADO'],
+       data: ['PRESUPUESTO UTILIZADO VS. PRESUPUESTO TOTAL'],
        axisLabel: {
           color: '#333'
        },
@@ -362,7 +362,7 @@ var JsonChart2 = { // Define colors
          {
             name:'PRESUPUESTO UTILIZADO (S/.)',
             type: 'bar',
-            data: [utilizado],
+            data: arrCateUtil,
             itemStyle: {
                   normal: {
                      label: {
@@ -381,7 +381,7 @@ var JsonChart2 = { // Define colors
          {
            name:'PRESUPUESTO TOTAL (S/.)',
            type: 'bar',
-           data: [total],
+           data: arrCateTotal,
            itemStyle: {
                  normal: {
                     label: {

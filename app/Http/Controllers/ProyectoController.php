@@ -57,29 +57,74 @@ class ProyectoController extends Controller
         $proyecto = Proyecto::findOrFail($pro_id);
         $presutot = $proyecto->pro_cd;
         $facturas = Factura::where('pro_id',$proyecto->pro_id)->get();
-        $presutil=0;
+        $presutil = 0;
         foreach ($facturas as $factura){
             $detalles = FacturaDetalle::where('fac_id',$factura->fac_id)->get();
             foreach ($detalles as $detalle){
              $presutil=$presutil+($detalle->facd_cant*$detalle->facd_punit);
             }
         }
+        
         $arrCategos=array();
         if(!empty($proyecto->Curs->first()->CurDetalles)){
             foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle)
                 if($CurDetalle->curd_idpadre!=1)
                    array_push($arrCategos,$CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom);
         }
+        array_push($arrCategos,"OTROS");
         $arrCatego = array_unique($arrCategos);
         $arrCategor = implode(",",$arrCatego);
         $arrCat =  explode(",", $arrCategor);
+
+        $presutotcate = array();
+        $i = 0;
+        while($i<count($arrCat)){
+            array_push($presutotcate,0);
+            $i++; 
+        }
+        
+        $i=0;
+        if(!empty($proyecto->Curs->first()->CurDetalles)){
+            foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle){
+                if($CurDetalle->curd_idpadre!=1){
+                    while($i<count($arrCat)){
+                        if($arrCat[$i] == $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom){
+                            $presutotcate[$i]=round($presutotcate[$i]+$CurDetalle->curd_cant*$CurDetalle->curd_prec,2);
+                        }
+                        $i++;
+                    }
+                    $i=0;
+                }
+            }
+        }
+        $presutilcate = array();
+        $i = 0;
+        while($i<count($arrCat)){
+            array_push($presutilcate,0);
+            $i++; 
+        }
+        
+        $i=0;
+        if(!empty($proyecto->Curs->first()->CurDetalles)){
+            foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle){
+                if($CurDetalle->curd_idpadre!=1){
+                    while($i<count($arrCat)){
+                        if($arrCat[$i] == $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom){
+                            $presutilcate[$i]=round($presutilcate[$i]+$CurDetalle->curd_cant*$CurDetalle->curd_prec,2);
+                        }
+                        $i++;
+                    }
+                    $i=0;
+                }
+            }
+        }
 
         $etapas=0;
    
         foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
             $etapas++;   
         }
-
+        
         $arrEtapasTotal = array(0,0,0);
         $i = 0;
         foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle){
@@ -106,7 +151,7 @@ class ProyectoController extends Controller
             }
             $j++; 
         }
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado,"categorias"=>$arrCat]);
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado,"categorias"=>$arrCat,"presupuestotcate"=>$presutotcate,"presupuestouticate"=>$presutilcate]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){
