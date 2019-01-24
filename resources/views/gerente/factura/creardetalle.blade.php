@@ -1,5 +1,20 @@
 @extends('plantillas.headergerente')
 
+@section('css')
+<link href="{{asset('global_assets/css/extras/animate.min.css')}}" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+   background-color: #81A8BA;
+   color: #000000;
+}
+.content {
+   background-image: url("{{asset('assets/img/textura.jpg')}}");
+}
+
+</style>
+@endsection
 @section('javascript')
 <script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
 
@@ -187,23 +202,21 @@
 		</div>
 	</div>
 </div>
-
-<div class="page-header page-header-dark bg-slate-600">
-	<div class="page-header-content header-elements-inline">
-		<div class="page-title">
-			<h5>
-				<i class="icon-arrow-left52 mr-2"></i>
-				<span class="font-weight-semibold">Registrar Nuevo Gasto</span>
-				<small class="d-block opacity-75">Registro de Facturas, Boletas y Gastos Secundarios</small>
-			</h5>
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header header-elements-inline bg-slate-600">
+		        <h6 class="card-title h4">Ver y Editar Gastos</h6>
+			</div>
 		</div>
 	</div>
-
+</div>
+<div class="page-header page-header-dark bg-slate-600">
 	<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 		<div class="d-flex">
 			<div class="breadcrumb">
 				<a href="/gerente/proyecto/{{$proyecto->pro_id}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Proyecto</a>
-				<span class="breadcrumb-item active">Factura</span>
+				<span class="breadcrumb-item active">Gasto</span>
 			</div>
 
 			<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -225,7 +238,10 @@
 
 		</div>
 	</div>
+
 </div>
+
+
 
 <div class="row">
 	<div class="col-12">
