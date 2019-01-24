@@ -214,7 +214,7 @@ class ProyectoController extends Controller
         $j=0;
         $i=0;
 
-        foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
+        /*foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
             foreach ($facturas as $factura){
                 if($factura->fac_fech>=$objCurdPlazo->curdp_fechin && $factura->fac_fech<= $objCurdPlazo->curdp_fechfin){
                     $detalles = FacturaDetalle::where('fac_id',$factura->fac_id)->get();
@@ -226,8 +226,63 @@ class ProyectoController extends Controller
                 }
             }
             $j++; 
+        }*/
+
+        /////Pruebas
+        $recursos = Recurso::All();
+        $arrRecursos = array();
+        $n=-1;
+        //$m=0;
+        foreach($recursos as $recurso){
+            if($recurso->rec_id!=1){
+                if($recurso->rec_cod=='' || $recurso->rec_cod=='0'){
+                    array_push($arrRecursos,$recurso->rec_nom);
+                    //$arrRecursos[n]=$recurso->rec_nom;
+                    $n++;
+                    $arrRecursos[$n]=array();
+                }
+                else{
+
+                    array_push($arrRecursos[$n],$recurso->rec_nom);
+                }
+            }
         }
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado,"categorias"=>$arrCat,"presupuestotcate"=>$presutotcate,"presupuestouticate"=>$presutilcate,"arrEtapasxCategoriaTotal"=>$arrEtapasxCategoriaTotal,"arrEtapasxCategoriaUtilizado"=>$arrEtapasxCategoriaUtilizado]);
+        $k=1;
+        $j=0;
+        $p=0;
+        $m=0;
+        $bandera = 1;
+        foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
+            foreach ($facturas as $factura){
+                if($factura->fac_fech>=$objCurdPlazo->curdp_fechin && $factura->fac_fech<= $objCurdPlazo->curdp_fechfin){
+                    $detalles = FacturaDetalle::where('fac_id',$factura->fac_id)->get();
+                    foreach ($detalles as $detalle){
+                        for ($i=$p; $i < count($arrCat)*$k; $i++) { 
+                            if(in_array($detalle->RecursoUnidadMedida->Recurso->rec_nom,$arrRecursos[($m+1)])){
+                                $arrEtapasxCategoriaUtilizado[$j]=round($arrEtapasxCategoriaUtilizado[$j]+($detalle->facd_cant*$detalle->facd_punit),2);
+                                $bandera=0;
+                            }
+                            if($bandera==1 && $m==(count($arrCat)-1)){
+                                $arrEtapasxCategoriaUtilizado[$j]=round($arrEtapasxCategoriaUtilizado[$j]+($detalle->facd_cant*$detalle->facd_punit),2);
+                            }
+                            $j++;
+                            $m++;
+                        }
+                        $m=0;
+                        $j=$p;
+                        $bandera=1;
+                        //$arrEtapasxCategoriaUtilizado[$j]=round($arrEtapasxCategoriaUtilizado[$j]+($detalle->facd_cant*$detalle->facd_punit),2);                  
+                    }
+                                             
+                }
+            }
+            $p=$p+count($arrCat);
+            $k++;
+        }
+
+
+
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado,"categorias"=>$arrCat,"presupuestotcate"=>$presutotcate,"presupuestouticate"=>$presutilcate,"arrEtapasxCategoriaTotal"=>$arrEtapasxCategoriaTotal,"arrEtapasxCategoriaUtilizado"=>$arrEtapasxCategoriaUtilizado,"arrRecursos"=>$arrRecursos]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){
