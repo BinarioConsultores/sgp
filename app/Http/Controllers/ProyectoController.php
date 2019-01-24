@@ -164,7 +164,70 @@ class ProyectoController extends Controller
             }
             $j++; 
         }
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado,"categorias"=>$arrCat,"presupuestotcate"=>$presutotcate,"presupuestouticate"=>$presutilcate]);
+
+
+        //chart para Categorias * etapas
+
+        ///Total
+
+        $arrEtapasxCategoriaTotal = array();
+        $i = 0;
+        while($i<$etapas*count($arrCat)){
+            array_push($arrEtapasxCategoriaTotal,0);
+            $i++; 
+        }
+        $i=0;
+        $j=0;
+        $l=0;
+        
+        if(!empty($proyecto->Curs->first()->CurDetalles)){
+            foreach($proyecto->Curs->first()->CurDetalles as $CurDetalle){
+                if($CurDetalle->curd_idpadre!=1){
+                    foreach($CurDetalle->CurdPlazos as $objCurdPlazo){
+                        $j++;
+                        while($i<count($arrCat)){
+                            if($objCurdPlazo->curdp_nro == $j && $arrCat[$i] == $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom ){
+                                $arrEtapasxCategoriaTotal[$l]=round($arrEtapasxCategoriaTotal[$l]+$objCurdPlazo->curdp_cant,2);
+                            }
+                            $i++;
+                            $l++;
+                        }
+                        
+                        $i=0;
+                    }
+                    $j=0;
+                    
+                }
+                $l=0;
+            }
+
+        }
+
+        ///Utilizado
+
+        $arrEtapasxCategoriaUtilizado = array();
+        $i = 0;
+        while($i<$etapas*count($arrCat)){
+            array_push($arrEtapasxCategoriaUtilizado,0);
+            $i++; 
+        }
+        $j=0;
+        $i=0;
+
+        foreach($proyecto->Curs[0]->CurDetalles[0]->CurdPlazos as $objCurdPlazo){
+            foreach ($facturas as $factura){
+                if($factura->fac_fech>=$objCurdPlazo->curdp_fechin && $factura->fac_fech<= $objCurdPlazo->curdp_fechfin){
+                    $detalles = FacturaDetalle::where('fac_id',$factura->fac_id)->get();
+                    foreach ($detalles as $detalle){
+                        
+                        $arrEtapasxCategoriaUtilizado[$j]=round($arrEtapasxCategoriaUtilizado[$j]+($detalle->facd_cant*$detalle->facd_punit),2);                  
+                    }
+                                             
+                }
+            }
+            $j++; 
+        }
+        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto,"empleados"=>Empleado::All(),"proveedores"=>Proveedor::All(),"total"=>(int)$presutot,"utilizado"=>(int)$presutil,"etapas"=>(int)$etapas, "arrEtapasTotal"=>$arrEtapasTotal,"arrEtapasUtilizado"=>$arrEtapasUtilizado,"categorias"=>$arrCat,"presupuestotcate"=>$presutotcate,"presupuestouticate"=>$presutilcate,"arrEtapasxCategoriaTotal"=>$arrEtapasxCategoriaTotal,"arrEtapasxCategoriaUtilizado"=>$arrEtapasxCategoriaUtilizado]);
     }
 
     public function postCrearFacturayDetalle($pro_id, Request $request){

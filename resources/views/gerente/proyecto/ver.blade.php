@@ -41,7 +41,21 @@
    var arrEtapasTotal = JSON.parse("{{ json_encode($arrEtapasTotal)}}");
    var arrEtapasUtilizado = JSON.parse("{{ json_encode($arrEtapasUtilizado)}}");
 </script>
-
+<script>
+  //script para el chart de etapas por categorias
+  var arrCategoriasxetapas = new Array();
+  for(var j=0;j<etapas;j++){
+    for (var i = 0;i<arrCategorias.length;i++) {
+      arrCategoriasxetapas.push(arrCategorias[i]+'-'+(j+1));
+    }
+  }
+    
+  //arrCategoriasxetapas = JSON.parse(arrCategoriasxetapas);
+    
+  var arrEtapasxCategoriaTotal = JSON.parse("{{ json_encode($arrEtapasxCategoriaTotal)}}");
+  var arrEtapasxCategoriaUtilizado = JSON.parse("{{ json_encode($arrEtapasxCategoriaUtilizado)}}");
+  //alert(arrEtapasxCategoriaUtilizado);
+</script>
 
 <script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
 <script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
@@ -357,7 +371,7 @@
             </div>
          </div>
          <div class="row">
-            <div class="card col-md-6">
+            <div class="card col-md-12">
                <div class="card-header header-elements-sm-inline">
                   <h6 class="card-title">Estadisticas por Categoria</h6>
                   <div class="header-elements">
@@ -373,6 +387,25 @@
 							<div class="chart has-fixed-height" id="columns_basic3"></div>
 						</div>
 					</div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="card col-md-12">
+               <div class="card-header header-elements-sm-inline">
+                  <h6 class="card-title">Estadisticas por Categoria y por valorización</h6>
+                  <div class="header-elements">
+                     <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
+
+                     <div class="list-icons ml-3">
+                        <a class="list-icons-item" data-action="reload"></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+            <div class="chart-container">
+              <div class="chart has-fixed-height" id="columns_basic4"></div>
+            </div>
+          </div>
             </div>
          </div>
             <!-- /sales stats -->
