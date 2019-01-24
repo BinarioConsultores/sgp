@@ -204,15 +204,11 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="card">
+		<div class="">
 			<div class="card-header header-elements-inline bg-slate-600">
 		        <h6 class="card-title h4">Ver y Editar Gastos</h6>
 			</div>
-		</div>
-	</div>
-</div>
-<div class="page-header page-header-dark bg-slate-600">
-	<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+			<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 		<div class="d-flex">
 			<div class="breadcrumb">
 				<a href="/gerente/proyecto/{{$proyecto->pro_id}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Proyecto</a>
@@ -221,25 +217,11 @@
 
 			<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 		</div>
-
-		<div class="header-elements d-none">
-			<div class="breadcrumb justify-content-center">
-				<a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
-					Actions
-				</a>
-				<div class="dropdown-menu dropdown-menu-right">
-					<a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
-					<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
-					<a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
-					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
-				</div>
-			</div>
-
+	</div>
 		</div>
 	</div>
-
 </div>
+
 
 
 
