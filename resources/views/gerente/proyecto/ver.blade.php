@@ -58,7 +58,7 @@
 </script>
 <script>
   var arrRecursos = {!! json_encode($arrRecursos)!!};
-  alert(arrRecursos[3]);
+  //alert(arrRecursos[3]);
 </script>
 
 <script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
