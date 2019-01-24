@@ -99,25 +99,34 @@ class ProyectoController extends Controller
         }
 
         $presutilcate = array();
+        $cursid = array();
         $i = 0;
         while($i<count($arrCat)){
             array_push($presutilcate,0);
             $i++; 
+        }
+
+        if(!empty($proyecto->Curs)){
+            foreach($proyecto->Curs as $Cur){
+                array_push($cursid,$Cur->cur_id);
+            }
         }
         
         $i=0;
         if(!empty($proyecto->facturas)){
             foreach($proyecto->facturas as $factura){
                 foreach($factura->FacturaDetalles as $detalle){
+                    $curdett=CurDetalle::where('cur_id',$cursid[0])->where('recum_id',$detalle->recum_id);
                     $total=0;
                     while($i<count($arrCat)){
-                        if($arrCat[$i] == $CurDetalle->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom){
+                        if($arrCat[$i] == $curdett->first()->CurdPadre->RecursoUnidadMedida->Recurso->rec_nom){
                             $total=$total+($detalle->facd_cant*$detalle->facd_punit);
                             $presutilcate[$i]=round($presutilcate[$i]+$total,2);
                         }
                         $i++;
                     }
                     $i=0;
+                    $curdett=0;
                 }
             }
         }
