@@ -46,7 +46,7 @@
   var arrCategoriasxetapas = new Array();
   for(var j=0;j<etapas;j++){
     for (var i = 0;i<arrCategorias.length;i++) {
-      arrCategoriasxetapas.push(arrCategorias[i]+'-'+(j+1));
+      arrCategoriasxetapas.push(arrCategorias[i]+' VAL.-'+(j+1));
     }
   }
     
@@ -60,7 +60,9 @@
   var arrRecursos = {!! json_encode($arrRecursos)!!};
   //alert(arrRecursos[3]);
 </script>
-
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="{{asset('global_assets/js/main/jquery.min.js')}}"></script>
 <script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/cliente/datatable_cliente.js')}}"></script>
@@ -76,6 +78,7 @@
 
 <script src="{{asset('global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/charts/echarts/charts_sgp_home.js')}}"></script>
+<script src="{{asset('global_assets/js/demo_pages/charts/echarts/charts_sgp_home2.js')}}"></script>
 <script type="text/javascript">
       $(document).ready(function () {
             $('#comp_nro').keyup(function () {
@@ -393,6 +396,7 @@
 					</div>
             </div>
          </div>
+          <!--
          <div class="row">
             <div class="card col-md-12">
                <div class="card-header header-elements-sm-inline">
@@ -408,6 +412,26 @@
                <div class="card-body">
             <div class="chart-container">
               <div class="chart has-fixed-height" id="columns_basic4"></div>
+            </div>
+          </div>
+            </div>
+         </div>-->
+
+         <div class="row">
+            <div class="card col-md-12">
+               <div class="card-header header-elements-sm-inline">
+                  <h6 class="card-title">Estadisticas por Categoria y por valorización</h6>
+                  <div class="header-elements">
+                     <span><i class="icon-history mr-2 text-success"></i> Actualizar</span>
+
+                     <div class="list-icons ml-3">
+                        <a class="list-icons-item" data-action="reload"></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+            <div class="chart-container">
+              <div class="chart has-fixed-height" id="bars_basic"></div>
             </div>
           </div>
             </div>
@@ -467,8 +491,7 @@
                                        <i class="icon-menu9"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                       <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/ver" class="dropdown-item"><i class="icon-eye"></i> Ver</a>
-                                       <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/creardetalle" class="dropdown-item"><i class="icon-pencil5"></i> Editar</a>
+                                       <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/creardetalle" class="dropdown-item"><i class="icon-pencil5"></i> Ver y Editar</a>
                                        <a href="/gerente/proyecto/{{$proyecto->pro_id}}/factura/{{$factura->fac_id}}/eliminar" onclick="return confirm('Esta seguro que desea eliminar?')" class="dropdown-item"><i class="icon-bin2"></i> Eliminar</a>
                                     </div>
                                  </div>

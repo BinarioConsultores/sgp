@@ -158,14 +158,14 @@ class FacturaController extends Controller
         return redirect('/gerente/proyecto/'.$pro_id.'/factura/'.$fac_id.'/creardetalle')->with('creado','Se eliminó la factura exitosamente');;
     }
 
-    public function getEliminarFactura($pro_id,$fact_id)
+    public function getEliminarFactura($pro_id,$fac_id)
     {
 
-        FacturaDetalle::where('fac_id',$fact_id)->delete();
+        FacturaDetalle::where('fac_id',$fac_id)->forceDelete();
 
-        Factura::find($fact_id)->delete();
+        Factura::where('fac_id',$fac_id)->forceDelete();
 
-        $proyecto = Proyecto::findOrFail($pro_id);
-        return view("gerente.proyecto.ver", ["proyecto"=>$proyecto]);
+        //$proyecto = Proyecto::findOrFail($pro_id);
+        return redirect('/gerente/proyecto/'.$pro_id)->with('creado','Se eliminó la factura exitosamente');;
     }
 }
