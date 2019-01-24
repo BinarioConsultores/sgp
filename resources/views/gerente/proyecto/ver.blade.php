@@ -54,10 +54,7 @@
 <script src="{{asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/forms/selects/select2.full.min.js')}}"></script>
 <script src="{{asset('global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
-
-
 <script src="../../assets/js/app.js"></script>
-
 
 <script src="{{asset('global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 <script src="{{asset('global_assets/js/demo_pages/charts/echarts/charts_sgp_home.js')}}"></script>
@@ -793,12 +790,12 @@
 										<th width="10%">Total:
 											<input type="text" class="form-control daterange-single font-weight-black" id="facd_total" required="required" value="0" disabled>
 										</th>
-										<td>
+										<th>
 											<input type="button" id="add" style="width: 100%; height: 100%; background-color: #5cb85c;border-width: 0px;font-size: 20px; color: #fff; font-style: bold" value="+" ></input>
-											</td>
-										<td>
+											</th>
+										<th>
 											<input type="button" id="del" style="width: 100%; height: 100%; background-color: #d9534f;border-width: 0px;font-size: 20px; color: #fff; font-style: bold" value="-"></input>
-										</td>
+										</th>
 									</tr>
 								</thead>
 							</table>
@@ -835,4 +832,5 @@
 	</div>
 </div>
 <!-- /full width modal -->
+
 @endsection
